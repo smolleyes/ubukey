@@ -1,0 +1,242 @@
+#!/bin/bash
+##########
+# fix sources
+
+## check version
+DIST=`lsb_release -cs`
+LISTE=$(cat /etc/apt/sources.list)
+
+if [[ "`uname -m`" = "x86_64" ]]; then
+	DIST64="true"
+fi
+
+function color()
+{
+	printf '\033[%sm%s\033[m\n' "$@"
+}
+
+function COMMAND()
+{
+	if [ -z "$LOG" ]; then
+		exec $1 &>/dev/null
+	else
+		exec $1
+	fi
+}
+
+hostVersion="$(cat /etc/ubukey/ubukeyconf | grep -e "hostVersion" | sed 's/hostVersion=//')"
+if [ -n $hostVersion ]; then
+	sed -i 's/'$hostVersion'/'$DIST'/g' /etc/apt/sources.list
+fi
+
+
+function SCAN()
+{
+	case $DIST in
+		lucid|maverick|natty|oneiric|precise)
+		if [ -z "$DIST64" ]; then
+			echo -e `color 34 "Ubuntu $DIST (32-bits) detecte...Mise a jour des sources...."` 
+			EXTRAS=""
+		else
+			echo ` color 34 "Ubuntu $DIST (64-bits) detecte...Mise a jour des sources...." ` 
+			EXTRAS=""
+		fi
+		;;
+
+		feisty)
+		if [ -z "$DIST64" ]; then
+			echo -e `color 34 "Ubuntu Feisty (32-bits) detecte...Mise a jour des sources...."` 
+			EXTRAS="deb http://download.tuxfamily.org/3v1deb feisty 3v1n0
+			deb http://download.tuxfamily.org/syzygy42/ feisty avant-window-navigator"
+		else
+			echo ` color 34 "Ubuntu Feisty (64-bits) detecte...Mise a jour des sources...." ` 
+			EXTRAS="deb http://download.tuxfamily.org/syzygy42/ feisty avant-window-navigator
+			deb http://download.tuxfamily.org/3v1deb feisty eyecandy-amd64
+			deb-src http://download.tuxfamily.org/3v1deb feisty eyecandy-amd64
+			deb http://janvitus.interfree.it/ubuntu feisty-upure64 main-amd64
+			deb-src http://janvitus.interfree.it/ubuntu feisty-upure64 main-amd64"
+		fi
+		## cle gpg
+
+		# cle des depots supp ( a editer si besoin...)
+		wget -q http://download.tuxfamily.org/3v1deb/EDD1E155.gpg -O- |  apt-key add - &>/dev/null
+		wget -q http://download.tuxfamily.org/syzygy42/reacocard.asc -O- | apt-key add - &>/dev/null
+
+		;; # fin feisty
+
+		gutsy)
+		if [ -z "$DIST64" ]; then 
+			echo ` color 34 "Ubuntu Gutsy (32-bits) detecte...Mise a jour des sources...." ` 
+			EXTRAS="deb http://download.tuxfamily.org/syzygy42/ gutsy all
+			deb http://download.tuxfamily.org/3v1deb feisty 3v1n0
+			deb-src http://download.tuxfamily.org/3v1deb feisty 3v1n0"
+		else
+			echo ` color 34 "Ubuntu Gutsy (64-bits) detecte...Mise a jour des sources...." ` 
+			EXTRAS="deb http://download.tuxfamily.org/syzygy42/ gutsy all
+			deb http://download.tuxfamily.org/3v1deb feisty 3v1n0
+			deb-src http://download.tuxfamily.org/3v1deb feisty 3v1n0"
+		fi
+
+		# cle des depots supp ( a editer si besoin...)
+		wget -q http://download.tuxfamily.org/3v1deb/EDD1E155.gpg -O- |  apt-key add - &>/dev/null
+		wget -q http://download.tuxfamily.org/syzygy42/reacocard.asc -O- | apt-key add - &>/dev/null
+
+		;; # fin gutsy
+
+		hardy)
+		if [ -z "$DIST64" ]; then
+			echo ` color 34 "Ubuntu Hardy (32-bits) detecte...Mise a jour des sources...." ` 
+			EXTRAS=""
+		else
+			echo ` color 34 "Ubuntu Hardy (64-bits) detecte...Mise a jour des sources...." ` 
+			EXTRAS=""
+		fi
+		;;
+
+		intrepid)
+		if [ -z "$DIST64" ]; then
+			echo ` color 34 "Ubuntu Intrepid (32-bits) detecte...Mise a jour des sources...." ` 
+			EXTRAS=""
+		else
+			echo ` color 34 "Ubuntu Intrepid (64-bits) detecte...Mise a jour des sources...." ` 
+			EXTRAS=""
+		fi 
+		;; ## fin intrepid
+
+		jaunty)
+		if [ -z "$DIST64" ]; then
+			echo ` color 34 "Ubuntu Intrepid (32-bits) detecte...Mise a jour des sources...." ` 
+			EXTRAS=""
+		else
+			echo ` color 34 "Ubuntu Intrepid (64-bits) detecte...Mise a jour des sources...." ` 
+			EXTRAS=""
+		fi 
+		;; ## fin jaunty
+
+		sid|lenny|squeeze)
+		if [ -z "$DIST64" ]; then
+			echo ` color 34 "Debian $DIST (32-bits) detecte...Mise a jour des sources...." `
+			## pas de depot extra pour l instant
+		else
+			echo ` color 34 "Debian $DIST (64-bits) detecte...Mise a jour des sources...." `
+			## pas de depot extra pour l instant
+		fi
+
+		;; ## fin debian sid
+		helena)
+		if [ -z "$DIST64" ]; then
+			echo ` color 34 "Linux mint $DIST (32-bits) detecte...Mise a jour des sources karmic avec addons linux mint...." `
+			## pas de depot extra pour l instant
+			DIST='karmic'
+			EXTRAS="deb http://packages.linuxmint.com/ helena main upstream import backport
+			deb-src http://packages.linuxmint.com/ helena main upstream import backport "
+		else
+			echo ` color 34 "Linux mint $DIST (64-bits) detecte...Mise a jour des sources karmic avec addons linux mint...." `
+			DIST='karmic'
+			EXTRAS="deb http://packages.linuxmint.com/ helena main upstream import backport
+			deb-src http://packages.linuxmint.com/ helena main upstream import backport "
+			
+		fi
+
+		;; ## fin debian sid
+
+	esac ## fin check version
+
+	## demarre scan basique
+	scan_src
+
+	## edite le sources
+	echo -e "$EXTRAS" | while read line ; do
+		check=$(echo -e "${LISTE}" | grep -e "$line")
+		if [ -z "$check" ]; then
+			echo -e "depot(s) specifique(s) au script à ajouter:
+			$line \n"
+			echo -e "$line" | tee -a /etc/apt/sources.list &>/dev/null
+		else
+			echo -e "Depot(s) specifique(s) au script ok... \n"
+		fi
+	done
+
+}
+
+function cleansrc
+{
+	cat /etc/apt/sources.list
+	while read line; do 
+	if [[ `echo -e "$line" | grep -w ".*deb.*$DIST.*$i" | grep -v "ppa"` ]]; then 
+		sed -i "/$line/d" /etc/apt/sources.list
+	fi
+done
+}
+
+i=0
+function scan_src()
+{
+	if [[  $(echo $DIST | egrep "sid|unstable") ]]; then
+		# debian
+		case $DIST in
+			sid)
+			liste="main contrib non-free"
+			depot="deb http://ftp.fr.debian.org/debian/ sid"
+			depot_src="deb-src http://ftp.fr.debian.org/debian/ sid"
+			;;
+			lenny)
+			liste="main contrib non-free"
+			depot="deb http://ftp.fr.debian.org/debian/ lenny"
+			depot_src="deb-src http://ftp.fr.debian.org/debian/ lenny"
+			;;
+		esac
+	else
+		# ubuntu
+		liste="main restricted universe multiverse"
+		depot="deb http://fr.archive.ubuntu.com/ubuntu/"
+		depot_src="deb-src http://fr.archive.ubuntu.com/ubuntu/"
+	fi
+
+	for i in $liste; do
+
+		## depots deb
+		check=$(echo -e "${LISTE}" | grep -e ".*deb .* $DIST .*$i" | grep -v 'cdrom')
+		check_src=$(echo -e "${LISTE}" | grep -e ".*deb-src .* $DIST .*$i" | grep -v 'cdrom')
+		if [ -z "$check" ]; then
+			echo -e "Source deb $DIST $i non présente, activation \n"
+			echo -e "$depot $DIST $i" | sudo tee -a /etc/apt/sources.list &>/dev/null
+		elif [[ $(echo -e "$check" | grep "^#") ]]; then
+			echo -e "Dépot:
+			$check
+			présent mais commenté, activation... \n"
+			res=$(echo -e "$check" | sed 's/#//')
+			cleansrc
+			echo -e "$depot $DIST $i" | tee -a /etc/apt/sources.list &>/dev/null
+		else
+			echo -e "source $DIST $i ok"
+		fi
+
+		## depots deb-src
+		if [ -z "$check_src" ]; then
+			echo -e "Source deb-src $DIST $i non présente, activation \n"
+			echo -e "$depot_src $DIST $i" | tee -a /etc/apt/sources.list &>/dev/null
+		elif [[ $(echo -e "$check_src" | grep "^#") ]];then
+			echo -e "Dépot:
+			$check_src
+			présent mais commenté, activation... \n"
+			res=$(echo -e "$check_src" | sed 's/#//')
+			cleansrc
+			echo -e "$depot_src $DIST $i" | tee -a /etc/apt/sources.list &>/dev/null
+		else
+			echo -e "source src $DIST $i ok \n"
+		fi
+
+	done
+}
+
+SCAN
+
+## efface doublons
+#sed -i 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P' /etc/apt/sources.list
+### efface lignes vides au debut
+sed -i '/./!N;/\n$/D' /etc/apt/sources.list
+sed -i '/^deb cdrom/d' /etc/apt/sources.list &>/dev/null
+apt-get update
+echo
+echo `color 32 "Mise a  jour des sources...ok"`

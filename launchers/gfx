@@ -1,0 +1,424 @@
+#!/bin/bash
+###########
+
+#check partition root pour la suite....( retourne (hd0,0) par exemple)
+grubRoot=$(cat /boot/grub/menu.lst | grep "# groot=" | tr "=" "\n" | tail -n 1)
+
+if [[ ! `echo $grubRoot | grep "hd"` ]]; then
+	num=$(blkid | grep "$grubRoot" | awk '{print $1}' | sed 's/://;s/.*\///' | cut -c3-)
+	letter=$(echo $num | cut -c1)
+	number=$(($(echo $num | cut -c2) -1 ))
+	## nom we have for exemple a1
+	if [ -z "$letter" ]; then
+		echo -e "impossible de detecter le disque ou grub est installe \n"
+		exit 1
+	fi
+
+	list="a b c d e f g h i j k l"
+	## check number
+	i=0
+	for z in $list; do
+		if [ "$z" = "$letter" ]; then 
+			x=$i
+			break
+		else
+			x=$(( $i + 1 ))
+		fi
+	done
+	
+	y="$number"
+	grubRoot="(hd$x,$y)"
+fi
+
+## affichage disque a utiliser
+echo -e "$grubRoot sera utilisé"
+
+# backup temporaire du menu.lst
+cp /boot/grub/menu.lst /boot/grub/menu.lstbackup
+BOOTLANG=$(env | grep LANG | sed -e 's/\..*//' -e 's/LANG=//')
+
+if [ ! -e "/usr/bin/convert" ]; then
+echo -e "Paquet imagemagick manquant, installation... \n"
+	apt-get -y install imagemagick
+fi
+
+function selectimg()
+{
+SELECT=$(zenity --file-selection --filename /home/"$SUDO_USER"/ --title "Choisissez votre image")
+MAXSIZE="500"
+QUALITY="100"
+FILE="`basename \"$SELECT\"`"
+
+echo -e "fichier \"$FILE\" séléctionné, redimensionne au bon format: 500 kb max, 800x600 en cours...\n"
+sleep 2
+cd /tmp
+
+convert -resize 800x600! -depth 24 -density 72 -strip -antialias -enhance -sampling-factor 2x2,1x1,1x1 -type TrueColor -compress JPEG -quality 100 "$SELECT" back.jpg
+
+RETSIZE=$(identify back.jpg | awk '{print $NF}' | sed 's/\..*//')
+if [[ `echo "$RETSIZE" | grep -e ":"` ]]; then
+echo -e "Valeur erronée, passe \n"
+
+RETSIZE="550"
+fi
+
+########## check de la taille etc 
+
+while [[ "$RETSIZE" > "$MAXSIZE" && "$RETSIZE" > "1" ]]; do
+
+echo -e "Taille de l'image après convertion :  "$RETSIZE" kb , qualitée "$QUALITY"
+Ceci est encore trop volumineux, nouvelle tentative (perte de qualitée...)\n"
+QUALITY=$((QUALITY - 2))
+convert -resize 800x600! -depth 24 -density 72 -strip -antialias -enhance -sampling-factor 2x2,1x1,1x1 -type TrueColor -compress JPEG  -quality $QUALITY "$SELECT" back.jpg
+RETSIZE=$(identify back.jpg | awk '{print $NF}' | sed 's/\..*//')
+if [[ `echo "$RETSIZE" | grep -e ":"` ]]; then
+echo -e "Valeur erronée, passe \n"
+RETSIZE="500"
+fi
+
+done
+
+echo -e "Taille de l'image après convertion : $RETSIZE kb, ok :) \n"
+sleep 3
+
+}
+#####################################
+
+############################## Fonction(s) ######################################### 
+function CHOIXTHEME()
+{
+DEFTHEMENAME="$(ls -l /boot | grep -e "message" | grep -e "->" | sed 's/.*-> //' | sed 's/.*\///')"
+DEFTHEME="/boot/grub-themes/$DEFTHEMENAME"
+
+## menu action theme
+THEMECHOIX=$(zenity --width 550 --height 350 --list --radiolist --text "Voulez vous installer un thème ou editer 
+le thème par défaut ?
+
+thème par défaut actuel : "$DEFTHEME"" --column "" --column "Choix" --column "Description" --hide-column=2  \
+FALSE "A" "Installer un thème gfxboot" \
+FALSE "B" "Changer de thème par défaut (choix parmis les thèmes déjà installés)" \
+FALSE "C" "Modifier l'image de fond du thème par défaut, choisissez une image
+en png ou jpg..." \
+FALSE "D" "Compiler la version bzr du theme gfxboot-ubuntu-hardy, selon la langue
+et l image de votre choix")
+
+#THEMECHOIX="C"
+
+case $THEMECHOIX in
+
+A)
+SELECTED=`zenity --file-selection --filename=/home/ --title "Choisissez un Thème pour grub-gfx (gfxboot)"`
+case $? in 
+	0)
+	NAME="`basename "$SELECTED"`"
+	echo 
+	zenity --info --text "Fichier séléctionné: $NAME
+	
+Cliquez \"Valider\" pour continuer..."
+	# coller le resultat de tt a l'heure pour le x, y
+	cp "$SELECTED" /boot/grub-themes/
+	ln -sf /boot/grub-themes/"$NAME" /boot/message
+	## au cas ou deja present
+	sed -i '/gfxmenu/d' /boot/grub/menu.lst
+	sed -i 's/## ## End Default Options ##/gfxmenu '$grubRoot'\/boot\/message \n## ## End Default Options ##/' /boot/grub/menu.lst
+ 	;;
+ 	1) zenity --error --text "Cette étape est obligatoire..., vous devez choisir un theme.
+ 	
+Cliquez sur \"Valider\" pour relancer le choix du thème"
+	CHOIXTHEME
+	RECONFIGURE
+ 	;;
+esac
+
+;; ## fin installer theme
+
+B)
+rm /tmp/list &>/dev/null
+touch /tmp/list
+for i in `find /boot/grub-themes/ -type f`; do
+name="`basename "$i"`"
+echo -e ""\"$i\"" "\"$name\"" \\" | tee -a /tmp/list &>/dev/null
+done
+
+list=$(cat /tmp/list | sed '$s/\\//')
+rm /tmp/grubmenu &>/dev/null
+echo -e '#!/bin/bash
+zenity --width 400 --height 300 --list --text "Choisissez le thème à utiliser" --column "" --column "Thème" --hide-column=1 \\' | tee /tmp/grubmenu &>/dev/null
+echo -e "$list" | tee -a /tmp/grubmenu &>/dev/null
+
+chmod +x /tmp/grubmenu
+BOOTCHOIX=$(/bin/bash /tmp/grubmenu)
+BOOT=$(basename "$BOOTCHOIX")
+if [ -n "$BOOTCHOIX" ]; then
+echo -e "Mise à jour du thème en utilisant : ""$BOOT"" \n"
+sleep 2
+ln -sf /boot/grub-themes/"$BOOT" /boot/message
+fi
+
+;; ## fin switcher theme par defaut
+
+C)
+selectimg
+echo -e "Préparation du thème par défaut actuel : $DEFTHEME \n"
+sleep 2
+rm -R /tmp/boot &>/dev/null
+cd /tmp 
+mkdir boot
+cp $DEFTHEME /tmp/boot
+
+echo -e "Extraction...\n"
+sleep 2
+cd /tmp/boot
+cpio -i < $DEFTHEMENAME &>/dev/null
+rm $DEFTHEMENAME
+rm $DEFTHEME
+
+########### change image ############
+rm back.jpg &>/dev/null
+cp /tmp/back.jpg .
+###########
+	
+echo -e "Recompresse le thème \n"
+sleep 2
+cd /tmp/boot
+find . | cpio -o > "$DEFTHEME"
+
+sed -i '/gfxmenu/d' /boot/grub/menu.lst
+sed -i 's/## ## End Default Options ##/gfxmenu '$grubRoot'\/boot\/message \n## ## End Default Options ##/' /boot/grub/menu.lst
+
+echo -e "Changement de l'image de fond ok... :) \n"
+sleep 3
+
+;; ## fin changer image de fond du theme par defaut
+
+D)
+## check sources bzr
+old="true"
+cd /tmp
+echo -e "Téléchargement des sources gfxboot-theme-ubuntu... \n"
+sleep 2
+if [ ! -e /usr/bin/bzr ]; then
+	apt-get -y install bzr
+fi
+
+apt-get source gfxboot-theme-ubuntu
+
+## compile
+echo -e "Compilation avec la langue \"$BOOTLANG\" par defaut \n"
+sleep 2
+cd /tmp/gfxboot-theme-ubuntu*/
+make DEFAULT_LANG="$BOOTLANG"
+cd boot/
+rm log
+rm message
+
+## boucle effacer langues inutiles
+for i in `ls *.tr | egrep -v "fr.tr|en.tr"`; do 
+	echo "Suppression de la langue $i"
+	lang="`echo "$i" | sed 's/.tr.*//'`"
+	## clean fichier lang
+	sed -i '/'$BOOTLANG'/d' langlist
+	## efface le .tr
+	rm $i
+done
+sed -i 's/LANG/'$BOOTLANG'/' lang
+
+## choix image
+echo -e "Vous allez pouvoir choisir votre image, selectionnez une image jpg ou png... \n"
+sleep 5
+selectimg
+old=""
+
+## nettoyage ok, cree une archive cpio
+echo -e "Nettoyage terminé, création de l'archive cpio"
+sleep 2
+cd /tmp/gfxboot-theme-ubuntu*/boot/
+rm ubuntu-gfxboot.message &>/dev/null
+cp -f /tmp/back.jpg /tmp/gfxboot-theme-ubuntu*/boot/
+find . | cpio -o > ubuntu-gfxboot.message
+
+echo -e "Copie du thème...\n"
+sleep 1
+mkdir /boot/grub-themes &>/dev/null
+cp ubuntu-gfxboot.message /boot/grub-themes/
+rm ubuntu-gfxboot.message
+ln -sf /boot/grub-themes/ubuntu-gfxboot.message /boot/message
+rm -R /tmp/gfxboot-theme-ubuntu*
+echo -e "Installation terminée \n" 
+sleep 3
+
+;; #fin compiler gfxboot ubuntu
+
+
+1)
+;;
+
+esac
+
+}
+
+function INSTALLPKG()
+{
+## supprime grub sans checker ubiquity
+echo -e "Suppression de grub... \n"
+dpkg -P --ignore-depends=ubiquity,ubiquity-frontend-gtk grub &>/dev/null
+echo -e "ok \n"
+sleep 1
+
+## download grub-gfx et gfxboot
+echo -e "Téléchargement et installation de grub-gfxboot et gfxboot ... \n"
+cd /tmp
+rm index* &>/dev/null
+rm *.deb &>/dev/null
+
+echo -e "Mise en place du depot sidux et mise a jour des sources \n"
+
+sed -i '/sidux/d' /etc/apt/sources.list &>/dev/null
+echo "deb http://sidux.com/debian/ sid main non-free" | tee -a /etc/apt/sources.list
+apt-get update &>/dev/null
+
+## met a jour grub-common
+wget -q http://launchpadlibrarian.net/14768903/grub-common_1.96+20080512-1ubuntu2_i386.deb
+dpkg -i *.deb
+
+## liste des paquets de theme
+stheme=$(apt-cache search gfxboot | awk '{print $1}' | grep -e ".*nyx$")
+
+echo -e "Mise en place du depot et Téléchargement des paquets nécessaires \n"
+LISTE="grub-gfxboot
+gfxboot
+$stheme
+"
+
+for i in $LISTE; do
+echo -e "Téléchargement de $i \n"
+apt-get install -d -y --force-yes --reinstall "$i" &>/dev/null
+dpkg -i /var/cache/apt/archives/"$i"*.deb
+if [[ ! `ls /var/cache/apt/archives | grep "$i"`  ]]; then
+echo -e "Paquet $i irrecuperable, merci de signaler le probleme SVP"
+delgrub="true"
+fi
+done
+
+## check stheme theme sidux nyx
+if [[ ! `ls /var/cache/apt/archives | grep "theme-sidux"` || ! `ls | grep "grub-common"` ]]; then
+echo -e "Le theme sidux est irrecuperable, merci de signaler le probleme SVP"
+delgrub="true"
+fi
+
+if [ -z "$delgrub" ]; then
+
+mv /var/cache/apt/archives/gfx* /tmp/
+mv /var/cache/apt/archives/grub* /tmp/
+
+echo -e "Recuperation des paquets ok, installation..."
+dpkg -i *.deb
+
+echo -e "Configuration de base dans le dossier /boot \n"
+## config de base dossier pour les themes et lien de base juste a switcher sur ce lien ensuite...
+mkdir /boot/grub-themes &>/dev/null
+mv /boot/message.{hd,live} /boot/grub-themes/ &>/dev/null
+ln -sf /boot/grub-themes/message.hd /boot/message
+
+else
+	echo -e "Erreur d installation des paquets, sortie \n"
+	delgrub=""
+	exit 1
+fi
+}
+
+function RECONFIGURE()
+{
+## config grub-gfx
+if [ ! -e "/boot/grub/menu.lst" ]; then
+mv /boot/grub/menu.lstbackup /boot/grub/menu.lst
+fi
+sed -i 's/hiddenmenu/#hiddenmenu/' /boot/grub/menu.lst
+
+# coller le resultat de x
+HDD=$(echo "$grubRoot" | sed 's/[a-z(),]//g' | cut -c 1)
+echo -e "Installe grub pour le disque hd"$HDD" \n"
+grub-install "hd"$HDD"" &>/dev/null
+}
+
+function CONTROL()
+{
+zenity --question --title "Verification du thème" \
+--text "Voulez vous verifier votre thème avec Qemu ?" 
+
+case $? in
+0)
+tempdir="/opt/gfxboot"
+DEFTHEMENAME="$(ls -l /boot | grep message | sed 's/.*themes\///')"
+DEFTHEME="/boot/grub-themes/$DEFTHEMENAME"
+
+if [ ! -e "/usr/bin/qemu" ]; then
+	apt-get -y install qemu
+fi
+
+mkdir $tempdir &>/dev/null
+mkdir -p $tempdir/boot/grub &>/dev/null
+mkdir /boot/grub/grub-themes &>/dev/null
+## copie eltorito 
+if [ ! -e "$tempdir/boot/grub/stage2_eltorito" ]; then
+cp /usr/lib/grub/i386-pc/stage2_eltorito $tempdir/boot/grub/
+fi
+
+cp -f "$DEFTHEME" $tempdir/boot/grub-themes/ &>/dev/null
+cp /boot/grub/menu.lst $tempdir/boot/grub/
+cp /boot/message $tempdir/boot
+
+sed -i 's/gfxmenu.*/gfxmenu \/boot\/message/' $tempdir/boot/grub/menu.lst
+
+## refais l iso de test grub
+cd $tempdir
+rm grub.iso &>/dev/null
+if [ ! "/usr/bin/mkisofs" ]; then
+apt-get -y install mkisofs
+fi
+mkisofs -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -o $tempdir/grub.iso $tempdir
+
+## demarre qemu
+qemu -cdrom $tempdir/grub.iso 
+
+;;
+
+esac
+
+}
+
+## detection des taches a effecuer
+if [[ $(dpkg -l | awk '{print $2}' | grep -w "^grub$") ]]; then
+	echo -e "Grub détécté, remplacement par grub-gfxboot et installation de gfxboot..."
+	INSTALLPKG
+	CHOIXTHEME
+	RECONFIGURE
+	CONTROL
+elif [[ ! $(dpkg -l | awk '{print $2}' |grep -w "^grub$") && $(dpkg -l | awk '{print $2}' | grep -w "^grub-gfxboot$") && $(dpkg -l | awk '{print $2}' | grep -w "^gfxboot$") ]]; then
+	echo -e "Tous les paquets sont déjà correctement installés..."
+	zenity --question --title "nouveau thème..." --text "Tous les paquets sont déjà correctement installés...
+
+Voulez vous installer/editer un autre thème pour gfxboot ?"
+	case $? in
+		0)
+		CHOIXTHEME
+		CONTROL
+		;;
+		1)
+		echo "Sortie..."
+		exit 0
+		;;
+	esac
+ 
+elif [[ ! $(dpkg -l | awk '{print $2}' | grep -w "^grub$") &&  ! $(dpkg -l | awk '{print $2}' | grep -w "^grub-gfxboot$") || ! $(dpkg -l | awk '{print $2}' | grep -w "^gfxboot$") ]]; then
+	echo -e "grub-gfxboot et/ou gfxboot sont manquants, ils vont être installés... \n"
+	sleep 2
+	INSTALLPKG
+	CHOIXTHEME
+	RECONFIGURE
+	CONTROL
+fi
+
+echo -e "Toutes les opérations sont terminées, Sortie ..."
+sleep 3
+

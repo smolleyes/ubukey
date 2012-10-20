@@ -1,0 +1,75 @@
+lang=$(env | grep -w "LANG" | sed -e 's/\..*//;s/LANG=//;s/_.*//')
+
+packages="
+# Gnome minimal packages
+################
+gnome-core
+
+# display manager
+################
+lightdm
+#slim
+
+# APT
+#############
+synaptic
+
+# BOOT
+#############
+#grub-pc
+
+# SYSTEM
+##############
+ntfs-3g
+scrounge-ntfs
+pciutils
+lsof
+nano
+wireless-tools
+policykit-1-gnome
+policykit-desktop-privileges
+udisks
+software-center
+python-software-properties
+wget
+plymouth
+plymouth-label
+plymouth-theme-ubuntu-logo
+plymouth-theme-ubuntu-text
+gnome-session
+metacity
+desktop-base
+gnome-panel
+gnome-themes-standard
+light-themes
+## for live-cd
+casper
+lupin-casper
+
+# THEME
+############
+ubuntu-wallpapers
+ubuntu-sounds
+light-themes
+gtk2-engines
+gtk2-engines-pixbuf
+
+# DOCS and locales
+############
+language-selector
+language-pack-$lang
+language-pack-gnome-$lang-base
+language-pack-gnome-$lang
+
+# KERNEL
+#############
+linux-generic
+linux-image-generic
+linux-headers-generic
+ubuntu-restricted-extras
+
+# X-server
+#############
+xorg
+
+"

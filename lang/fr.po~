@@ -1,0 +1,175 @@
+# Language FR translations for PACKAGE package.
+# Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# smo <s.lagui@free.fr>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-16 01:56+0200\n"
+"PO-Revision-Date: 2012-09-16 01:42+0200\n"
+"Last-Translator: smo <s.lagui@free.fr>\n"
+"Language-Team: Language FR\n"
+"Language: FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:27
+msgid "a session is already running"
+msgstr "Une session est déjà active"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:30
+msgid "Stop"
+msgstr "Arrêter"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:33
+msgid "distribution started"
+msgstr "distribution démarrée"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:52
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:115
+msgid "Start"
+msgstr "Démarrer"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:55
+msgid "distribution stopped"
+msgstr "distribution arrêtée"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:60
+msgid "updating distribution list..."
+msgstr "Mise à jour de la liste de distribution..."
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:65
+#, python-format
+msgid "no configuration file found : %s"
+msgstr "Aucun fichier de configuration trouvé : %s"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:100
+msgid "remove a distribution"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:100
+#, python-format
+msgid ""
+"Remove your distribution %s installed in :\n"
+"%s  ?"
+msgstr ""
+"Supprimer la distribuition %s installée dans :\n"
+"%s  ?"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:151
+#, python-format
+msgid "removing the plugin %s "
+msgstr "Suppression du plugin %s "
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:158
+msgid "creating new plugin..."
+msgstr "Création du plugin..."
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:195
+#, python-format
+msgid "edit the plugin %s "
+msgstr "editer le plugin %s"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:208
+#, python-format
+msgid "Opening folder %s"
+msgstr "Ouverture du dossier %s"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:15
+#, python-format
+msgid "selected path : %s"
+msgstr "Dossier sélectionné : %s"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:35
+#, python-format
+msgid ""
+"Your distrubution's folder :\n"
+"%s \n"
+"is not accessible, unmounted or removed (recreate it)..."
+msgstr ""
+"Votre dossier de distribution :\n"
+"%s \n"
+"n'est pas accessible, démonté ou ou supprimé (recréez le)..."
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:61
+msgid "Select a folder for your distributions"
+msgstr "Sélectionnez un dossier pour vos distributions"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:75
+msgid ""
+"Merci de choisir un autre dossier (pas de partition fat/ntfs ou de partitions montées "
+"avec les options nosuid/nodev/noexecor ou encore protégées pour l'utilisateur root...corrigez votre fstab "
+"ou choisissez une autre partition!)"
+msgstr ""
+"Please select another folder (no ntfs/fat partitions or partitions mounted "
+"with nosuid/nodev/noexec options or root protected...please correct fstab or "
+"choose another partition!)"
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/functions.py:56
+#, python-format
+msgid "cmd %s failed : "
+msgstr "commande %s échouée : "
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/ubukey.py:24
+msgid "Ubukey can't start as root user ..."
+msgstr "Ubukey ne peut démarrer avec l'utilsateur root ..."
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/ubukey.py:132
+#, python-format
+msgid "Xephyr's screen size : %s"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:71
+msgid "New"
+msgstr "Nouveau"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:159
+msgid "Remove"
+msgstr "Effacer"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:203
+msgid "Export"
+msgstr "Exporter"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:247
+msgid "Test iso/usb"
+msgstr "Tester iso/usb"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:292
+msgid "Boot-cd"
+msgstr "Créer cd boot"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:337
+msgid "Clone"
+msgstr "Cloner"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:381
+msgid "Plugins"
+msgstr "Plugins"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:425
+msgid "MultiBoot"
+msgstr "Multiboot"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:496
+msgid "<b>Distribution list : </b>"
+msgstr "<b>Liste des distributions: </b>"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:546
+msgid "Ouvrir dossier source"
+msgstr "Ouvrir dossier source"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:735
+msgid "Distributions"
+msgstr "Distributions"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:770
+msgid "Viewer"
+msgstr "Ecran virtuel"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:935
+msgid "<b>Plugins : </b>"
+msgstr "<b>Plugins : </b>"

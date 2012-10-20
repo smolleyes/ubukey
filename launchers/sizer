@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+## retourne head et sectors
+
+my $FILE=open(FILE,">/tmp/diskpart");
+my $disk=shift;
+my $NUM=shift;
+my $SECTNUMB=shift;
+my $HEADLIST = `parted $disk unit chs print | grep BIOS | sed -s 's/.*://;s/\. .*//;s/\,/ /g' | awk '{print \$2, \$3}'`;
+
+my ($HEAD, $SECTORS) = split(/ /, $HEADLIST); 
+
+## taille en octet
+my $SECTORSIZE = `parted $disk unit chs print | grep ":.*\/" | sed 's%.*:.*\/%%;s/[o,B]//'`;
+my $CYLINDER_SIZE = `parted $disk unit chs print | grep \"BIOS\" | awk '{print \$NF}' | sed 's%kB.%%'`;
+
+chomp($SECTORS,$HEAD,$SECTORSIZE,$CYLINDER_SIZE);
+print FILE "tetes : $HEAD
+secteurs : $SECTORS
+taille des secteurs : $SECTORSIZE
+taille des cylindres : $CYLINDER_SIZE
+";
+
+## secteurs par cylindre
+my $RES = $HEAD * $SECTORS * $SECTORSIZE;
+my $SECT_BY_CYL = $HEAD * $SECTORS;
+my $TOT_CYL = int($NUM * 1000 * 1000 / $RES);
+my $MBTOSECT = int($NUM * 1000 * 1000 / $RES * $HEAD * $SECTORS + 63);
+my $SECT2MB = int($SECTNUMB / $SECT_BY_CYL * $RES / 1000 / 1000);
+
+print FILE "Secteurs par cylindre : $SECT_BY_CYL
+Taille d'un cyclindre en octets : $RES
+Nombre de cylindres a utiliser pour $disk : $MBTOSECT
+";
+
+print $MBTOSECT;
+
+close(FILE);

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Icon[fr_FR]=/usr/share/pixmaps/ubukeymaker.png
+Name[fr_FR]=Ubukeymaker
+Exec=xterm -geometry 110x30 -hold -e ubukeymaker
+Comment[fr_FR]=Créer une cle usb bootable ubuntu, la customiser...
+Name=Ubukeymaker
+Comment=Créer une cle usb bootable ubuntu, la customiser...
+Icon=/usr/share/pixmaps/ubukeymaker.png
+Categories=Application;Utility;

@@ -1,0 +1,62 @@
+lang=$(env | grep -w "LANG" | sed -e 's/\..*//;s/LANG=//;s/_.*//')
+
+packages="
+# kde4 minimal packages
+################
+kde-minimal
+kdebase-apps
+kde-workspace-data
+kde-workspace-bin
+
+# display manager
+################
+kdm
+#slim
+
+# APT
+#############
+aptitude
+
+# BOOT
+#############
+#grub-pc
+
+# SYSTEM
+##############
+ntfs-3g
+scrounge-ntfs
+pciutils
+lsof
+nano
+software-center
+wireless-tools
+policykit-kde-1
+policykit-desktop-privileges
+udisks
+python-software-properties
+wget
+plymouth
+plymouth-label
+plymouth-theme-kubuntu-logo
+plymouth-theme-kubuntu-text
+## for live-cd
+casper
+lupin-casper
+
+# DOCS and locales
+############
+language-pack-kde-$lang
+kde-l10n-$lang
+
+# KERNEL
+#############
+linux-generic
+linux-image-generic
+linux-headers-generic
+ubuntu-restricted-extras
+
+# X-server
+#############
+xorg
+
+"

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=ubukey
+Comment=create or customize ubuntu based distributions
+Exec=ubukey
+Icon=ubukey
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=System;Application;
+Name[fr_FR]=Ubukey
