@@ -123,17 +123,13 @@ class Ubukey_gui(object):
         #width = gtk.gdk.screen_width()
         #height = gtk.gdk.screen_height()
         #self.window.set_default_size((width - 50), (height - 80))
-        res = os.popen("xrandr --current | grep '*' | uniq | awk '{print $1}' | tail -n1", 'r').read().strip()
+        scr = os.system('/bin/bash ' + data_path +'/scripts/setres.sh')
+        res= open('/tmp/zenitychoice',"r").read()
         width,height = res.split('x')
-        if (width != '' and height != ''):
-            if (width > 1900):
-                width = 1920
-                height = 1050
-            print _("Xephyr's screen size : %s") % res
-        else:
-            width = 1280
-            height = 1024
-        self.window.set_default_size((int(width) - 50), (int(height) - 80))
+        try:
+            self.window.set_default_size(int(width), int(height) - 50)
+        except:
+            self.window.set_default_size(1024, 768)
         ##  start gui widgets
         self.start_gui()
     
