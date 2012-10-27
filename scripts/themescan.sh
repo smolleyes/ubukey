@@ -124,8 +124,13 @@ touch "$DISTDIR"/chroot/tmp/chrootlog.log &>/dev/null
 echo -e "Entre dans le chroot pour préparer votre système avec la langue \"$LOCALSIMPLE\""
 chroot "$DISTDIR"/chroot << "EOF"
 user=$(cat /etc/ubukey/ubukeyconf | grep -e "user" | sed 's/.*user=//')
+session="$(cat /etc/ubukey/ubukeyconf | grep -e "distSession" | sed 's/.*=//')"
 ## demarre script localisation
+if [ "$session" = "kde4" ]; then
+/bin/bash /usr/share/ubukey/scripts/localiser-kde.sh | tee -a /tmp/chrootlog.log
+else
 /bin/bash /usr/share/ubukey/scripts/localiser.sh | tee -a /tmp/chrootlog.log
+fi
 EOF
 
 echo "localise=true" | tee -a "$DISTDIR"/config &>/dev/null

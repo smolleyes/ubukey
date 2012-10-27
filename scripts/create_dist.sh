@@ -13,7 +13,7 @@ function create_dist()
 		ln -s "$(pwd)/.." /usr/share/ubukey
 	fi
 
-	## menu selection choix distrib a preparer 
+	## menu selection choix distrib a preparer
 	DISTCHOICE=`zenity --width=600 --height=500 --title "Choix Distribution a preparer" --list \
 		--radiolist --column "Choix" --column "Distribution" --column "Description" \
 		--text "Choisissez le type de distribution a utiliser
@@ -24,6 +24,12 @@ function create_dist()
 	" \
 		FALSE "Quantal-quetzal" "Ubuntu Quantal i386" \
 		FALSE "Quantal-quetzal-64" "Ubuntu Quantal 64 bits" \
+		FALSE "Quantal-kubuntu" "Kubuntu Quantal i386" \
+		FALSE "Quantal-kubuntu-64" "Kubuntu Quantal 64 bits" \
+		FALSE "Quantal-lubuntu" "Lubuntu Quantal i386" \
+		FALSE "Quantal-lubuntu-64" "Lubuntu Quantal 64 bits" \
+		FALSE "Quantal-xubuntu" "Xubuntu Quantal i386" \
+		FALSE "Quantal-xubuntu-64" "Xubuntu Quantal 64 bits" \
 		FALSE "Precise-pangolin" "Ubuntu precise pangolin" \
 		FALSE "Precise-pangolin-64" "Ubuntu precise pangolin 64 bits" \
 		FALSE "Precise-kubuntu" "Kubuntu precise pangolin" \
@@ -32,7 +38,7 @@ function create_dist()
 		FALSE "Precise-lubuntu-64" "Lubuntu precise pangolin 64 bits" \
 		FALSE "Precise-xubuntu" "Xubuntu precise pangolin" \
 		FALSE "Precise-xubuntu-64" "Xubuntu precise pangolin 64 bits" \
-		FALSE "Custom" "Préparer vos distribution par debootstrap (Expert!)"
+		FALSE "Custom" "Preparer vos distribution par debootstrap (Expert!)"
 	`
 	# cd /tmp
 	# rm MD5* >/dev/null
@@ -50,6 +56,42 @@ function create_dist()
 		ISONAME="ubuntu-12.10-desktop-amd64.iso"
 		ISOTYPE="gnome"
 		MD5SUM="7ad57cadae955bd04019389d4b9c1dcb"
+		;;
+		Quantal-kubuntu)
+		ISOURL="http://cdimage.ubuntu.com/kubuntu/releases/12.10/release/kubuntu-12.10-desktop-i386.iso"
+		ISONAME="kubuntu-12.10-desktop-i386.iso"
+		ISOTYPE="kde4"
+		MD5SUM="56cfb4036802f1619961d22c1a763103"
+		;;
+		Quantal-kubuntu-64)
+		ISOURL="http://cdimage.ubuntu.com/kubuntu/releases/12.10/release/kubuntu-12.10-desktop-amd64.iso"
+		ISONAME="kubuntu-12.10-desktop-amd64.iso"
+		ISOTYPE="kde4"
+		MD5SUM="dc63881988af54677ab3084d031a12b6"
+		;;
+		Quantal-xubuntu)
+		ISOURL="http://cdimage.ubuntu.com/xubuntu/releases/12.10/release/xubuntu-12.10-desktop-i386.iso"
+		ISONAME="xubuntu-12.10-desktop-i386.iso"
+		ISOTYPE="xfce4"
+		MD5SUM="bd87be6626efa4ebf7678f5e2c942b57"
+		;;
+		Quantal-xubuntu-64)
+		ISOURL="http://cdimage.ubuntu.com/xubuntu/releases/12.10/release/xubuntu-12.10-desktop-amd64.iso"
+		ISONAME="xubuntu-12.10-desktop-amd64.iso"
+		ISOTYPE="xfce4"
+		MD5SUM="f5f80e22cb1c80232efcbd8e2c5955f8"
+		;;
+		Quantal-lubuntu)
+		ISOURL="http://cdimage.ubuntu.com/lubuntu/releases/12.10/release/lubuntu-12.10-desktop-i386.iso"
+		ISONAME="lubuntu-12.10-desktop-i386.iso"
+		ISOTYPE="lxde"
+		MD5SUM="a7fed6c40b4969d4a3c9c0a9ee228cf2"
+		;;
+		Quantal-lubuntu-64)
+		ISOURL="http://cdimage.ubuntu.com/lubuntu/releases/12.10/release/lubuntu-12.10-desktop-amd64.iso"
+		ISONAME="lubuntu-12.10-desktop-amd64.iso"
+		ISOTYPE="lxde"
+		MD5SUM="bddb521817360540c0e54616427c003e"
 		;;
 		Precise-pangolin)
 		ISOURL="http://ubuntu.mirrors.proxad.net/12.04/ubuntu-12.04-desktop-i386.iso"
@@ -103,11 +145,11 @@ function create_dist()
 		/bin/bash $UBUKEYDIR/scripts/debootstrap_dist.sh "$WORK"
 		exit 1
 		;;
-		
-		*) 
+
+		*)
 		exit 1
 		;;
-		
+
 	esac ## fin choix dist
 
 	## defini repertoire de travail et lance creation environnement
@@ -118,9 +160,9 @@ function create_dist()
 
 
 function distName {
-	choix=`zenity --width=350 --height=80 --title "Nom du projet" --text "Indiquez un nom pour votre projet 
+	choix=`zenity --width=350 --height=80 --title "Nom du projet" --text "Indiquez un nom pour votre projet
 
-	Un dossier du meme nom avec tous les éléments de votre live-cd sera ensuite crée
+	Un dossier du meme nom avec tous les elements de votre live-cd sera ensuite cree
 	et servira d'environnement de travail.
 	" --entry `
 	case $? in
@@ -128,7 +170,7 @@ function distName {
 		DIST="$(echo "$choix" | sed -e 's/ /_/g')"
 		DISTDIR="${WORK}/distribs/$DIST" ;;
 		1)
-		exit 1 ;; 
+		exit 1 ;;
 		*)
 		exit 1 ;;
 	esac
@@ -149,18 +191,18 @@ function createEnv()
 		distSession=$ISOTYPE
 		Kernel=`uname -r`
 		debootstrap=false" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | tee -a "${DISTDIR}"/config &>/dev/null
-		echo -e "création du dossier de configuration... ok\n"
+		echo -e "creation du dossier de configuration... ok\n"
 		chown "$USER" "${DISTDIR}"/config &>/dev/null
 	fi
 
 	cd "${DISTDIR}"
 
 	## creation des dossiers de base
-	echo "Création/vérification des dossiers de base pour $DIST"
+	echo "Creation/verification des dossiers de base pour $DIST"
 	dirlist="usb old cdrom chroot temp save logs"
 	for i in $dirlist ; do
 		if [ ! -e "$i" ]; then
-			echo  "création du dossier $i"
+			echo  "cretion du dossier $i"
 			mkdir "${DISTDIR}"/"$i" &>/dev/null
 		fi
 	done
@@ -169,7 +211,7 @@ function createEnv()
 	getCd
 
 	## mount du cd de base
-	echo -e "Tout est prêt, mount du cdrom $ISONAME \n" 
+	echo -e "Tout est pret, mount du cdrom $ISONAME \n"
 	sleep 3
 	mount "$ISO" "${DISTDIR}"/old -o loop
 
@@ -185,14 +227,14 @@ function createEnv()
 	rm -rf "${DISTDIR}"/cdrom/programs
 	chmod 755 -R "${DISTDIR}"/cdrom
 
-	## si pas de copie direct demandee 
+	## si pas de copie direct demandee
 	if [ -z "$DIRECT_COPY" ]; then
 
 		## copie dans le chroot / demonte squashfs
 		echo  -e "Copie du squashfs... \n"
 		unsquashfs -i -d "${DISTDIR}"/chroot -f "${SOURCE}"/casper/filesystem.squashfs
 
-		echo -e "Copie du squashfs terminée... ok \n"
+		echo -e "Copie du squashfs terminÃ©e... ok \n"
 		## demonte live-cd de base
 		umount "${DISTDIR}"/old &>/dev/null
 	fi
@@ -200,8 +242,8 @@ function createEnv()
 	SOURCE=""
 	DESTINATION=""
 
-	## copies le necessaire dans dossier usb  
-	echo -e "Prépare dossier usb...\n"
+	## copies le necessaire dans dossier usb
+	echo -e "Prepare dossier usb...\n"
 	sleep 3
 	cp -R "${DISTDIR}"/cdrom/. "${DISTDIR}"/usb/.
 
@@ -211,7 +253,7 @@ function createEnv()
 
 	if [ -z "$DIRECT_COPY" ]; then
 
-		echo -e "La préparation de l'environnement pour la distrib $DIST est terminée,
+		echo -e "La preparation de l'environnement pour la distrib $DIST est terminee,
 		Les fichiers se trouvent dans :
 		${DISTDIR} \n
 		"
@@ -228,13 +270,13 @@ function getCd()
 	## download le cd de base
 	GETCD=$(zenity --width=500 --height=200 --title "Selection fichier image" --list --text "Choisissez votre option" --radiolist --column "Choix" --column "Action" --column "Description"  \
 		TRUE "Select" "Indiquer ou se trouve le fichier iso" \
-		FALSE "Download" "Télécharger l'iso de la distrib séléctionnée" )
+		FALSE "Download" "Telecharger l'iso de la distrib seletionnee" )
 	case $GETCD in
 		Select) SELECTED="`zenity --file-selection --filename=/home/$USER/ --title "Choisissez un fichier iso"`"
-		case $? in 
+		case $? in
 			0)
-			echo 
-			echo -e "Fichier séléctionné: "$SELECTED" \n"
+			echo
+			echo -e "Fichier selectionne: "$SELECTED" \n"
 			ISO="$SELECTED"
 			ISONAME="`basename "$SELECTED"`"
 			;;
@@ -242,7 +284,7 @@ function getCd()
 			;;
 		esac
 		;;## fin Selected
-		Download) 
+		Download)
 		download="$ISOURL"
 		## down du resultat
 		echo  "Download du cd de base "$download""
@@ -250,17 +292,17 @@ function getCd()
 		cd "${WORK}"/isos
 		test -e "$ISONAME" && rm "$ISONAME"
 		testConnect
-		wget -c -nd $download 2>&1 | sed -u 's/\([ 0-9]\+K\)[ \.]*\([0-9]\+%\) \(.*\)/\2\n#Transfert : \1 (\2) à \3/' | zenity --progress  --auto-close  --width 400  --title="Téléchargement de l'iso" --text="Téléchargement de l'image "$ISONAME" en cours..."
+		wget -c -nd $download 2>&1 | sed -u 's/\([ 0-9]\+K\)[ \.]*\([0-9]\+%\) \(.*\)/\2\n#Transfert : \1 (\2) Ã  \3/' | zenity --progress  --auto-close  --width 400  --title="TÃ©lÃ©chargement de l'iso" --text="TÃ©lÃ©chargement de l'image "$ISONAME" en cours..."
 		ISO=""${WORK}"/isos/"$ISONAME""
 		## copie cd en sauvegarde si besoin
-		
+
 		;;## fin Download
 		*) exit 1
 		;;
 	esac
 
 	## verifie le md5sum
-	echo -e "Vérification du md5sum... \n"
+	echo -e "Verification du md5sum... \n"
 	if [ $ISONAME == "natty-desktop-i386.iso" ]; then
 		cd /tmp
 		rm MD5SUMS &>/dev/null
@@ -273,20 +315,20 @@ function getCd()
 		zenity --error --text "Iso corrompu, le md5sum ne correspond pas !
 
 		Md5sum original : $MD5SUM
-		Votre iso : $DOWNSUM 
+		Votre iso : $DOWNSUM
 
 		Continuez pour choisir ce que vous voulez faire :)
 		"
 
-		zenity --question --text "Choix de l'action à effectuer
+		zenity --question --text "Choix de l'action a  effectuer
 
 		Cliquez sur \"Valider\" pour continuer de force :
 
 		Par exemple si vous utilisez un iso que vous avez
-		crée precedemment ou téléchargé ailleur...
-		Que vous avez déjà testé et que tout est fonctionnel.
+		cree precedemment ou tele©charge ailleur...
+		Que vous avez deja  teste et que tout est fonctionnel.
 
-		Si par contre, si vous venez de le télécharger l'iso par ce script
+		Si par contre, si vous venez de le telecharger l'iso par ce script
 		alors cliquez \"annuler\" pour revenir au menu principal"
 
 		case $? in
@@ -298,7 +340,7 @@ function getCd()
 			choose_action
 			;;
 		esac
-		
+
 	else
 		echo -e "Md5sum original : $MD5SUM"
 		echo -e "Md5sum fichier iso : $DOWNSUM  \n"
@@ -315,12 +357,12 @@ function makeProgress() {
 	done
 }
 
-function testConnect() 
+function testConnect()
 {
 	testconnexion=`wget www.google.fr -O /tmp/test &>/dev/null 2>&1`
 	if [ $? != 0 ]; then
 		sleep 5
-		echo  "Pause, vous êtes déconnecté !, en attente de reconnexion"
+		echo  "Pause, vous etes deconnecte !, en attente de reconnexion"
 		testConnect
 	fi
 }

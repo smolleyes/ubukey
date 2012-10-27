@@ -201,7 +201,7 @@ chmod +x "${DISTDIR}"/chroot/$UBUKEYDIR/addons/* -R &>/dev/null
 
 ## clean dpkg
 > "${DISTDIR}"/chroot/var/lib/dpkg/statoverride
-chroot "${DISTDIR}"/chroot /usr/share/ubukey/scripts/ubusrc-gen
+gksu chroot "${DISTDIR}"/chroot /usr/share/ubukey/scripts/ubusrc-gen
 }
 
 ##########################################################
@@ -845,12 +845,12 @@ mkdir -p /usr/share/gnome-shell/extensions
 rsync -uravH --exclude "~" "${DISTDIR}"/chroot/etc/skel/.local/share/gnome-shell/extensions/. "${DISTDIR}"/chroot/usr/share/gnome-shell/extensions/. 2>/dev/null
 chown -R root:root "${DISTDIR}"/chroot/usr/share/gnome-shell/extensions/* &>/dev/null
 rm -R "${DISTDIR}"/chroot/etc/skel/.local/share/gnome-shell/extensions/* &>/dev/null
-chmod 777 -R "${DISTDIR}"/chroot/usr/share/gnome-shell/extensions/*
+chmod 777 -R "${DISTDIR}"/chroot/usr/share/gnome-shell/extensions/* &>/dev/null
 
 ## gschemas override
-cp -f "${DISTDIR}"/chroot/opt/save_dconf "${DISTDIR}"/chroot/usr/share/glib-2.0/schemas/x_custom_dconf.gschema.override
-sed -i '/\[org.*\]/s:/:.:g' "${DISTDIR}"/chroot/usr/share/glib-2.0/schemas/x_custom_dconf.gschema.override
-chroot "${DISTDIR}"/chroot glib-compile-schemas /usr/share/glib-2.0/schemas/
+cp -f "${DISTDIR}"/chroot/opt/save_dconf "${DISTDIR}"/chroot/usr/share/glib-2.0/schemas/x_custom_dconf.gschema.override &>/dev/null
+sed -i '/\[org.*\]/s:/:.:g' "${DISTDIR}"/chroot/usr/share/glib-2.0/schemas/x_custom_dconf.gschema.override &>/dev/null
+chroot "${DISTDIR}"/chroot glib-compile-schemas /usr/share/glib-2.0/schemas/ &>/dev/null
 
 ## nettoie et re verifie fichiers de conf
 rm -f ${DISTDIR}/chroot/etc/skel/*/{ubukey-assist,quit-chroot,gc}.desktop  &>/dev/null
