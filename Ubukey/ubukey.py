@@ -123,10 +123,14 @@ class Ubukey_gui(object):
         #width = gtk.gdk.screen_width()
         #height = gtk.gdk.screen_height()
         #self.window.set_default_size((width - 50), (height - 80))
+        try:
+            os.system("gconftool-2 --set /apps/gksu/sudo-mode --type bool true" )
+        except:
+            print ""
         scr = os.system('/bin/bash ' + data_path +'/scripts/setres.sh')
         res= open('/tmp/zenitychoice',"r").read()
-        width,height = res.split('x')
         try:
+            width,height = res.split('x')
             self.window.set_default_size(int(width), int(height) - 50)
         except:
             self.window.set_default_size(1024, 768)
