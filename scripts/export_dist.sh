@@ -400,9 +400,7 @@ EOF
 umount -f -l "${DISTDIR}"/chroot/dev &>/dev/null
 rm "${DISTDIR}"/chroot/etc/hosts &>/dev/null
 rm "${DISTDIR}"/chroot/etc/resolv.conf &>/dev/null
-if [[ ! `cat "${DISTDIR}"/chroot/etc/rc.local | grep nameserver` ]]; then
-echo 'echo "nameserver 8.8.8.8" > /etc/resolv.conf' | tee -a "${DISTDIR}"/chroot/etc/rc.local
-fi
+ln -s "${DISTDIR}"/chroot/run/resolvconf/resolv.conf "${DISTDIR}"/chroot/etc/resolv.conf
 
 INIT=$(ls "${DISTDIR}"/chroot/boot | grep initrd.img | tail -n 1)
 INITLZ=$(ls "${DISTDIR}"/chroot/ | grep -e "initrd.lz")
