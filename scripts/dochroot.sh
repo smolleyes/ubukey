@@ -491,11 +491,13 @@ sudo -u $USER mkdir /home/$USER/.gvfs
 fusermount -u -z /home/$USER/.gvfs
 
 ## fix initctl
-dpkg-divert --local --rename --add /sbin/initctl
-﻿#ln -s /bin/true /sbin/initctl
-if [[ ! -e "/sbin/initctl" && -e "/sbin/initctl.distrib" ]]; then
-ln -s /sbin/initctl.distrib /sbin/initctl
-fi
+#dpkg-divert --local --rename --add /sbin/initctl
+#﻿#ln -s /bin/true /sbin/initctl
+#if [[ ! -e "/sbin/initctl" && -e "/sbin/initctl.distrib" ]]; then
+#ln -s /sbin/initctl.distrib /sbin/initctl
+#else
+#apt-get install -y --reinstall upstart
+#fi
 
 ## restore dconf
 mkdir /home/$USER/.config/dconf
@@ -787,9 +789,19 @@ rm -R -f /*.old &>/dev/null
 
 ## more info for damn adduser under live-session
 sed -i 's/user-setup-apply > \/dev\/null/user-setup-apply/' /usr/share/initramfs-tools/scripts/casper-bottom/25adduser &>/dev/null
+if  [[ ! `cat /usr/share/initramfs-tools/scripts/casper-bottom/25adduser | grep "#fix sudo" ` ]]; then
+sed -d 'log_end_msg' /usr/share/initramfs-tools/scripts/casper-bottom/25adduser
+sed -d 'exit 0' /usr/share/initramfs-tools/scripts/casper-bottom/25adduser
+echo '#fix sudo
+sed -i "s%$USERNAME.*%$USERNAME  ALL=NOPASSWD: ALL%" /root/etc/sudoers
+
+log_end_msg
+
+exit 0' | tee -a /usr/share/initramfs-tools/scripts/casper-bottom/25adduser &>/dev/null
+fi
 rm /var/lib/dbus/machine-id
-rm /sbin/initctl
-dpkg-divert --rename --remove /sbin/initctl
+#rm /sbin/initctl
+#dpkg-divert --rename --remove /sbin/initctl
 
 
 }
