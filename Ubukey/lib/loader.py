@@ -57,15 +57,12 @@ def generate_config(path):
 
         
 def FirstRun():
-    if not path_exist('/usr/bin/pkexec'):
-        error_dialog(_('Please install the policykit-1 package'))
-    
     ## select a dir for the distributions
-    dialog = create_folderchooser_open(_('Select a folder for your distributions'))
+    dialog = create_folderchooser_open('Select a folder for your distributions')
     result = dialog.run()
     if result != gtk.RESPONSE_OK:
         dialog.destroy()
-    return
+        return
     
     path = dialog.get_filename()
     if path_exist(conf_path):
@@ -75,9 +72,8 @@ def FirstRun():
     path_part = os.popen("df '%s' | grep /dev | awk '{print $1}'" % path, 'r').read().strip()
     path_check = os.popen("mount | grep '%s' | grep -E '(ntfs|vfat|nosuid|noexec|nodev)'" % path_part, 'r').read().strip()
     if (path_check != ''):
-        print _("Please select another folder (no ntfs/fat partitions or partitions mounted with nosuid/nodev/noexec options or root protected...please correct fstab or choose another partition!)")
+        print "Please select another folder (no ntfs/fat partitions or partitions mounted with nosuid/nodev/noexec options or root protected...please correct fstab or choose another partition!)"
         return FirstRun()
     ## ok return the path
     return path
     
-
