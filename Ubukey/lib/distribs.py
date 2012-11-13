@@ -184,8 +184,9 @@ DESCRIPTION=""
 	plug.close()
 	self.optwin.hide()
 	nfile = os.path.join(self.main_dist_path,'addons/custom/new.sh')
+	editor=os.popen("xdg-mime query default application/x-shellscript").read().replace('.desktop\n','')
 	try:
-	    (pid,t,r,s) = gobject.spawn_async(['/usr/bin/xdg-open', nfile],flags=gobject.SPAWN_DO_NOT_REAP_CHILD,standard_output = True, standard_error = True)
+	    (pid,t,r,s) = gobject.spawn_async(['/usr/bin/%s' % editor, nfile],flags=gobject.SPAWN_DO_NOT_REAP_CHILD,standard_output = True, standard_error = True)
 	except:
 	    return
 	data=(nfile)
@@ -196,7 +197,8 @@ DESCRIPTION=""
 		
     def edit_plug(self):
 	print _("edit the plugin %s ") % self.gui.selected_plug_path
-	os.system('xdg-open %s' % self.gui.selected_plug_path)
+	editor=os.popen("xdg-mime query default application/x-shellscript").read().replace('.desktop\n','')
+	os.system('/usr/bin/%s %s' % (editor,self.gui.selected_plug_path))
 		
     def start_multiboot(self):
 	self.mboot_script = os.path.join(scripts_path,'multiboot.sh')
