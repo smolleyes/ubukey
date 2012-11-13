@@ -156,7 +156,10 @@ class Distribs(object):
 		
     def create_plug(self):
 	print _("creating new plugin...")
-	plug = open(os.path.join(self.main_dist_path,'addons/custom/new.sh'), "w")
+	plugpath=os.path.join(self.main_dist_path,'addons/custom')
+	if not os.path.exists(plugpath):
+	    os.makedirs(plugpath)
+	plug = open(os.path.join(plugpath,'new.sh'), "w")
 	plug.write ('''#!/bin/bash
 ###########
 #
