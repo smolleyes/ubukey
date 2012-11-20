@@ -400,8 +400,7 @@ EOF
 umount -f -l "${DISTDIR}"/chroot/dev &>/dev/null
 rm "${DISTDIR}"/chroot/etc/hosts &>/dev/null
 rm "${DISTDIR}"/chroot/etc/resolv.conf &>/dev/null
-cd "${DISTDIR}"/chroot/etc
-ln -s ../run/resolvconf/resolv.conf resolv.conf
+ln -s ../run/resolvconf/resolv.conf /etc/resolv.conf
 
 INIT=$(ls "${DISTDIR}"/chroot/boot | grep initrd.img | tail -n 1)
 INITLZ=$(ls "${DISTDIR}"/chroot/ | grep -e "initrd.lz")

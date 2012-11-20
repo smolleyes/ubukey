@@ -156,7 +156,7 @@ rm -R "${DISTDIR}"/usb/casper/* &>/dev/null
 
 ### demarre le chroot
 mkdir "${DISTDIR}"/chroot/dev &>/dev/null
-mount -o bind /dev "${DISTDIR}"/chroot/dev &>/dev/null
+mount -o rbind /dev "${DISTDIR}"/chroot/dev &>/dev/null
 #mount -o bind /dev/shm "${DISTDIR}"/chroot/dev/shm &>/dev/null
 
 rm "${DISTDIR}"/chroot/var/lib/dbus/machine-id &>/dev/null
@@ -263,9 +263,9 @@ $LOCALUTF
 #monter minimun necessaire
 mount -t proc none /proc
 mount -t sysfs none /sys
-mount -t devpts none /dev/pts
-mount -t tmpfs none /dev/shm
-chmod 1777 /dev/shm
+#mount -t devpts none /dev/pts
+#mount -t tmpfs none /dev/shm
+#chmod 1777 /dev/shm
 
 umount -f /lib/modules/*/volatile &>/dev/null
 
@@ -520,7 +520,7 @@ rm -R /tmp/.*
 xauth generate :5 .
 
 message "Tout est pret, demarre X dans le chroot ! \n"
-
+mkdir -p /home/$USER/.compiz/session
 if [[ `echo "$starter" | grep xterm` ]]; then
 starter="xterm & '$decorator' --replace"
 fi
@@ -542,8 +542,8 @@ echo '#!/bin/bash
 export DISPLAY=:5
 sudo -u '$USER' ck-launch-session '$starter' &
 #sudo -u '$USER' metacity --replace &
-sleep 5
-sudo -u '$USER' unity --replace
+sleep 10
+sudo -u '$USER' unity --replace > /tmp/.logunity
 ' | tee /usr/local/bin/startchroot &>/dev/null
 else
 echo '#!/bin/bash
@@ -865,16 +865,16 @@ sed -i '/\[org.*\]/s:/:.:g' "${DISTDIR}"/chroot/usr/share/glib-2.0/schemas/x_cus
 chroot "${DISTDIR}"/chroot glib-compile-schemas /usr/share/glib-2.0/schemas/ &>/dev/null
 
 ## nettoie et re verifie fichiers de conf
-rm -f ${DISTDIR}/chroot/etc/skel/*/{ubukey-assist,quit-chroot,gc}.desktop  &>/dev/null
+rm -f "${DISTDIR}"/chroot/etc/skel/*/{ubukey-assist,quit-chroot,gc}.desktop  &>/dev/null
 umount -l -f "${DISTDIR}"/chroot/media/pc-local &>/dev/null
 umount -l -f "${DISTDIR}"/chroot/proc/sys/fs/binfmt_misc binfmt_misc  &>/dev/null
 umount -l -f "${DISTDIR}"/chroot/proc &>/dev/null
 umount -l -f "${DISTDIR}"/chroot/sys &>/dev/null
-umount -l -f "${DISTDIR}"/chroot/dev/pts &>/dev/null
+#umount -l -f "${DISTDIR}"/chroot/dev/pts &>/dev/null
 umount -l -f "${DISTDIR}"/chroot/dev &>/dev/null
-umount -l -f "${DISTDIR}"/chroot/dev/shm &>/dev/null
-chmod 1777 /dev/shm
-umount -f "${DISTDIR}"/chroot/var/run/dbus &>/dev/null
+#umount -l -f "${DISTDIR}"/chroot/dev/shm &>/dev/null
+#chmod 1777 /dev/shm
+#umount -f "${DISTDIR}"/chroot/var/run/dbus &>/dev/null
 rm "${DISTDIR}"/chroot/var/run/* &>/dev/null
 umount -l -f "${DISTDIR}"/chroot/media/pc-local/media
 umount -l -f "${DISTDIR}"/chroot/media/pc-local/home
@@ -907,6 +907,7 @@ sed -i '/'$USER'/d' "${DISTDIR}"/chroot/etc/passwd &>/dev/null
 
 umount -f "${DISTDIR}"/chroot &>/dev/null
 kill -9 `ps aux | grep chrootlog.log | awk '{print $2}' | xargs` &>/dev/null
+rm -Rf "${DISTDIR}"/chroot/tmp/*.*
 echo "Sortie du chroot ok"
 
 }
