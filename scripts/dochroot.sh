@@ -201,6 +201,13 @@ chmod +x "${DISTDIR}"/chroot/$UBUKEYDIR/addons/* -R &>/dev/null
 
 ## clean dpkg
 > "${DISTDIR}"/chroot/var/lib/dpkg/statoverride
+## remet en place sources de paquets
+mkdir -p "${DISTDIR}"/save/pkgsrc &>/dev/null
+mkdir -p "${DISTDIR}"/save/pkglist &>/dev/null
+mkdir -p "${DISTDIR}"/save/xapian &>/dev/null
+mv -f "${DISTDIR}"/save/pkgsrc/* "${DISTDIR}"/chroot/var/cache/apt/ &>/dev/null
+mv -f "${DISTDIR}"/save/pkglist/* "${DISTDIR}"/chroot/var/lib/apt/lists/ &>/dev/null
+mv "${DISTDIR}"/save/xapian/* "${DISTDIR}"/chroot/var/cache/apt-xapian-index/
 gksu chroot "${DISTDIR}"/chroot /usr/share/ubukey/scripts/ubusrc-gen
 }
 
@@ -521,6 +528,8 @@ xauth generate :5 .
 
 message "Tout est pret, demarre X dans le chroot ! \n"
 mkdir -p /home/$USER/.compiz/session
+mkdir -p /home/"$USER"/.config/dconf
+
 if [[ `echo "$starter" | grep xterm` ]]; then
 starter="xterm & '$decorator' --replace"
 fi
@@ -532,8 +541,8 @@ mkdir -p /usr/share/gnome-shell/extensions
 fi
 fi
 
-chmod 755 -R /home/"$USER"
-chown -hR "$USER":"$USER" /home/"$USER"
+chmod 755 -R /home/"$USER"/*.*
+chown -R "$USER":"$USER" /home/"$USER"/*.*
 
 message "starter = $starter"
 
@@ -541,9 +550,9 @@ if [[ `echo "$starter" | grep -E "session=ubuntu$"` ]]; then
 echo '#!/bin/bash
 export DISPLAY=:5
 sudo -u '$USER' ck-launch-session '$starter' &
-#sudo -u '$USER' metacity --replace &
+sudo -u '$USER' metacity --replace &
 sleep 10
-sudo -u '$USER' unity --replace > /tmp/.logunity
+sudo -u '$USER' unity --replace
 ' | tee /usr/local/bin/startchroot &>/dev/null
 else
 echo '#!/bin/bash
@@ -908,6 +917,10 @@ sed -i '/'$USER'/d' "${DISTDIR}"/chroot/etc/passwd &>/dev/null
 umount -f "${DISTDIR}"/chroot &>/dev/null
 kill -9 `ps aux | grep chrootlog.log | awk '{print $2}' | xargs` &>/dev/null
 rm -Rf "${DISTDIR}"/chroot/tmp/*.*
+## move/save source list
+for i in `ls "${DISTDIR}"/chroot/var/cache/apt | grep pkgcache`; do mv "${DISTDIR}"/chroot/var/cache/apt/$i "${DISTDIR}"/save/pkgsrc/;done
+for i in `ls "${DISTDIR}"/chroot/var/lib/apt/lists | sed -e 's/lock//;s/partial//'`; do mv "${DISTDIR}"/chroot/var/lib/apt/lists/$i "${DISTDIR}"/save/pkglist/;done
+mv "${DISTDIR}"/chroot/var/cache/apt-xapian-index/* "${DISTDIR}"/save/xapian/
 echo "Sortie du chroot ok"
 
 }
