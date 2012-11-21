@@ -809,6 +809,7 @@ log_end_msg
 exit 0' | tee -a /usr/share/initramfs-tools/scripts/casper-bottom/25adduser &>/dev/null
 fi
 rm /var/lib/dbus/machine-id
+ln -s ../run/resolvconf/resolv.conf /etc/resolv.conf
 #rm /sbin/initctl
 #dpkg-divert --rename --remove /sbin/initctl
 
