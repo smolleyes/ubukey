@@ -82,7 +82,7 @@ function create_dist()
 		MD5SUM="f5f80e22cb1c80232efcbd8e2c5955f8"
 		;;
 		Quantal-lubuntu)
-		ISOURL="http://cdimage.ubuntu.com/lubuntu/releases/12.10/release/lubuntu-12.10-desktop-i386.iso"
+		ISOURL="http://cdimage.ubuntu.com/lubuntu/releases/quantal/release/lubuntu-12.10-desktop-i386.iso"
 		ISONAME="lubuntu-12.10-desktop-i386.iso"
 		ISOTYPE="lxde"
 		MD5SUM="a7fed6c40b4969d4a3c9c0a9ee228cf2"
@@ -270,7 +270,7 @@ function getCd()
 	## download le cd de base
 	GETCD=$(zenity --width=500 --height=200 --title "Selection fichier image" --list --text "Choisissez votre option" --radiolist --column "Choix" --column "Action" --column "Description"  \
 		TRUE "Select" "Indiquer ou se trouve le fichier iso" \
-		FALSE "Download" "Telecharger l'iso de la distrib seletionnee" )
+		FALSE "Download" "Telecharger l'iso de la distrib selectionnee" )
 	case $GETCD in
 		Select) SELECTED="`zenity --file-selection --filename=/home/$USER/ --title "Choisissez un fichier iso"`"
 		case $? in
@@ -292,7 +292,7 @@ function getCd()
 		cd "${WORK}"/isos
 		test -e "$ISONAME" && rm "$ISONAME"
 		testConnect
-		wget -c -nd $download 2>&1 | sed -u 's/\([ 0-9]\+K\)[ \.]*\([0-9]\+%\) \(.*\)/\2\n#Transfert : \1 (\2) Ã  \3/' | zenity --progress  --auto-close  --width 400  --title="TÃ©lÃ©chargement de l'iso" --text="TÃ©lÃ©chargement de l'image "$ISONAME" en cours..."
+		wget -c -nd $download 2>&1 | sed -u 's/\([ 0-9]\+K\)[ \.]*\([0-9]\+%\) \(.*\)/\2\n#Transfert : \1 (\2) Ã  \3/' | zenity --progress  --auto-close  --width 400  --title="Telechargement de l'iso" --text="Telechargement de l'image "$ISONAME" en cours..."
 		ISO=""${WORK}"/isos/"$ISONAME""
 		## copie cd en sauvegarde si besoin
 
