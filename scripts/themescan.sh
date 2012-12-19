@@ -82,7 +82,7 @@ fi
 
 case $sessionType in 
 
-gnome)
+gnome|xfce4|lxde)
 
 MENU=$(zenity --list --width 500 --height 525 \
 --text "choisissez les operations à effectuer avant d'entrer dans le chroot

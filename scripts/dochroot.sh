@@ -85,6 +85,15 @@ echo "localutf=$LOCALUTF" | tee -a "${DISTDIR}"/chroot/etc/ubukey/ubukeyconf &>/
 echo "mode=graphique" | tee -a "${DISTDIR}"/chroot/etc/ubukey/ubukeyconf &>/dev/null
 cp /etc/hosts "${DISTDIR}"/chroot/etc/ -f
 
+## remet en place sources de paquets
+mkdir -p "${DISTDIR}"/save/pkgsrc &>/dev/null
+mkdir -p "${DISTDIR}"/save/pkglist &>/dev/null
+mkdir -p "${DISTDIR}"/save/xapian &>/dev/null
+mv -f "${DISTDIR}"/save/pkgsrc/* "${DISTDIR}"/chroot/var/cache/apt/ &>/dev/null
+mv -f "${DISTDIR}"/save/pkglist/* "${DISTDIR}"/chroot/var/lib/apt/lists/ &>/dev/null
+mv "${DISTDIR}"/save/xapian/* "${DISTDIR}"/chroot/var/cache/apt-xapian-index/
+gksu chroot "${DISTDIR}"/chroot /usr/share/ubukey/scripts/ubusrc-gen
+
 ## choix session chroot
 rm /tmp/zenity
 echo -e "zenity --list --checklist --width 650 --height 500 --title \"$(eval_gettext 'Session choice')\" --column \"$(eval_gettext 'Choice')\" --column \"$(eval_gettext 'Session')\" --text \"$(eval_gettext 'Choose the session to start')\" \\"  | tee /tmp/zenity &>/dev/null
@@ -121,16 +130,20 @@ echo "session_starter=$starter" | tee -a "${DISTDIR}"/chroot/etc/ubukey/ubukeyco
 
 ## check zenity
 if [[ ! -e "${DISTDIR}/chroot/usr/bin/zenity" && ! $sessionType = "console" ]]; then
-echo -e "Installation de zenity, manquant dans votre distribution $localSession"
+echo -e "Installation de zenity, manquant dans votre distribution $sessionType"
 chroot "${DISTDIR}"/chroot aptitude -y install zenity &>/dev/null
 fi
 
 if [ -z "$console" ]; then
 	## assistant pre chroot inclus (copie des themes si session locale est la meme que la session a preparer)
 	if [[ "$sessionType" != "$localSession" ]]; then
-	echo -e "$(eval_gettext 'You re running a \"$localSession\" actually but preparing a \"$sessionType\" 
+		if [[ `echo "$sessionType" | grep -E 'gnome|xfce4|lxde'` && `echo "$sessionType" | grep -E 'gnome|xfce4|lxde'` ]]; then
+		echo "starting pre chroot scripts"
+		. $UBUKEYDIR/scripts/themescan.sh
+		else
+		echo -e "$(eval_gettext 'You re running a \"$localSession\" actually but preparing a \"$sessionType\" 
 session, themes copy canceled...') \n"
-
+		fi
 	elif [[ "$sessionType" = "kde4" && ! -e "${DISTDIR}"/chroot/etc/skel/.kde ]]; then
 	zenity --info --text "$(eval_gettext 'First chroot execution, the themes, icons etc 
 will be proposed at the next startup of the chroot (no .kde yet...)
@@ -201,14 +214,6 @@ chmod +x "${DISTDIR}"/chroot/$UBUKEYDIR/addons/* -R &>/dev/null
 
 ## clean dpkg
 > "${DISTDIR}"/chroot/var/lib/dpkg/statoverride
-## remet en place sources de paquets
-mkdir -p "${DISTDIR}"/save/pkgsrc &>/dev/null
-mkdir -p "${DISTDIR}"/save/pkglist &>/dev/null
-mkdir -p "${DISTDIR}"/save/xapian &>/dev/null
-mv -f "${DISTDIR}"/save/pkgsrc/* "${DISTDIR}"/chroot/var/cache/apt/ &>/dev/null
-mv -f "${DISTDIR}"/save/pkglist/* "${DISTDIR}"/chroot/var/lib/apt/lists/ &>/dev/null
-mv "${DISTDIR}"/save/xapian/* "${DISTDIR}"/chroot/var/cache/apt-xapian-index/
-gksu chroot "${DISTDIR}"/chroot /usr/share/ubukey/scripts/ubusrc-gen
 }
 
 ##########################################################
@@ -488,6 +493,10 @@ fi
 #dbus-uuidgen > /var/lib/dbus/machine-id
 #start dbus
 #dbus-daemon --system --fork
+
+chmod 755 -R /usr/share/themes
+chmod 755 -R /usr/share/icons
+chmod 755 -R /usr/share/backgrounds
 
 mkdir -p /var/run/dbus
 rm -f /var/run/dbus/pid
