@@ -38,6 +38,7 @@ function create_dist()
 		FALSE "Precise-lubuntu-64" "Lubuntu precise pangolin 64 bits" \
 		FALSE "Precise-xubuntu" "Xubuntu precise pangolin" \
 		FALSE "Precise-xubuntu-64" "Xubuntu precise pangolin 64 bits" \
+		FALSE "Raring-daily" "Ubuntu raring daily iso i386" \
 		FALSE "Custom" "Preparer vos distribution par debootstrap (Expert!)"
 	`
 	# cd /tmp
@@ -45,6 +46,15 @@ function create_dist()
 	# wget http://cdimage.ubuntu.com/daily-live/current/MD5SUMS
 	# MD5SUM=$(cat MD5SUMS | grep desktop-i386 | awk '{print $1}')
 	case $DISTCHOICE in
+		Raring-daily)
+		ISOURL="http://cdimage.ubuntu.com/daily-live/current/raring-desktop-i386.iso"
+		ISONAME="raring-desktop-i386.iso"
+		ISOTYPE="gnome"
+		cd /tmp
+		rm MD5* >/dev/null
+		wget http://cdimage.ubuntu.com/daily-live/current/MD5SUMS
+		MD5SUM=$(cat MD5SUMS | grep desktop-i386 | awk '{print $1}')
+		;;
 		Quantal-quetzal)
 		ISOURL="http://ubuntu.mirrors.proxad.net/quantal/ubuntu-12.10-desktop-i386.iso"
 		ISONAME="ubuntu-12.10-desktop-i386.iso"

@@ -25,7 +25,7 @@ class Ubukey_gui(object):
             exit()
         ## set the gladexml file
         self.gladexml = gtk.glade.XML(GLADE_FILE, None ,APP_NAME)
-        self.opt_dialog = self.gladexml.get_widget("options_dialog")
+        self.plugins_dialog = self.gladexml.get_widget("plugins_dialog")
         self.selected_dist = None
         ## the main window and properties
         self.window = self.gladexml.get_widget("main_window")
@@ -109,40 +109,32 @@ class Ubukey_gui(object):
                "on_vbox_btn_clicked" : self.start_vbox,
                "on_bootcd_btn_clicked" : self.gen_bootcd,
                "on_clone_btn_clicked" : self.clone_dist,
-               "on_options_btn_clicked" : self.options_dialog,
+               "on_plugins_btn_clicked" : self.exec_plugins_dialog,
                "on_new_plug_btn_clicked" : self.create_plug,
                "on_edit_plug_btn_clicked" : self.edit_plug,
                "on_del_plug_btn_clicked" : self.delete_plug,
-               "on_refresh_plug_btn_clicked" : self.options_dialog,
+               "on_refresh_plug_btn_clicked" : self.exec_plugins_dialog,
                "on_multiboot_btn_clicked" : self.start_multiboot,
                "on_sourceFolder_btn_clicked" : self.open_source_folder
                }
         
         self.gladexml.signal_autoconnect(dic)
-        ## calculate default window size (Xephyr s not resizable)
-        #width = gtk.gdk.screen_width()
-        #height = gtk.gdk.screen_height()
-        #self.window.set_default_size((width - 50), (height - 80))
+        self.start_gui()
+    
+    def start_gui(self):
         try:
-            os.system("gconftool-2 --set /apps/gksu/sudo-mode --type bool true" )
+            main_dist_path,dist_list,RESOLUTION = scan_dist_path()
         except:
-            print ""
-        scr = os.system('/bin/bash ' + data_path +'/scripts/setres.sh')
-        res= open('/tmp/zenitychoice',"r").read()
+            path = checkConf()
+            return self.start_gui()
+        ## load resolution
+        res=RESOLUTION
         try:
             width,height = res.split('x')
             self.window.set_default_size(int(width), int(height) - 50)
         except:
             self.window.set_default_size(1024, 768)
         ##  start gui widgets
-        self.start_gui()
-    
-    def start_gui(self):
-        try:
-            main_dist_path,dist_list = scan_dist_path()
-        except:
-            path = checkConf()
-            return self.start_gui()
         self.window.show_all()
         self.load_distribs_xml()
         self.start_Xephyr()
@@ -223,8 +215,8 @@ class Ubukey_gui(object):
     def clone_dist(self,widget):
         self.distribs.clone_dist()
         
-    def options_dialog(self,widget):
-		self.distribs.options_dialog()
+    def exec_plugins_dialog(self,widget):
+		self.distribs.plugins_dialog()
 
     def create_plug(self,widget):
 		self.distribs.create_plug()

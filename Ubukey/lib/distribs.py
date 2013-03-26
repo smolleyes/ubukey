@@ -56,7 +56,7 @@ class Distribs(object):
 	self.gui.notebook.set_current_page(0)
     
     def update_list(self):
-        self.main_dist_path,dist_list = scan_dist_path()
+        self.main_dist_path,dist_list,RESOLUTION = scan_dist_path()
         print _("updating distribution list...")
         self.parser = Parser(self.ini)
         for dir in dist_list:
@@ -134,8 +134,8 @@ class Distribs(object):
                                                              self.main_dist_path))
         self.update_list()
         
-    def options_dialog(self):
-	self.optwin = self.gui.opt_dialog
+    def plugins_dialog(self):
+	self.optwin = self.gui.plugins_dialog
 	self.optwin.set_position("center")
 	self.gui.plugins_model.clear()
 	for root, dirnames, filenames in os.walk(os.path.join(self.main_dist_path,'addons/custom')):
@@ -184,7 +184,7 @@ DESCRIPTION=""
 	plug.close()
 	self.optwin.hide()
 	nfile = os.path.join(self.main_dist_path,'addons/custom/new.sh')
-	editor=os.popen("xdg-mime query default application/x-shellscript").read().replace('.desktop\n','')
+	editor=os.popen("xdg-mime query default text/plain").read().replace('.desktop\n','')
 	try:
 	    (pid,t,r,s) = gobject.spawn_async(['/usr/bin/%s' % editor, nfile],flags=gobject.SPAWN_DO_NOT_REAP_CHILD,standard_output = True, standard_error = True)
 	except:
@@ -193,11 +193,11 @@ DESCRIPTION=""
 	gobject.child_watch_add(pid, self.task_done,data)
 		
     def task_done(self,pid,ret,data):
-	self.options_dialog()
+	self.plugins_dialog()
 		
     def edit_plug(self):
 	print _("edit the plugin %s ") % self.gui.selected_plug_path
-	editor=os.popen("xdg-mime query default application/x-shellscript").read().replace('.desktop\n','')
+	editor=os.popen("xdg-mime query default text/plain").read().replace('.desktop\n','')
 	os.system('/usr/bin/%s %s' % (editor,self.gui.selected_plug_path))
 		
     def start_multiboot(self):

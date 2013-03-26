@@ -62,11 +62,12 @@ def scan_dist_path():
     parser = Parser(conf_file)
     try:
         dist_path = parser.get('ubukey', 'dist_path')
+        resolution=parser.get('ubukey', 'resolution')
     except:
         return
     for dist in glob(dist_path+'/distribs/*'):
         dist_list.append(dist)
-    return dist_path,dist_list
+    return dist_path,dist_list,resolution
 
 def get_dist_env(dist,dist_path):
     dist_conf = os.path.join(dist_path,'config') 

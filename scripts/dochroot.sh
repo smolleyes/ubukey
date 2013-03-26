@@ -555,24 +555,18 @@ chown -R "$USER":"$USER" /home/"$USER"/*.*
 
 message "starter = $starter"
 
-if [[ `echo "$starter" | grep -E "session=ubuntu$"` ]]; then
-echo '#!/bin/bash
-export DISPLAY=:5
-sudo -u '$USER' ck-launch-session '$starter' &
-sudo -u '$USER' metacity --replace &
-sleep 10
-sudo -u '$USER' unity --replace
-' | tee /usr/local/bin/startchroot &>/dev/null
-else
+chmod 777 -R /home/"$USER"/.config/dconf
+chown -R "$USER":"$USER" /home/"$USER"/.config/dconf
+
 echo '#!/bin/bash
 export DISPLAY=:5
 sudo -u '$USER' ck-launch-session '$starter'
 ' | tee /usr/local/bin/startchroot &>/dev/null
-fi
 
 chmod +x /usr/local/bin/startchroot
 
-xterm -title "Close this window to exit your session" -display :5 -e startchroot
+xterm -geometry +250+250 -title "Close this window to exit your session" -display :5 -e startchroot
+
 
 } ## fin chroot graphique
 
