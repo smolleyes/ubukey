@@ -1,5 +1,5 @@
 #!/bin/bash
-source /etc/ubukey/config
+source $HOME/.config/ubukey/sessionConf
 
 function chooser()
 {

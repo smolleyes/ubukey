@@ -6,7 +6,7 @@ USER=$2
 MY_PATH="`dirname \"$0\"`"
 echo "$MY_PATH"
 
-source /etc/ubukey/config
+source $HOME/.config/ubukey/sessionConf
 
 function prepareChroot()
 {

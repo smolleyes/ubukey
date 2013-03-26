@@ -2,8 +2,7 @@
 
 WORK="$1"
 
-source /etc/ubukey/config
-
+source $HOME/.config/ubukey/sessionConf
 
 export TERM=linux
 

@@ -3,7 +3,7 @@
 DIST=$1
 DISTDIR=$2
 
-source /etc/ubukey/config
+source $HOME/.config/ubukey/sessionConf
 
 #############################
 ## Copies des fichiers necessaires sur la cle

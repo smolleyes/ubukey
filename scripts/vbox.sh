@@ -3,7 +3,7 @@
 DIST=$1
 DISTDIR=$2
 installType=$3
-source /etc/ubukey/config
+source $HOME/.config/ubukey/sessionConf
 
 function chooseMedia() 
 {

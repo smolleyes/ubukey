@@ -147,7 +147,7 @@ class Ubukey_gui(object):
 		self.start_Xephyr()
 		self.startVt()
 		## create system config file
-		self.vt.run_command('gksu /bin/bash ' + data_path +'/scripts/include.sh')
+		self.vt.run_command('/bin/bash ' + data_path +'/scripts/include.sh')
 		gtk.main()
 	
 	def error_dialog(self,message, parent = None):

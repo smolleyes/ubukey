@@ -6,7 +6,7 @@ WORK="$3"
 old_dist="$DIST"
 old_distdir="$DISTDIR"
 
-source /etc/ubukey/config
+source $HOME/.config/ubukey/sessionConf
 
 
 function distName {

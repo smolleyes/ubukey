@@ -1,4 +1,4 @@
-source /etc/ubukey/config
+source $HOME/.config/ubukey/sessionConf
 
 rm /tmp/pack &>/dev/null
 

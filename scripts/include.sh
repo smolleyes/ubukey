@@ -1,5 +1,5 @@
-if [ ! -e "/etc/ubukey" ]; then
-	mkdir /etc/ubukey
+if [ ! -e "$HOME/.config/ubukey" ]; then
+	mkdir $HOME/.config/ubukey
 fi
 
 CDIST=`lsb_release -cs`
@@ -29,4 +29,4 @@ export TEXTDOMAIN=ubukey
 export TEXTDOMAINDIR='$UBUKDIR'/lang
 . gettext.sh
 export ubukey=$0
-' | tee /etc/ubukey/config &>/dev/null
+' | tee $HOME/.config/ubukey/sessionConf &>/dev/null

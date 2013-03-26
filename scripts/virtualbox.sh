@@ -3,7 +3,7 @@
 WORK=$1
 USER=$2
 
-source /etc/ubukey/config
+source $HOME/.config/ubukey/sessionConf
 
 ACTION=`zenity --width 500 --height 250 --title "Choix du media" --list \
 --text "Quel media voulez vous tester? 

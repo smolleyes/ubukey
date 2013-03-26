@@ -1,5 +1,4 @@
-#!/bin/bash
-source /etc/ubukey/config
+source $HOME/.config/ubukey/sessionConf
 
 MENU=''
 rm /tmp/full_list &>/dev/null
