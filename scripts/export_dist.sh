@@ -3,7 +3,7 @@
 DIST=$1
 DISTDIR=$2
 
-source $HOME/.config/ubukey/sessionConf
+source /home/$SUDO_USER/.config/ubukey/sessionConf
 
 #############################
 ## Copies des fichiers necessaires sur la cle

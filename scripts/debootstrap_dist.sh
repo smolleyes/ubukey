@@ -2,7 +2,7 @@
 
 WORK="$1"
 
-source $HOME/.config/ubukey/sessionConf
+source /home/$SUDO_USER/.config/ubukey/sessionConf
 
 export TERM=linux
 

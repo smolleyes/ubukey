@@ -3,7 +3,7 @@
 DIST=$1
 DISTDIR=$2
 
-source $HOME/.config/ubukey/sessionConf
+source /home/$SUDO_USER/.config/ubukey/sessionConf
 
 preseed=$(ls "${DISTDIR}"/usb/preseed | grep "ubu")
 LOCALANG=$(env | grep LANG | sed -e 's/.*=//' -e 's/_.*//' -e 's/.utf8/.UTF-8/g' | uniq)

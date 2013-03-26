@@ -3,7 +3,7 @@
 WORK=$1
 USER=$2
 
-$HOME/.config/ubukey/sessionConf
+source /home/$SUDO_USER/.config/ubukey/sessionConf
 
 function create_dist()
 {

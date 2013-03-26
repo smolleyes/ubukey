@@ -30,3 +30,5 @@ export TEXTDOMAINDIR='$UBUKDIR'/lang
 . gettext.sh
 export ubukey=$0
 ' | tee $HOME/.config/ubukey/sessionConf &>/dev/null
+
+chmod +x $HOME/.config/ubukey/sessionConf

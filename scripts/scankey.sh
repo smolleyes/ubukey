@@ -1,4 +1,4 @@
-source $HOME/.config/ubukey/sessionConf
+source /home/$SUDO_USER/.config/ubukey/sessionConf
 
 rm /tmp/usbscan &>/dev/null
 rm /tmp/hallist &>/dev/null

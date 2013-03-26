@@ -6,7 +6,7 @@ WORK="$3"
 old_dist="$DIST"
 old_distdir="$DISTDIR"
 
-source $HOME/.config/ubukey/sessionConf
+source /home/$SUDO_USER/.config/ubukey/sessionConf
 
 
 function distName {

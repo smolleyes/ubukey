@@ -4,7 +4,7 @@ DIST=$1
 DISTDIR=$2
 USER=$3
 
-source $HOME/.config/ubukey/sessionConf
+source /home/$SUDO_USER/.config/ubukey/sessionConf
 
 echo -e "suppression de la distribution $DIST installee dans ${DISTDIR} \n"
 if [ -e "$DISTDIR" ]; then

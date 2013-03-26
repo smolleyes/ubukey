@@ -1,6 +1,6 @@
 #!/bin/bash
 ############################################### 
-source $HOME/.config/ubukey/sessionConf
+source /home/$SUDO_USER/.config/ubukey/sessionConf
 cp -f $UBUKEYDIR/scripts/ubusrc-gen /usr/local/bin
 chmod +x /usr/local/bin/ubusrc-gen
 bash ubusrc-gen

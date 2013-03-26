@@ -6,10 +6,12 @@ USER=$2
 MY_PATH="`dirname \"$0\"`"
 echo "$MY_PATH"
 
-source $HOME/.config/ubukey/sessionConf
+source /home/$SUDO_USER/.config/ubukey/sessionConf
 
 function prepareChroot()
 {
+
+. $HOME/.config/ubukey/sessionConf
 CHROOTVER=$(cat "${DISTDIR}"/chroot/etc/lsb-release | awk -F= '/CODENAME/ {print $2}')
 
 ### return if not the same distro...
@@ -37,6 +39,7 @@ rsync -uravH --delete --exclude ".git" --exclude "~" "$UBUKEYDIR"/. "${DISTDIR}"
 if [ ! -e "${DISTDIR}"/chroot/usr/share/ubukey/addons/custom ]; then
 mkdir -p "${DISTDIR}"/chroot/usr/share/ubukey/addons/custom
 fi
+echo "$(dirname $DISTDIR)"/../addons/custom/.
 rsync -uravH --delete --exclude ".git" --exclude "~" "$(dirname $DISTDIR)"/../addons/custom/. "${DISTDIR}"/chroot/usr/share/ubukey/addons/custom/. &>/dev/null
 chmod +x "${DISTDIR}"/chroot/usr/share/ubukey/scripts/*
 fi

@@ -1,5 +1,5 @@
 #!/bin/bash
-source $HOME/.config/ubukey/sessionConf
+source /home/$SUDO_USER/.config/ubukey/sessionConf
 
 function chooser()
 {

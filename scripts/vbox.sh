@@ -3,7 +3,7 @@
 DIST=$1
 DISTDIR=$2
 installType=$3
-source $HOME/.config/ubukey/sessionConf
+source /home/$SUDO_USER/.config/ubukey/sessionConf
 
 function chooseMedia() 
 {
