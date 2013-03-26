@@ -18,10 +18,11 @@ cp -f "${DISTDIR}"/usb/vmlinuz "${DISTDIR}"/bootcd/boot/vmlinuz-usb
 cp -f "${DISTDIR}"/usb/initrd.* "${DISTDIR}"/bootcd/boot/initrd-usb.img &>/dev/null
 
 #on copie stage2_eltorito
+echo "{$UBUKEYDIR}"
 if [ -z "$x64" ]; then
-	cp "{$UBUKEYDIR}"/i386/stage2_eltorito "${DISTDIR}"/bootcd/boot/grub/
+	cp "${UBUKEYDIR}"/data/grub/i386/stage2_eltorito "${DISTDIR}"/bootcd/boot/grub/
 else
-	cp "{$UBUKEYDIR}"/x86_64/stage2_eltorito "${DISTDIR}"/bootcd/boot/grub/
+	cp "${$UBUKEYDIR}"/data/grub/x86_64/stage2_eltorito "${DISTDIR}"/bootcd/boot/grub/
 fi
 
 echo -e "Genere le fichier de conf extlinux"
