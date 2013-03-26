@@ -205,8 +205,6 @@ class Distribs(object):
 		self.optswin.set_position("center")
 		self.gui.resolution_entry.set_text(self.gui.resolution)
 		response = self.optswin.run()
-		if response == gtk.RESPONSE_DELETE_EVENT or response == gtk.RESPONSE_CANCEL:
-			self.optwin.hide()
 		
 	def close_options_dialog(self):
 		res = self.gui.resolution_entry.get_text()
