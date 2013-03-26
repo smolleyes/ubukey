@@ -39,7 +39,6 @@ rsync -uravH --delete --exclude ".git" --exclude "~" "$UBUKEYDIR"/. "${DISTDIR}"
 if [ ! -e "${DISTDIR}"/chroot/usr/share/ubukey/addons/custom ]; then
 mkdir -p "${DISTDIR}"/chroot/usr/share/ubukey/addons/custom
 fi
-echo "$(dirname $DISTDIR)"/../addons/custom/.
 rsync -uravH --delete --exclude ".git" --exclude "~" "$(dirname $DISTDIR)"/../addons/custom/. "${DISTDIR}"/chroot/usr/share/ubukey/addons/custom/. &>/dev/null
 chmod +x "${DISTDIR}"/chroot/usr/share/ubukey/scripts/*
 fi
