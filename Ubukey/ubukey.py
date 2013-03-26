@@ -23,6 +23,7 @@ class Ubukey_gui(object):
 		if os.getuid() == 0:
 			self.error_dialog(_("Ubukey can't start as root user ..."),None)
 			exit()
+		self.selected_dist_path=None
 		## set the gladexml file
 		self.gladexml = gtk.glade.XML(GLADE_FILE, None ,APP_NAME)
 		self.plugins_dialog = self.gladexml.get_widget("plugins_dialog")
@@ -82,11 +83,11 @@ class Ubukey_gui(object):
 		self.plugTree = gtk.TreeView()
 		self.plugTree.set_model(self.plugins_model)
 		renderer = gtk.CellRendererText()
-		titleColumn = gtk.TreeViewColumn("Name", renderer, text=0)
-		titleColumn.set_min_width(200)
+		renderer.connect('edited', self.rename_plugin)
+		renderer.set_property('editable', True)
 		pathColumn = gtk.TreeViewColumn()
 	
-		self.plugTree.append_column(titleColumn)
+		self.plugTree.insert_column_with_attributes(-1, 'Name', renderer, text=0)
 		self.plugTree.append_column(pathColumn)
 		
 		columns = self.plugTree.get_columns()
@@ -130,7 +131,7 @@ class Ubukey_gui(object):
     
 	def start_gui(self):
 		try:
-			main_dist_path,dist_list,RESOLUTION = scan_dist_path()
+			self.main_dist_path,dist_list,RESOLUTION = scan_dist_path()
 		except:
 			path = checkConf()
 			return self.start_gui()
@@ -153,6 +154,14 @@ class Ubukey_gui(object):
 	def error_dialog(self,message, parent = None):
 		"""Displays an error message."""
 		dialog = gtk.MessageDialog(parent = parent, type = gtk.MESSAGE_ERROR, buttons = gtk.BUTTONS_OK, flags = gtk.DIALOG_MODAL)
+		dialog.set_markup(message)
+		dialog.set_position('center')
+		result = dialog.run()
+		dialog.destroy()
+		
+	def warning_dialog(self,message,parent=None):
+		"""Displays an warning/info message."""
+		dialog = gtk.MessageDialog(parent = parent, type = gtk.MESSAGE_WARNING, buttons = gtk.BUTTONS_OK, flags = gtk.DIALOG_MODAL)
 		dialog.set_markup(message)
 		dialog.set_position('center')
 		result = dialog.run()
@@ -245,6 +254,9 @@ class Ubukey_gui(object):
 	
 	def exec_options_dialog(self,widget):
 		self.distribs.options_dialog()
+	
+	def rename_plugin(self,widget,cell,newText):
+		self.distribs.rename_plugin(newText)
 	
 	def close_options_dialog(self,widget):
 		self.distribs.close_options_dialog()

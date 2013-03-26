@@ -20,6 +20,8 @@ class Distribs(object):
 			self.username = os.environ.get('USER')
 			
 	def start(self):
+		if self.gui.selected_dist_path is None:
+			return
 		self.chroot_script = os.path.join(scripts_path,'dochroot.sh')
 		crun = os.popen("ps aux | grep '/bin/bash' | grep -e "+scripts_path+'/dochroot'" | grep -v 'grep'").read().strip()
 		xrun = os.popen("ps aux | grep '/bin/bash' | grep -e "+scripts_path+'/startchroot'" | grep -v 'grep'").read().strip()
@@ -31,17 +33,20 @@ class Distribs(object):
 		self.gui.run_btn_img.set_from_stock(gtk.STOCK_STOP,gtk.ICON_SIZE_BUTTON)
 		self.gui.run_btn_state = "started"
 		self.gui.vt.log(_("distribution started"))
-	#self.gui.notebook.set_current_page(1)
-		self.gui.vt.run_command('gksu %s %s %s' % (self.chroot_script, self.gui.selected_dist_path, self.username))
-		self.pid = os.popen("ps aux | grep -e 'dochroot' | grep -v 'grep'").read().strip()
-		while 1:
-			t = os.popen("ps aux | grep -e 'bash "+scripts_path+'/dochroot'" | grep -v 'grep'").read().strip()
-			if not t == '':
-				time.sleep(5)
-			else:
-				if self.gui.run_btn_state == "started":
-					self.stop()
-				break
+		#self.gui.notebook.set_current_page(1)
+		try:
+			self.gui.vt.run_command('gksu %s %s %s' % (self.chroot_script, self.gui.selected_dist_path, self.username))
+			self.pid = os.popen("ps aux | grep -e 'dochroot' | grep -v 'grep'").read().strip()
+			while 1:
+				t = os.popen("ps aux | grep -e 'bash "+scripts_path+'/dochroot'" | grep -v 'grep'").read().strip()
+				if not t == '':
+					time.sleep(5)
+				else:
+					if self.gui.run_btn_state == "started":
+						self.stop()
+					break
+		except:
+			pass
 		
 	def stop(self):
 		t=os.popen("ps aux | grep 'startchroot' | grep -v 'grep' | awk '{print $2}' | xargs").read().strip()
@@ -137,15 +142,23 @@ class Distribs(object):
 	def plugins_dialog(self):
 		self.optwin = self.gui.plugins_dialog
 		self.optwin.set_position("center")
-		self.gui.plugins_model.clear()
-		for root, dirnames, filenames in os.walk(os.path.join(self.main_dist_path,'addons/custom')):
-			for filename in fnmatch.filter(filenames, '*.sh'):
-				self.add_plugin_model(filename, root)
+		self.update_plugins_list()
 		self.gui.plug_scroll.show_all()
 		response = self.optwin.run()
 		if response == gtk.RESPONSE_DELETE_EVENT or response == gtk.RESPONSE_CANCEL:
 			self.optwin.hide()
 			
+	def update_plugins_list(self):
+		self.gui.plugins_model.clear()
+		for root, dirnames, filenames in os.walk(os.path.join(self.main_dist_path,'addons/custom')):
+			for filename in fnmatch.filter(filenames, '*.sh'):
+				self.add_plugin_model(filename, root)
+			
+	def rename_plugin(self,newText):
+		plugpath=os.path.join(self.main_dist_path,'addons/custom')
+		os.rename(self.gui.selected_plug_path,os.path.join(plugpath,newText))
+		self.update_plugins_list()
+	
 	def delete_plug(self):
 		try:
 			print _("removing the plugin %s ") % self.gui.selected_plug_path
@@ -161,26 +174,26 @@ class Distribs(object):
 			os.makedirs(plugpath)
 		plug = open(os.path.join(plugpath,'new.sh'), "w")
 		plug.write ('''#!/bin/bash
-		###########
-		#
-		# Note:
-		# -----
-		# please always use "xterm -e" and/or zenity 
-		# to start/show your scripts 
-		#
-		###########
-		#
-		# Please add a description here, it will be viewable in the 
-		# ubukey addons manager under the chroot ! 
-		
-		DESCRIPTION=""
-		
-		############
-		#
-		# Your code here...
-		
-		
-		''')
+###########
+#
+# Note:
+# -----
+# please always use "xterm -e" and/or zenity 
+# to start/show your scripts 
+#
+###########
+#
+# Please add a description here, it will be viewable in the 
+# ubukey addons manager under the chroot ! 
+
+DESCRIPTION=""
+
+############
+#
+# Your code here...
+
+
+''')
 		plug.close()
 		self.optwin.hide()
 		nfile = os.path.join(self.main_dist_path,'addons/custom/new.sh')
@@ -193,6 +206,7 @@ class Distribs(object):
 		gobject.child_watch_add(pid, self.task_done,data)
 		
 	def task_done(self,pid,ret,data):
+		self.gui.warning_dialog('Please rename your plugin!')
 		self.plugins_dialog()
 		
 	def edit_plug(self):
