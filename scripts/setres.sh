@@ -2,7 +2,9 @@
 
 r=$(xrandr --current | grep '*' | uniq | awk '{print $1}')
 count=`echo -e "$r" | wc -l ` &>/dev/null
-gksu rm /tmp/zenity* &>/dev/null
+if [ -e /tmp/zenity ]; then
+	gksu rm /tmp/zenity* &>/dev/null
+fi
 
 res=''
 echo -e "#!/bin/bash

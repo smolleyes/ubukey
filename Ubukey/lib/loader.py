@@ -13,31 +13,33 @@ def checkConf():
 	## load config and verify main distrib dir
 	try:
 		main_dist_path,dist_list,RESOLUTION = scan_dist_path()
-		dist_path=main_dist_path+'/distribs'
+		path=main_dist_path+'/distribs'
 	except:
 		path = FirstRun()
+		print "generate config file..."
 		generate_config(path)
-	return loadConf()
+	return loadConf(path)
 	
-def loadConf():
+def loadConf(path=None):
 	main_dist_path,dist_list,RESOLUTION = scan_dist_path()
-	print main_dist_path,dist_list,RESOLUTION
 	dist_path=main_dist_path+'/distribs'
 	if not os.access(main_dist_path, os.R_OK):
-		error_dialog(_("Your distrubution's folder :\n%s \nis not accessible, unmounted or removed (recreate it)...") % main_dist_path)
+		error_dialog(_("Your distribution's folder :\n%s \nis not accessible, unmounted or removed (recreate it)...") % main_dist_path)
 		sys.exit()
-	if not os.path.exists(os.path.join(main_dist_path,'addons/custom')):
-		os.mkdir(os.path.join(main_dist_path,'addons/custom'))
-	
-		print _("selected path : %s") % path
-		listdir = ("distribs","isos","temp","addons/precise",
-				   "addons/precise/gnome","addons/precise/kde4",
-				   "addons/precise/xfce4","addons/precise/lxde",
+	# verify conf dirs
+	flavours=['precise','quantal','raring']
+	for flavour in flavours:
+		listdir = ("distribs","isos","temp","addons/%s" % flavour,
+				   "addons/%s/gnome" % flavour,"addons/%s/kde4" % flavour,
+				   "addons/%s/xfce4" % flavour,"addons/%s/lxde" % flavour,
 				   "addons/custom","addons/all")
 		for d in listdir:
 			target = os.path.join(path,d)
 			if not path_exist(target):
-				create_dir(target)
+				try:
+					create_dir(target)
+				except:
+					print 'can t create dir %s' % target
             
 ## LOGS
 if not path_exist(LOGDIR):
