@@ -8,7 +8,7 @@ XS-Python-Version: current
 
 Package: ubukey
 Architecture: all
-Depends: ${misc:Depends}, python (>= 2.6), xserver-xephyr, extlinux, python-vte, python-xlib, python-glade2, squashfs-tools, python-gtk2, genisoimage, gksu, git-core, bindfs, debootstrap, imagemagick, util-linux, coreutils, mtools, mbr, zlib1g-dev, e2fsprogs, parted, dosfstools, e2fsprogs, wget, sleuthkit, xfonts-cyrillic, gfxboot-dev, curl, zenity, xdg-utils, python-gobject, dconf-tools, x11-xserver-utils
+Depends: ${misc:Depends}, python (>= 2.6), xserver-xephyr,extlinux,python-vte,python-xlib,python-glade2,squashfs-tools,python-gtk2,genisoimage,gksu,git-core,bindfs,debootstrap,imagemagick,util-linux,coreutils,mtools,mbr,zlib1g-dev,e2fsprogs,parted,dosfstools,e2fsprogs,wget,sleuthkit,xfonts-cyrillic,gfxboot-dev,curl,zenity,xdg-utils,python-gobject,dconf-tools,x11-xserver-utils,gettext
 XB-Python-Version: ${python:Versions}
 Provides: ${python:Provides}
 Description: Create or customize and export ubuntu based distributions on usb/iso

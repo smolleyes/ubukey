@@ -2,8 +2,17 @@
 
 import sys, os
 from stat import *
+from setuptools import find_packages
 from distutils.core import setup
 from distutils.command.install import install as _install
+
+try:
+    from DistUtilsExtra.command import *
+except ImportError:
+    print 'Cannot install ubukey :('
+    print 'Would you please install package "python-distutils-extra and python-setuptools" first?'
+    sys.exit()
+import glob
 
 INSTALLED_FILES = '.installed_files'
 
@@ -51,47 +60,39 @@ data_files = [
 	('share/icons/hicolor/48x48/apps',['images/48x48/ubukey.png']),
 	('share/applications',['ubukey.desktop']),
 	('share/ubukey/data/glade',['data/glade/gui.glade']),
-    ('share/ubukey/images', ['images/logo_xfce4.png',
-    'images/vbox.png',  'images/splash.jpg',  'images/usbkey.png',
-    'images/logo_kde4.png',  'images/logo_gnome.png', 
-    'images/home-rw.png', 'images/logo_lxde.png', 'images/ubukeymaker.png'
-    ]),
-    ('share/ubukey/conf_files', ['conf_files/syslinux.cfg']), 
-    ('share/ubukey/deboot-modules', ['deboot-modules/lxde', 
-    'deboot-modules/gnome',  'deboot-modules/xfce4',  'deboot-modules/kde4',
-    ]),
-    ('share/ubukey/scripts', ['scripts/dochroot.sh',  'scripts/ubusrc-gen',  'scripts/create_dist.sh',
-    'scripts/debootstrap_dist.sh',  'scripts/mkbootcd.sh',  'scripts/ubukey-addons_manager.sh',
-    'scripts/clone_dist.sh',  'scripts/themescan.sh',  'scripts/localiser-kde.sh',
-    'scripts/ubukey-kde4.sh',  'scripts/ubukey-gnome.sh',  'scripts/export_dist.sh',
-    'scripts/localiser.sh',  'scripts/scankey.sh',  'scripts/vbox.sh',
-    'scripts/ubukey-xfce4.sh',  'scripts/virtualbox.sh',  'scripts/remove_dist.sh',
-    'scripts/debootstrap-packages.sh','scripts/debootstrap_packages_chooser.sh'
-    ]),
-    ('share/ubukey/launchers', ['launchers/gfx',  'launchers/Ubukeymaker.desktop',
-    'launchers/wicd',  'launchers/mountrw.sh',  'launchers/sizer',  'launchers/gc.desktop',
-    'launchers/ubukey.desktop'
-    ]),
-    ('share/ubukey/addons/all', ['addons/all/fix-tty.sh',
-    'addons/all/utilisateur-live.sh', 'addons/all/installer.sh',  'addons/all/clone-pkglist.sh',
-    'addons/all/live-homerw.sh'
-    ]),
-    ('share/ubukey/addons/maverick/lxde', ['addons/maverick/lxde/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/maverick/gnome', ['addons/maverick/gnome/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/maverick/xfce4', ['addons/maverick/xfce4/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/natty/lxde', ['addons/natty/lxde/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/natty/gnome', ['addons/natty/gnome/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/natty/xfce4', ['addons/natty/xfce4/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/lucid/lxde', ['addons/lucid/lxde/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/lucid/gnome', ['addons/lucid/gnome/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/lucid/xfce4', ['addons/lucid/xfce4/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/oneiric/lxde', ['addons/oneiric/lxde/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/oneiric/gnome', ['addons/oneiric/gnome/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/oneiric/xfce4', ['addons/oneiric/xfce4/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/precise/lxde', ['addons/precise/lxde/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/precise/gnome', ['addons/precise/gnome/codecs-gstreamer.sh']),
-    ('share/ubukey/addons/precise/xfce4', ['addons/precise/xfce4/codecs-gstreamer.sh']),
-]
+	('share/ubukey/data/grub/i386',['data/grub/i386/stage2_eltorito']),
+	('share/ubukey/data/grub/x86_64',['data/grub/x86_64/stage2_eltorito']),
+	('share/ubukey/images', ['images/logo_xfce4.png',
+	'images/vbox.png',  'images/splash.jpg',  'images/usbkey.png',
+	'images/logo_kde4.png',  'images/logo_gnome.png', 
+	'images/home-rw.png', 'images/logo_lxde.png', 'images/ubukeymaker.png','images/multisystem-liveusb.png'
+	]),
+	('share/ubukey/conf_files', ['conf_files/syslinux.cfg','conf_files/extlinux.conf']), 
+	('share/ubukey/deboot-modules', ['deboot-modules/lxde', 
+	'deboot-modules/gnome',  'deboot-modules/xfce4',  'deboot-modules/kde4','deboot-modules/cinnamon','deboot-modules/gnome-shell',
+	]),
+	('share/ubukey/scripts', ['scripts/dochroot.sh',  'scripts/ubusrc-gen',  'scripts/create_dist.sh',
+	'scripts/debootstrap_dist.sh',  'scripts/mkbootcd.sh',  'scripts/ubukey-addons_manager.sh',
+	'scripts/clone_dist.sh',  'scripts/themescan.sh',  'scripts/localiser-kde.sh',
+	'scripts/ubukey-kde4.sh',  'scripts/ubukey-gnome.sh',  'scripts/export_dist.sh',
+	'scripts/localiser.sh',  'scripts/scankey.sh',  'scripts/vbox.sh',
+	'scripts/ubukey-xfce4.sh',  'scripts/virtualbox.sh',  'scripts/remove_dist.sh',
+	'scripts/debootstrap-packages.sh','scripts/debootstrap_packages_chooser.sh','scripts/multiboot.sh',
+	]),
+	('share/ubukey/launchers', ['launchers/gfx',  'launchers/Ubukeymaker.desktop',
+	'launchers/wicd',  'launchers/mountrw.sh',  'launchers/sizer',  'launchers/gc.desktop',
+	'launchers/ubukey.desktop'
+	]),
+	('share/ubukey/addons/all', ['addons/all/fix-tty.sh',
+	'addons/all/utilisateur-live.sh', 'addons/all/installer.sh',  'addons/all/clone-pkglist.sh',
+	'addons/all/live-homerw.sh'
+	]),
+	('share/ubukey/addons/raring/lxde', ['addons/raring/lxde/codecs-gstreamer.sh']),
+	('share/ubukey/addons/raring/gnome', ['addons/raring/gnome/codecs-gstreamer.sh']),
+	('share/ubukey/addons/raring/xfce4', ['addons/raring/xfce4/codecs-gstreamer.sh']),
+	('share/ubukey/addons/precise/lxde', ['addons/precise/lxde/codecs-gstreamer.sh']),
+	('share/ubukey/addons/precise/gnome', ['addons/precise/gnome/codecs-gstreamer.sh']),
+	('share/ubukey/addons/precise/xfce4', ['addons/precise/xfce4/codecs-gstreamer.sh'])]
 
 
 setup(
@@ -104,9 +105,13 @@ setup(
 	packages=packages,
 	scripts=['ubukey'],
 	data_files=data_files,
-	cmdclass={
-		'uninstall': uninstall,
-		'install': install},
+	cmdclass={'build' :  build_extra.build_extra,
+	    'build_i18n' :  build_i18n.build_i18n,
+	    'build_help' :  build_help.build_help,
+	    'build_icons' :  build_icons.build_icons,
+	    'uninstall': uninstall,
+	    'install': install,
+	    },
 )
 
 #Stolen from ccsm's setup.py
@@ -129,7 +134,7 @@ if sys.argv[1] == 'install':
 			i += 1
 
 	if not prefix:
-		prefix = '/usr/local'
+		prefix = '/usr'
 	gtk_update_icon_cache = '''gtk-update-icon-cache -f -t \
 %s/share/icons/hicolor''' % prefix
 	root_specified = [s for s in sys.argv if s.startswith('--root')]
