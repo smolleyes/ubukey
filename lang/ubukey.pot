@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-18 00:14+0200\n"
+"POT-Creation-Date: 2013-04-25 21:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,31 +17,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:30
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:25
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:26
 msgid "Preparing chroot, please wait..."
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
 #, sh-format
 msgid "Session choice"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
 #, sh-format
 msgid "Choice"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
 #, sh-format
 msgid "Session"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
 #, sh-format
 msgid "Choose the session to start"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:129
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:115
 #, sh-format
 msgid ""
@@ -49,6 +55,7 @@ msgid ""
 "canceled"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:146
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:128
 #, sh-format
 msgid ""
@@ -57,6 +64,7 @@ msgid ""
 "session, themes copy canceled..."
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:150
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:132
 #, sh-format
 msgid ""
@@ -66,50 +74,61 @@ msgid ""
 "click on \\\"Yes\\\" to continue"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:205
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:186
 #, sh-format
 msgid "Copy ubukey and custom addons for your $sessionType session"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:287
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:269
 #, sh-format
 msgid "Verifying packages sources, please wait..."
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:29
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:27
 msgid "a session is already running"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:32
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:30
 msgid "Stop"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:35
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:33
 msgid "distribution started"
 msgstr ""
 
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:52
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:57
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:115
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:52
 msgid "Start"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:60
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:55
 msgid "distribution stopped"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:65
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:60
 msgid "updating distribution list..."
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:70
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:65
 #, python-format
 msgid "no configuration file found : %s"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:105
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:100
 msgid "remove a distribution"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:105
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:100
 #, python-format
 msgid ""
@@ -117,47 +136,35 @@ msgid ""
 "%s  ?"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:164
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:151
 #, python-format
 msgid "removing the plugin %s "
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:171
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:158
 msgid "creating new plugin..."
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:213
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:195
 #, python-format
 msgid "edit the plugin %s "
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:242
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:208
 #, python-format
 msgid "Opening folder %s"
 msgstr ""
 
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:15
-#, python-format
-msgid "selected path : %s"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:35
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:27
 #, python-format
 msgid ""
-"Your distrubution's folder :\n"
+"Your distribution's folder :\n"
 "%s \n"
 "is not accessible, unmounted or removed (recreate it)..."
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:61
-msgid "Select a folder for your distributions"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:75
-msgid ""
-"Please select another folder (no ntfs/fat partitions or partitions mounted "
-"with nosuid/nodev/noexec options or root protected...please correct fstab or "
-"choose another partition!)"
 msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/functions.py:56
@@ -167,11 +174,6 @@ msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/Ubukey/ubukey.py:24
 msgid "Ubukey can't start as root user ..."
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/ubukey.py:132
-#, python-format
-msgid "Xephyr's screen size : %s"
 msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:71
@@ -206,22 +208,76 @@ msgstr ""
 msgid "MultiBoot"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:483
+msgid "Préférences"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:551
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:496
 msgid "<b>Distribution list : </b>"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:601
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:546
 msgid "Open source folder"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:790
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:735
 msgid "Distributions"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:825
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:770
 msgid "Viewer"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:858
+msgid "Options"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:924
+msgid "Resolution: "
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:969
+msgid "Général"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1005
+msgid "Ubukey plugins"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1136
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:935
 msgid "<b>Plugins : </b>"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:15
+#, python-format
+msgid "selected path : %s"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:35
+#, python-format
+msgid ""
+"Your distrubution's folder :\n"
+"%s \n"
+"is not accessible, unmounted or removed (recreate it)..."
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:61
+msgid "Select a folder for your distributions"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:75
+msgid ""
+"Please select another folder (no ntfs/fat partitions or partitions mounted "
+"with nosuid/nodev/noexec options or root protected...please correct fstab or "
+"choose another partition!)"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/ubukey.py:132
+#, python-format
+msgid "Xephyr's screen size : %s"
 msgstr ""

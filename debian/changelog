@@ -1,5 +1,8 @@
-ubukey (0.2.3.1-0ppa2~precise) precise; urgency=high
+ubukey (0.2.5-0ppa1~raring) raring; urgency=high
 
-  * fix virtualbox!
+  * add raring support
+  * rewrited plugins section
+  * integrate multiboot
+  * many many fix...
 
- -- Laguillaumie sylvain <s.lagui@free.fr>  Tue, 15 Feb 2012 16:54:03 +0100
+ -- Laguillaumie sylvain <s.lagui@free.fr>  Tue, 25 Apr 2013 21:08:03 +0100
