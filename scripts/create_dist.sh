@@ -22,6 +22,14 @@ function create_dist()
 	Si vous comptez utiliser un iso perso ou d'une autre distribution
 	Choisissez son equivalence (gnome, kde, xfce etc...)
 	" \
+		FALSE "Raring-ringtail" "Ubuntu raring i386" \
+		FALSE "Raring-ringtail-64" "Ubuntu raring 64 bits" \
+		FALSE "Raring-kubuntu" "Kubuntu raring i386" \
+		FALSE "Raring-kubuntu-64" "Kubuntu raring 64 bits" \
+		FALSE "Raring-lubuntu" "Lubuntu raring i386" \
+		FALSE "Raring-lubuntu-64" "Lubuntu raring 64 bits" \
+		FALSE "Raring-xubuntu" "Xubuntu raring i386" \
+		FALSE "Raring-xubuntu-64" "Xubuntu raring 64 bits" \
 		FALSE "Quantal-quetzal" "Ubuntu Quantal i386" \
 		FALSE "Quantal-quetzal-64" "Ubuntu Quantal 64 bits" \
 		FALSE "Quantal-kubuntu" "Kubuntu Quantal i386" \
@@ -38,7 +46,6 @@ function create_dist()
 		FALSE "Precise-lubuntu-64" "Lubuntu precise pangolin 64 bits" \
 		FALSE "Precise-xubuntu" "Xubuntu precise pangolin" \
 		FALSE "Precise-xubuntu-64" "Xubuntu precise pangolin 64 bits" \
-		FALSE "Raring-daily" "Ubuntu raring daily iso i386" \
 		FALSE "Custom" "Preparer vos distribution par debootstrap (Expert!)"
 	`
 	# cd /tmp
@@ -46,14 +53,53 @@ function create_dist()
 	# wget http://cdimage.ubuntu.com/daily-live/current/MD5SUMS
 	# MD5SUM=$(cat MD5SUMS | grep desktop-i386 | awk '{print $1}')
 	case $DISTCHOICE in
-		Raring-daily)
-		ISOURL="http://cdimage.ubuntu.com/daily-live/current/raring-desktop-i386.iso"
-		ISONAME="raring-desktop-i386.iso"
+		Raring-ringtail)
+		ISOURL="http://releases.ubuntu.com/13.04/ubuntu-13.04-desktop-i386.iso"
+		ISONAME="ubuntu-13.04-desktop-i386.iso"
 		ISOTYPE="gnome"
-		cd /tmp
-		rm MD5* >/dev/null
-		wget http://cdimage.ubuntu.com/daily-live/current/MD5SUMS
-		MD5SUM=$(cat MD5SUMS | grep desktop-i386 | awk '{print $1}')
+		MD5SUM="5d5d1a7da2a0659b163d4f8bd70fbe6f"
+		;;
+		Raring-ringtail-64)
+		ISOURL="http://releases.ubuntu.com/13.04/ubuntu-13.04-desktop-amd64.iso"
+		ISONAME="ubuntu-13.04-desktop-amd64.iso"
+		ISOTYPE="gnome"
+		MD5SUM="8d72e2db7e72e13813731eab37a14d26"
+		;;
+		Raring-kubuntu)
+		ISOURL="http://cdimage.ubuntu.com/kubuntu/releases/13.04/release/kubuntu-13.04-desktop-i386.iso"
+		ISONAME="kubuntu-13.04-desktop-i386.iso"
+		ISOTYPE="kde4"
+		MD5SUM="3db062392b1978bbdb8422aee2724a69"
+		;;
+		Raring-kubuntu-64)
+		ISOURL="http://cdimage.ubuntu.com/kubuntu/releases/13.04/release/kubuntu-13.04-desktop-amd64.iso"
+		ISONAME="kubuntu-13.04-desktop-amd64.iso"
+		ISOTYPE="kde4"
+		MD5SUM="a3d32a4dc840c20c70ae4839341ef605"
+		;;
+		Raring-xubuntu)
+		ISOURL="http://cdimage.ubuntu.com/xubuntu/releases/13.04/release/xubuntu-13.04-desktop-i386.iso"
+		ISONAME="xubuntu-13.04-desktop-i386.iso"
+		ISOTYPE="xfce4"
+		MD5SUM="1048df77899ca8d9d6ba23427b4d6259"
+		;;
+		Raring-xubuntu-64)
+		ISOURL="http://cdimage.ubuntu.com/xubuntu/releases/13.04/release/xubuntu-13.04-desktop-amd64.iso"
+		ISONAME="xubuntu-13.04-desktop-amd64.iso"
+		ISOTYPE="xfce4"
+		MD5SUM="8b7d7168b67c58307fa46d683d98c68e"
+		;;
+		Raring-lubuntu)
+		ISOURL="http://cdimage.ubuntu.com/lubuntu/releases/13.04/release/lubuntu-13.04-desktop-i386.iso"
+		ISONAME="lubuntu-13.04-desktop-i386.iso"
+		ISOTYPE="lxde"
+		MD5SUM="486d94f51b42b401ab72ca8fcedb2e97"
+		;;
+		Raring-lubuntu-64)
+		ISOURL="http://cdimage.ubuntu.com/lubuntu/releases/13.04/release/lubuntu-13.04-desktop-amd64.iso"
+		ISONAME="lubuntu-13.04-desktop-amd64.iso"
+		ISOTYPE="lxde"
+		MD5SUM="4b8abeb5d1fb8caf314fe5e1e839193a"
 		;;
 		Quantal-quetzal)
 		ISOURL="http://ubuntu.mirrors.proxad.net/quantal/ubuntu-12.10-desktop-i386.iso"
