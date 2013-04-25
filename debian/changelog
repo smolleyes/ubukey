@@ -1,4 +1,4 @@
-ubukey (0.2.5-0ppa1~raring) raring; urgency=high
+ubukey (0.2.5-0ppa2~raring) raring; urgency=high
 
   * add raring support
   * rewrited plugins section
