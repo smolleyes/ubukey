@@ -20,8 +20,8 @@ sudo aptitude -y purge $todel
 
 #################### 
 #installe paquets fr
-echo -e "(Re)installation des  paquets language-pack-kde-$LOCALSIMPLE language-pack-kde-$LOCALSIMPLE-base aspell-$LOCALSIMPLE gimp-help-$LOCALSIMPLE ifrench-gut language-support-$LOCALSIMPLE language-support-translations-$LOCALSIMPLE language-support-writing-$LOCALSIMPLE myspell-$LOCALSIMPLE-gut openoffice.org-help-$LOCALSIMPLE openoffice.org-l10n-$LOCALSIMPLE thunderbird-locale-$LOCALSIMPLE kde-l10n-$LOCALSIMPLE language-pack-$LOCALSIMPLE wfrench \n"
-apt-get -y --force-yes install language-pack-kde-$LOCALSIMPLE language-pack-kde-$LOCALSIMPLE-base aspell-$LOCALSIMPLE ifrench-gut language-support-$LOCALSIMPLE language-support-translations-$LOCALSIMPLE language-support-writing-$LOCALSIMPLE openoffice.org-help-$LOCALSIMPLE openoffice.org-l10n-$LOCALSIMPLE thunderbird-locale-$LOCALSIMPLE kde-l10n-$LOCALSIMPLE language-pack-$LOCALSIMPLE wfrench
+echo -e "(Re)installation des  paquets language-pack-kde-$LOCALSIMPLE language-pack-kde-$LOCALSIMPLE-base aspell-$LOCALSIMPLE ifrench-gut myspell-$LOCALSIMPLE-gut thunderbird-locale-$LOCALSIMPLE kde-l10n-$LOCALSIMPLE language-pack-$LOCALSIMPLE wfrench \n"
+apt-get -y --force-yes install language-pack-kde-$LOCALSIMPLE language-pack-kde-$LOCALSIMPLE-base aspell-$LOCALSIMPLE ifrench-gut myspell-$LOCALSIMPLE-gut thunderbird-locale-$LOCALSIMPLE kde-l10n-$LOCALSIMPLE language-pack-$LOCALSIMPLE wfrench
 
 ############ 
 # localepurge
