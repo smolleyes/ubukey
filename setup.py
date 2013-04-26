@@ -89,6 +89,9 @@ data_files = [
 	('share/ubukey/addons/raring/lxde', ['addons/raring/lxde/codecs-gstreamer.sh']),
 	('share/ubukey/addons/raring/gnome', ['addons/raring/gnome/codecs-gstreamer.sh']),
 	('share/ubukey/addons/raring/xfce4', ['addons/raring/xfce4/codecs-gstreamer.sh']),
+	('share/ubukey/addons/quantal/lxde', ['addons/quantal/lxde/codecs-gstreamer.sh']),
+	('share/ubukey/addons/quantal/gnome', ['addons/quantal/gnome/codecs-gstreamer.sh']),
+	('share/ubukey/addons/quantal/xfce4', ['addons/quantal/xfce4/codecs-gstreamer.sh']),
 	('share/ubukey/addons/precise/lxde', ['addons/precise/lxde/codecs-gstreamer.sh']),
 	('share/ubukey/addons/precise/gnome', ['addons/precise/gnome/codecs-gstreamer.sh']),
 	('share/ubukey/addons/precise/xfce4', ['addons/precise/xfce4/codecs-gstreamer.sh'])]
