@@ -1,11 +1,7 @@
 #-*- coding: UTF-8 -*-
 import os,gtk
 import gettext 
-
-try:
-    from lib.Translation import Translation
-except:
-    from Ubukey.lib.Translation import Translation
+from translation import Translation
 
 version = "0.1"
 APP_NAME = 'ubukey'
