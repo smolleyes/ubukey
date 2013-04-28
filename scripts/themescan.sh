@@ -180,7 +180,7 @@ sleep 5
 if [ $chspaceB -lt $fcountB ]; then
 	echo -e "Vous n'avez pas assez d'espace disponible ! \n
 Faites le ménage sous chroot ou utilisez le menu de clonage de votre distribution \n
-pour augmenter la taille de votre image ext3
+pour augmenter la taille de votre image ext4
 "
 sleep 5
 else ## continue jusqu a fin clone
@@ -275,6 +275,10 @@ fi ##fin check elements theme actif
 echo -e "\nCopie de vos dossiers de configuration terminée \n"
 sleep 5
 
+cp -f /etc/apt/sources.list "${DISTDIR}"/chroot/etc/ubukey/sources
+cp -Rf /etc/apt/sources.list.d "${DISTDIR}"/chroot/etc/ubukey/sources
+cp -f /etc/apt/trusted.gpg "${DISTDIR}"/chroot/etc/ubukey/sources
+
 chroot "$DISTDIR"/chroot << "EOF"
 
 function message()
@@ -288,20 +292,16 @@ echo -e "$message"
 ## prepare sources et cle gpg...
 message "Prépare le dossier apt avec votre sources.list, cle et liste de paquets à copier \n"
 ## alors on deplace le sources.list du script 
-rm /var/cache/apt/pkgcache.bin
-rm /var/cache/apt/srcpkgcache.bin
 mv /etc/apt/sources.list /etc/apt/sources.list.script
 mv /etc/apt/trusted.gpg /etc/apt/trusted.gpg.script
 ## et copie le sources.list etc injectes precedement
-cp -R -f /etc/ubukey/sources/. /etc/apt/.
+cp -Rf /etc/ubukey/sources/* /etc/apt
 
 ## met a jour avec le nouveau sources.list etc
 message "Copie ok, mise a jour des sources...\n "
-apt-get update | tee -a /tmp/chrootlog.log
+apt-get update
 
-exit
 EOF
-killall -9 tail
 
 ## liste des paquets dans le chroot
 chroot "$DISTDIR"/chroot << "EOF"
@@ -317,8 +317,13 @@ dpkg-query -W --showformat='${Package}\n' | sed '/^$/d' | sort > /tmp/locallist
 ## liste des paquets non installés dans chroot par comparaison (et vire fglrx/nvidia...)
 ORIGLIST="$(diff -y /tmp/locallist ${DISTDIR}/chroot/tmp/chrootlist | grep "<" | awk '{print $1}' | sed 's/nvidia.*//;s/xorg-driver-fglrx.*//;s/fglrx.*//;/.*-dev/d;/adobe/d;/.wine/d' | sed '/^$/d')"
 
+REMOVLIST="$(diff -y /tmp/locallist ${DISTDIR}/chroot/tmp/chrootlist | grep ">" | awk '{print $2}' | sed 's/nvidia.*//;s/xorg-driver-fglrx.*//;s/fglrx.*//;/.*-dev/d;/adobe/d;/.wine/d;/casper/d;/ubiquity/d;/linux-/d;/user-setup/d' | sed '/^$/d')"
+
+echo "$REMOVLIST" | tee "$DISTDIR"/chroot/tmp/removlist &>/dev/null
 echo "$ORIGLIST" | tee "$DISTDIR"/chroot/tmp/pkglist &>/dev/null
+
 chroot "$DISTDIR"/chroot << "EOF"
+rm /tmp/uninstlist
 
 function message()
 {
@@ -329,6 +334,9 @@ echo -e "$message" | tee -a /tmp/chrootlog.log &>/dev/null
 
 ORIGLIST="$(cat /tmp/pkglist)"
 >/tmp/uninstlist
+
+message "\nRemoving packages uninstalled in your local system...PLEASE WAIT"
+sudo apt-get -y --force-yes remove `cat /tmp/removlist | xargs`
 
 message "\nExtraction de la liste des paquets disponibles pour installation \n"
 sleep 1
@@ -343,7 +351,6 @@ fi
 done
 exit
 EOF
-killall -9 tail
 
 ## liste des paquets non presents dans le chroot
 DIFFLIST="$(cat $DISTDIR/chroot/tmp/pkglist | sed '/^$/d')"
@@ -351,38 +358,36 @@ DIFFLIST="$(cat $DISTDIR/chroot/tmp/pkglist | sed '/^$/d')"
 UNINLIST="$(cat $DISTDIR/chroot/tmp/uninstlist | sed '/^$/d')"
 
 if [ -n "$UNINLIST" ]; then
-		echo -e "\nLes paquets qui vont etre affiches ne sont pas installables depuis les depots actuels Vous avez du les installer depuis un site ou autre... a vous de le reinstaller dans le chroot : \n"
+echo -e "\nLes paquets qui vont etre affiches ne sont pas installables depuis les depots actuels Vous avez du les installer depuis un site ou autre... a vous de le reinstaller dans le chroot : \n"
 sleep  5
 echo "$UNINLIST" | xargs | tee -a "$DISTDIR"/save/failed_pkglist.txt
 fi
 
 echo -e "\nLa liste des ces fichiers est sauvegardée dans:
-$DISTDIR/save/failed_pkglist.txt
-"
+$DISTDIR/save/failed_pkglist.txt"
 
-sleep 5
 
 #############################
 if [ -z "$DIFFLIST" ]; then
 	echo -e "\nTous les paquets installables depuis les depots sont presents dans le chroot... Ok \n"
 else
-## et au final la taille des paquets non installés donc ajout pure...(update prennent quasi rien)
-SIZELIST="$(dpkg-query -W --showformat='${Installed-Size}\n' $DIFFLIST | sed '/^$/d' )"
+	## et au final la taille des paquets non installés donc ajout pure...(update prennent quasi rien)
+	SIZELIST="$(dpkg-query -W --showformat='${Installed-Size}\n' $DIFFLIST | sed '/^$/d' )"
 
-i=0
-echo -e "$SIZELIST" | while read line; do
-	pkgsize="$line"
-	i=$(( $i + $pkgsize ))
-	echo $i > /tmp/count
-done
-res=$(( `cat /tmp/count` / 1000 ))
-needed_space=$(( $res + 256 ))
-chspace=$(($(df "$DISTDIR"/chroot | grep /dev | awk '{print $4}') / 1000 ))
+	i=0
+	echo -e "$SIZELIST" | while read line; do
+		pkgsize="$line"
+		i=$(( $i + $pkgsize ))
+		echo $i > /tmp/count
+	done
+	res=$(( `cat /tmp/count` / 1000 ))
+	needed_space=$(( $res + 256 ))
+	chspace=$(($(df "$DISTDIR"/chroot | grep /dev | awk '{print $4}') / 1000 ))
 
-if [ $needed_space = 256 ]; then
-echo -e "\nAucun nouveau paquet n'est à installer, seules les mises a jour seront verifiées \n" 
-else
-echo -e "\nL'espace nécessaire pour l'installation des paquets manquants 
+	if [ $needed_space = 256 ]; then
+		echo -e "\nAucun nouveau paquet n'est à installer, seules les mises a jour seront verifiées \n" 
+	else
+		echo -e "\nL'espace nécessaire pour l'installation des paquets manquants 
 (uniquement) dans le chroot, plus une petite marge (256Mo) 
 pour les mises a jour et garder un peu de place, est de :
 ${needed_space}MB
@@ -406,7 +411,9 @@ else
 	
 	## check java
 	JAVALIST="$(cat $DISTDIR/chroot/tmp/pkglist | grep sun-java | xargs)"
+	
 	if [ -n "$JAVALIST" ]; then
+
 		chroot "$DISTDIR"/chroot apt-get -y --force-yes install $JAVALIST
 	fi	
 
