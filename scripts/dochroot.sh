@@ -560,6 +560,15 @@ message "starter = $starter"
 chmod 777 -R /home/"$USER"/.config/dconf
 chown -R "$USER":"$USER" /home/"$USER"/.config/dconf
 
+## check if theme must be modified (clone script executed)
+if [ -e '/opt/updateTheme.sh' ]; then
+mv /opt/updateTheme.sh /home/$USER
+chmod +x /home/$USER/updateTheme.sh
+chown $USER:$USER /home/$USER/updateTheme.sh
+/bin/bash /home/$USER/updateTheme.sh
+rm /home/$USER/updateTheme.sh
+fi
+
 echo '#!/bin/bash
 export DISPLAY=:5
 sudo -u '$USER' ck-launch-session '$starter'

@@ -1,5 +1,7 @@
 #!/bin/bash
-source /home/$SUDO_USER/.config/ubukey/sessionConf
+source /home/$user/.config/ubukey/sessionConf
+user=$(cat /etc/ubukey/ubukeyconf | grep -e "user" | sed 's/.*user=//')
+export $user
 
 function chooser()
 {
@@ -142,12 +144,15 @@ fi
 #######################################
 # copie config gnome
 
+user=$(cat /etc/ubukey/ubukeyconf | grep -e "user" | sed 's/.*user=//')
+
 ## vide corbeille locale
-if [ -e "$HOME/.local/share/Trash/files" ]; then
-rm -rf "$HOME"/.local/share/Trash/files/*
+if [ -e "/home/$user/.local/share/Trash/files" ]; then
+rm -rf "/home/$user"/.local/share/Trash/files/*
 fi
 
-LISTE="$(find "$HOME" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | grep -e "$home/\." | sed -e '/find/d;/.gvfs/d;/.thumbnails/d;/.cache/d;/.dbus/d;/.icons/d;/.themes/d;/.googleearth/d;/.wine/d;/.local/d;' | sort)"
+LISTE="$(find /home/$user -maxdepth 1 -mindepth 1 -type d 2>/dev/null | grep -e "/home/$user/\." | sed -e '/find/d;/.gvfs/d;/.thunderbird/d;/.thumbnails/d;/.cache/d;/.dbus/d;/.icons/d;/.themes/d;/.googleearth/d;/.wine/d;/.local/d;' | sort)"
+
 i=1
 echo -e "Calcul de l'espace nécessaire pour la copie...\n"
 >/tmp/listsize
@@ -198,47 +203,28 @@ fi
 
 ## verifie que les elements du theme actif en local n etaient pas dans /usr/share (donc pas copiés)
 ## au lieu du .themes et .icons du /home/xxx local, idem pour wallpaper...
-WALLPAPER="$(sudo -u $SUDO_USER gconftool-2 --get /desktop/gnome/background/picture_filename)"
-fname="$(basename $WALLPAPER)"
-THEME="$(sudo -u $SUDO_USER gconftool-2 --get /desktop/gnome/interface/gtk_theme)"
-THEMEICON="$(sudo -u $SUDO_USER gconftool-2 --get /desktop/gnome/interface/icon_theme)"
-THEMEMOUSE="$(sudo -u $SUDO_USER gconftool-2 --get /desktop/gnome/peripherals/mouse/cursor_theme)"
+WALLPAPER=`gksu -u "$user" gsettings get org.gnome.desktop.background picture-uri | sed -e "s/'//g" | sed -e "s/file:\/\///"`
+THEME=`gksu -u "$user" gsettings get org.gnome.desktop.interface gtk-theme | sed -e "s/'//g"`
+THEMEICON=`gksu -u "$user" gsettings get org.gnome.desktop.interface icon-theme | sed -e "s/'//g"`
+THEMEMOUSE=`gksu -u "$user" gsettings get org.gnome.desktop.interface cursor-theme | sed -e "s/'//g"`
+DECORATION=`gksu -u $user gsettings get org.gnome.desktop.wm.preferences theme | sed -e "s/'//g"`
+
+
+update="FALSE"
 
 ## copie wallpaper
 echo -e "\nCopie du wallpaper actuel dans le chroot: $WALLPAPER"
-cp -f "${WALLPAPER}" "${DISTDIR}"/chroot/usr/share/backgrounds
-
-if [[ ! $(cat "${DISTDIR}"/chroot/etc/skel/.gnome2/backgrounds.xml | grep -e "$WALLPAPER") ]]; then
-
-sed -i '/<\/wallpapers>/d' "${DISTDIR}"/chroot/etc/skel/.gnome2/backgrounds.xml
-echo -e " <wallpaper deleted=\"false\">
-   <name>$fname</name>
-   <filename>/usr/share/backgrounds/$fname</filename>
-   <options>stretched</options>
-   <shade_type>solid</shade_type>
-   <pcolor>#b6b687875a5a</pcolor>
-   <scolor>#fdfddddd6e6e</scolor>
- </wallpaper>
-</wallpapers>" | tee -a "${DISTDIR}"/chroot/etc/skel/.gnome2/backgrounds.xml &>/dev/null
-else
-## change/force config dans gnome avec lien /usr/share au cas ou
-sed -i "s%<filename>.*$fname.*%<filename>/usr/share/backgrounds/$fname</filename>%" "${DISTDIR}"/chroot/etc/skel/.gnome2/backgrounds.xml
+if [ ! -e "${DISTDIR}/chroot/usr/share/backgrounds/${WALLPAPER}" ]; then
+	cp -f "${WALLPAPER}" "${DISTDIR}"/chroot/usr/share/backgrounds
+	update="TRUE"
 fi
-
-## prepare pour gconf dans chroot
-echo "$fname" > "${DISTDIR}"/chroot/tmp/wallLink
-## change gconf dans chroot
-chroot "$DISTDIR"/chroot &>/dev/null << "EOF"
-wall="$(cat /tmp/wallLink)"
-sed -i "s%.*$wall.*%<stringvalue>\/usr\/share\/backgrounds\/$wall</stringvalue>%" /etc/skel/.gconf/desktop/gnome/background/%gconf.xml
-exit
-EOF
 
 ## theme gtk
 if [ ! -e "${DISTDIR}/chroot/usr/share/themes/${THEME}" ]; then
-	echo -e "\nCopie du theme Gtk actuel dans le chroot: $THEME"
-	if [ -e "$HOME/.themes/${THEME}" ]; then
-		cp -R "$HOME/.themes/${THEME}" "${DISTDIR}"/chroot/usr/share/themes/ &>/dev/null
+	echo -e "\nCopie du theme Gtk/metacity actuel dans le chroot: $THEME"
+	update="TRUE"
+	if [ -e "/home/$user/.themes/${THEME}" ]; then
+		cp -R "/home/$user/.themes/${THEME}" "${DISTDIR}"/chroot/usr/share/themes/ &>/dev/null
 	else
 		cp -R /usr/share/themes/"${THEME}" "${DISTDIR}"/chroot/usr/share/themes/ &>/dev/null
 	fi
@@ -246,11 +232,25 @@ else
 	echo -e "\nTheme GTK $THEME, deja installé dans le chroot...\n "
 fi
 
+## theme metacity
+if [ ! -e "${DISTDIR}/chroot/usr/share/themes/${DECORATION}" ]; then
+	update="TRUE"
+	echo -e "\nCopie du theme metacity actuel dans le chroot: $DECORATION"
+	if [ -e "/home/$user/.themes/${DECORATION}" ]; then
+		cp -R "/home/$user/.themes/${DECORATION}" "${DISTDIR}"/chroot/usr/share/themes/ &>/dev/null
+	else
+		cp -R /usr/share/themes/"${DECORATION}" "${DISTDIR}"/chroot/usr/share/themes/ &>/dev/null
+	fi
+else
+	echo -e "\nTheme metacity $DECORATION, deja installé dans le chroot...\n "
+fi
+
 ## theme d icone
 if [ ! -e "${DISTDIR}/chroot/usr/share/icons/${THEMEICON}" ]; then
+	update="TRUE"
 	echo -e "Copie du theme d'icon actuel dans le chroot: $THEMEICON"
-	if [ -e "$HOME/.icons/${THEMEICON}" ]; then
-		cp -R "$HOME/.icons/${THEMEICON}" "${DISTDIR}"/chroot/usr/share/icons/
+	if [ -e "/home/$user/.icons/${THEMEICON}" ]; then
+		cp -R "/home/$user/.icons/${THEMEICON}" "${DISTDIR}"/chroot/usr/share/icons/
 	else
 		cp -R /usr/share/icons/"${THEMEICON}" "${DISTDIR}"/chroot/usr/share/icons/
 	fi
@@ -262,15 +262,31 @@ fi
 if [ "$THEMEMOUSE" = "default" ];then
 	echo -e "Theme de souris par defaut actif en local, rien a copier... \n"
 elif [ ! -e "${DISTDIR}/chroot/usr/share/icons/${THEMEMOUSE}" ]; then
+	update="TRUE"
 	echo -e "Copie du theme  de souris actuel dans le chroot: $THEMEMOUSE"
-	if [ -e "$HOME/.icons/${THEMEMOUSE}" ]; then
-		cp -R "$HOME/.icons/${THEMEMOUSE}" "${DISTDIR}"/chroot/usr/share/icons/
+	if [ -e "/home/$user/.icons/${THEMEMOUSE}" ]; then
+		cp -R "/home/$user/.icons/${THEMEMOUSE}" "${DISTDIR}"/chroot/usr/share/icons/
 	else
 		cp -R /usr/share/icons/"${THEMEMOUSE}" "${DISTDIR}"/chroot/usr/share/icons/
 	fi
 else
 	echo -e "Theme de souris $THEMEMOUSE, deja installé dans le chroot...\n "
 fi ##fin check elements theme actif
+
+if [ $update=="TRUE" ]; then
+	## CREE UN SCRIPT QUI SERA EXECUTE AVANT LANCEMENT DE LA SESSION APRES CREATION UTILISATEUR
+echo -e '
+#/bin/bash
+gsettings set org.gnome.desktop.background picture-uri file://'$WALLPAPER'
+gsettings set org.gnome.desktop.interface gtk-theme '$THEME'
+gsettings set org.gnome.desktop.interface icon-theme '$THEMEICON'
+gsettings set org.gnome.desktop.interface cursor-theme '$THEMEMOUSE'
+gsettings set org.gnome.desktop.wm.preferences theme '$DECORATION'
+' | tee "$DISTDIR"/chroot/opt/updateTheme.sh &>/dev/null
+
+chmod +x "$DISTDIR"/opt/updateTheme.sh
+
+fi
 
 echo -e "\nCopie de vos dossiers de configuration terminée \n"
 sleep 5
@@ -426,7 +442,6 @@ mount -t sysfs sys /sys
 mount -t devpts none /dev/pts
 #/etc/init.d/dbus restart
 ## maj globale
-exit
 EOF
 
 echo -e  "\nMise a jour complete des paquets pour commencer...\n"
@@ -436,7 +451,8 @@ chroot "$DISTDIR"/chroot apt-get -y --force-yes dist-upgrade
 ## maj des paquets
 echo -e "\nInstallation des paquets manquants dans le chroot...\n"
 sleep 2
-chroot "$DISTDIR"/chroot apt-get -y --force-yes install `cat "$DISTDIR"/chroot/tmp/pkglist | xargs`
+chroot "$DISTDIR"/chroot apt-get -y --force-yes install `cat "$DISTDIR"/chroot/tmp/pkglist | xargs` &&
+chroot "$DISTDIR"/chroot apt-get -f install
 ## clean
 chroot "$DISTDIR"/chroot apt-get clean
 
@@ -693,7 +709,7 @@ message="Les Fonds d'ecrans suivants ne sont pas présents dans le chroot
 
 Choisissez ceux que vous voulez copier, ou annulez...
 "
-wallList=$(cat /home/"$USER"/.kde4/share/config/kdesktoprc | grep -e "Recent Files\[\$e\]=" | sed -e 's/.*=//' -e 's/,/ /g' -e 's/$HOME/\/home\/'$USER'/g')
+wallList=$(cat /home/"$USER"/.kde4/share/config/kdesktoprc | grep -e "Recent Files\[\$e\]=" | sed -e 's/.*=//' -e 's/,/ /g' -e 's//home/$user/\/home\/'$USER'/g')
 echo -e $wallList | while read lines; do
 name=$(echo -e "$lines" | sed 's/.*\///')
 if [ ! -e /usr/lib/kde4/share/wallpapers/"$name" ]; then
@@ -853,7 +869,7 @@ message="Les Fonds d'ecrans suivants ne sont pas présents dans le chroot
 
 Choisissez ceux que vous voulez copier, ou annulez...
 "
-wallList=$(cat /home/"$USER"/.kde/share/config/kdesktoprc | grep -e "Recent Files\[\$e\]=" | sed -e 's/.*=//' -e 's/,/ /g' -e 's/$HOME/\/home\/'$USER'/g')
+wallList=$(cat /home/"$USER"/.kde/share/config/kdesktoprc | grep -e "Recent Files\[\$e\]=" | sed -e 's/.*=//' -e 's/,/ /g' -e 's//home/$user/\/home\/'$USER'/g')
 echo -e $wallList | while read lines; do
 name=$(echo -e "$lines" | sed 's/.*\///')
 if [ ! -e /usr/share/wallpapers/"$name" ]; then
