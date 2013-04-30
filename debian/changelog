@@ -1,8 +1,5 @@
-ubukey (0.2.5-0ppa4~quantal) quantal; urgency=high
+ubukey (0.2.5-0ppa5~raring) raring; urgency=high
 
-  * add raring support
-  * rewrited plugins section
-  * integrate multiboot
-  * many many fix...
+  * add locales
 
  -- Laguillaumie sylvain <s.lagui@free.fr>  Tue, 25 Apr 2013 21:08:03 +0100
