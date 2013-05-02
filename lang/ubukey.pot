@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-30 19:06+0200\n"
+"POT-Creation-Date: 2013-05-02 20:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,27 +86,29 @@ msgstr ""
 msgid "Verifying packages sources, please wait..."
 msgstr ""
 
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:29
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:27
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:29
 msgid "a session is already running"
 msgstr ""
 
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:32
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:30
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:32
 msgid "Stop"
 msgstr ""
 
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:35
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:33
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:35
 msgid "distribution started"
 msgstr ""
 
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:57
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:55
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:115
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:57
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:52
 msgid "Start"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:58
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:60
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:55
 msgid "distribution stopped"
@@ -159,6 +161,7 @@ msgstr ""
 msgid "Opening folder %s"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:29
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:27
 #, python-format
 msgid ""

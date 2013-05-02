@@ -5,8 +5,8 @@
   <widget class="GtkWindow" id="main_window">
     <property name="can_focus">False</property>
     <property name="window_position">center</property>
-    <signal name="destroy_event" handler="on_destroy_event" swapped="no"/>
-    <signal name="delete_event" handler="on_delete_event" swapped="no"/>
+    <signal name="destroy_event" handler="on_destroy_event" />
+    <signal name="delete_event" handler="on_delete_event" />
     <child>
       <widget class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -47,7 +47,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
-                                    <signal name="clicked" handler="on_newdist_btn_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_newdist_btn_clicked" />
                                     <child>
                                       <widget class="GtkVBox" id="vbox6">
                                         <property name="visible">True</property>
@@ -91,7 +91,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
-                                    <signal name="clicked" handler="on_start_btn_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_start_btn_clicked" />
                                     <child>
                                       <widget class="GtkVBox" id="vbox4">
                                         <property name="visible">True</property>
@@ -135,7 +135,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
-                                    <signal name="clicked" handler="on_removedist_btn_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_removedist_btn_clicked" />
                                     <child>
                                       <widget class="GtkVBox" id="vbox7">
                                         <property name="visible">True</property>
@@ -179,7 +179,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
-                                    <signal name="clicked" handler="on_export_btn_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_export_btn_clicked" />
                                     <child>
                                       <widget class="GtkVBox" id="vbox9">
                                         <property name="visible">True</property>
@@ -223,7 +223,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
-                                    <signal name="clicked" handler="on_vbox_btn_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_vbox_btn_clicked" />
                                     <child>
                                       <widget class="GtkVBox" id="vbox5">
                                         <property name="visible">True</property>
@@ -268,7 +268,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="xalign">0.079999998211860657</property>
-                                    <signal name="clicked" handler="on_bootcd_btn_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_bootcd_btn_clicked" />
                                     <child>
                                       <widget class="GtkVBox" id="btn">
                                         <property name="visible">True</property>
@@ -313,7 +313,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="xalign">0.079999998211860657</property>
-                                    <signal name="clicked" handler="on_clone_btn_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_clone_btn_clicked" />
                                     <child>
                                       <widget class="GtkVBox" id="btn1">
                                         <property name="visible">True</property>
@@ -357,7 +357,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
-                                    <signal name="clicked" handler="on_plugins_btn_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_plugins_btn_clicked" />
                                     <child>
                                       <widget class="GtkVBox" id="vbox11">
                                         <property name="visible">True</property>
@@ -401,7 +401,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
-                                    <signal name="clicked" handler="on_multiboot_btn_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_multiboot_btn_clicked" />
                                     <child>
                                       <widget class="GtkVBox" id="vbox12">
                                         <property name="visible">True</property>
@@ -459,7 +459,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
-                                    <signal name="clicked" handler="on_pref_button_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_pref_button_clicked" />
                                     <child>
                                       <widget class="GtkVBox" id="vbox15">
                                         <property name="visible">True</property>
@@ -577,7 +577,7 @@
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">True</property>
                                                     <property name="use_action_appearance">False</property>
-                                                    <signal name="clicked" handler="on_sourceFolder_btn_clicked" swapped="no"/>
+                                                    <signal name="clicked" handler="on_sourceFolder_btn_clicked" />
                                                     <child>
                                                       <widget class="GtkHBox" id="hbox10">
                                                         <property name="visible">True</property>
@@ -878,7 +878,7 @@
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_close_options_dialog_btn_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_close_options_dialog_btn_clicked" />
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -1056,7 +1056,7 @@
                             <property name="receives_default">True</property>
                             <property name="use_action_appearance">False</property>
                             <property name="use_stock">True</property>
-                            <signal name="clicked" handler="on_del_plug_btn_clicked" swapped="no"/>
+                            <signal name="clicked" handler="on_del_plug_btn_clicked" />
                           </widget>
                           <packing>
                             <property name="expand">False</property>
@@ -1073,7 +1073,7 @@
                             <property name="receives_default">True</property>
                             <property name="use_action_appearance">False</property>
                             <property name="use_stock">True</property>
-                            <signal name="clicked" handler="on_refresh_plug_btn_clicked" swapped="no"/>
+                            <signal name="clicked" handler="on_refresh_plug_btn_clicked" />
                           </widget>
                           <packing>
                             <property name="expand">False</property>
@@ -1090,7 +1090,7 @@
                             <property name="receives_default">True</property>
                             <property name="use_action_appearance">False</property>
                             <property name="use_stock">True</property>
-                            <signal name="clicked" handler="on_edit_plug_btn_clicked" swapped="no"/>
+                            <signal name="clicked" handler="on_edit_plug_btn_clicked" />
                           </widget>
                           <packing>
                             <property name="expand">False</property>
@@ -1107,7 +1107,7 @@
                             <property name="receives_default">True</property>
                             <property name="use_action_appearance">False</property>
                             <property name="use_stock">True</property>
-                            <signal name="clicked" handler="on_new_plug_btn_clicked" swapped="no"/>
+                            <signal name="clicked" handler="on_new_plug_btn_clicked" />
                           </widget>
                           <packing>
                             <property name="expand">False</property>
@@ -1163,7 +1163,7 @@
                 <property name="receives_default">True</property>
                 <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_close_plug_dialog_btn_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_close_plug_dialog_btn_clicked" />
               </widget>
               <packing>
                 <property name="expand">False</property>
