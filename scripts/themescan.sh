@@ -1,6 +1,6 @@
 #!/bin/bash
-source /home/$user/.config/ubukey/sessionConf
 user=$(cat /etc/ubukey/ubukeyconf | grep -e "user" | sed 's/.*user=//')
+source /home/$user/.config/ubukey/sessionConf
 export $user
 
 function chooser()

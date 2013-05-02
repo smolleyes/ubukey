@@ -11,6 +11,8 @@ dist_path=None
 
 def checkConf():
 	## load config and verify main distrib dir
+	if not os.path.exists("/usr/bin/Xephyr"):
+	    os.system("gksu apt-get -y install xserver-xephyr")
 	try:
 		main_dist_path,dist_list,RESOLUTION = scan_dist_path()
 		path=main_dist_path+'/distribs'

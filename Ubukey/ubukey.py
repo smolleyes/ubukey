@@ -40,7 +40,18 @@ class Ubukey_gui(object):
 		self.run_btn_img = self.gladexml.get_widget("run_btn_img")
 		self.run_btn_state = "stopped"
 		
-		# notebooik
+		# menu buttons
+		self.run_btn = self.gladexml.get_widget("run_btn")
+		self.newdist_btn = self.gladexml.get_widget("newdist_btn")
+		self.deletedist_btn = self.gladexml.get_widget("removedist_btn")
+		self.clonedist_btn = self.gladexml.get_widget("clone_btn")
+		self.exportdist_btn = self.gladexml.get_widget("export_btn")
+		self.testdist_btn = self.gladexml.get_widget("vbox_btn")
+		self.bootcd_btn = self.gladexml.get_widget("bootcd_btn")
+		self.plugins_btn = self.gladexml.get_widget("plugins_btn")
+		self.multiboot_btn = self.gladexml.get_widget("multiboot_btn")
+		
+		# notebook
 		self.notebook = self.gladexml.get_widget('notebook1')
 		## vbox btn
 		self.vbox_img = self.gladexml.get_widget('vbox_img')
@@ -129,6 +140,34 @@ class Ubukey_gui(object):
 		self.gladexml.signal_autoconnect(dic)
 		self.start_gui()
     
+	def lock_gui(self):
+		self.dist_scroll.set_sensitive(False) 
+	
+	def unlock_gui(self):
+		self.dist_scroll.set_sensitive(True)
+		
+	def lock_menu(self):
+		self.run_btn.set_sensitive(False) 
+		self.newdist_btn.set_sensitive(False) 
+		self.deletedist_btn.set_sensitive(False) 
+		self.clonedist_btn.set_sensitive(False) 
+		self.exportdist_btn.set_sensitive(False) 
+		self.testdist_btn.set_sensitive(False) 
+		self.bootcd_btn.set_sensitive(False) 
+		self.plugins_btn.set_sensitive(False) 
+		self.multiboot_btn.set_sensitive(False)
+		
+	def unlock_menu(self):
+		self.run_btn.set_sensitive(True) 
+		self.newdist_btn.set_sensitive(True) 
+		self.deletedist_btn.set_sensitive(True) 
+		self.clonedist_btn.set_sensitive(True) 
+		self.exportdist_btn.set_sensitive(True) 
+		self.testdist_btn.set_sensitive(True) 
+		self.bootcd_btn.set_sensitive(True) 
+		self.plugins_btn.set_sensitive(True) 
+		self.multiboot_btn.set_sensitive(True) 
+	
 	def start_gui(self):
 		try:
 			self.main_dist_path,dist_list,RESOLUTION = scan_dist_path()
@@ -200,6 +239,11 @@ class Ubukey_gui(object):
 		
 	def set_startdist_btn_state(self,widget):
 		if self.run_btn_state == "stopped":
+			if self.selected_dist_path is None:
+				return
+			self.lock_menu()
+			self.lock_gui()
+			self.run_btn.set_sensitive(True)
 			self.distribs.start()
 		elif self.run_btn_state == "started":
 			self.distribs.stop()
@@ -214,22 +258,46 @@ class Ubukey_gui(object):
 		self.distribs.update_list()
 		
 	def new_dist(self,widget=None):
+		self.lock_menu()
+		self.lock_gui()
 		self.distribs.new_dist()
+		self.unlock_menu()
+		self.unlock_gui()
 		
 	def export_dist(self,widget):
+		self.lock_gui()
+		self.lock_menu()
 		self.distribs.export_dist()
+		self.unlock_menu()
+		self.unlock_gui()
 		
 	def remove_dist(self,widget):
+		self.lock_gui()
+		self.lock_menu()
 		self.distribs.remove_dist()
+		self.unlock_gui()
+		self.unlock_menu()
 		
 	def start_vbox(self,widget):
+		self.lock_menu()
+		self.lock_gui()
 		self.distribs.start_vbox()
+		self.unlock_menu()
+		self.unlock_gui()
 		
 	def gen_bootcd(self,widget):
+		self.lock_menu()
+		self.lock_gui()
 		self.distribs.gen_bootcd()
+		self.unlock_menu()
+		self.unlock_gui()
 		
 	def clone_dist(self,widget):
+		self.lock_menu()
+		self.lock_gui()
 		self.distribs.clone_dist()
+		self.unlock_menu()
+		self.unlock_gui()
 		
 	def exec_plugins_dialog(self,widget):
 		self.distribs.plugins_dialog()

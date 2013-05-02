@@ -53,50 +53,52 @@ version = open('VERSION', 'r').read().strip()
 packages = ['Ubukey','Ubukey/lib']
 
 data_files = [
-	('share/icons/hicolor/22x22/apps',['images/22x22/ubukey.png']),
-	('share/icons/hicolor/24x24/apps',['images/24x24/ubukey.png']),
-	('share/icons/hicolor/48x48/apps',['images/48x48/ubukey.png']),
-	('share/applications',['ubukey.desktop']),
-	('share/ubukey/data/glade',['data/glade/gui.glade']),
-	('share/ubukey/data/grub/i386',['data/grub/i386/stage2_eltorito']),
-	('share/ubukey/data/grub/x86_64',['data/grub/x86_64/stage2_eltorito']),
-	('share/ubukey/images', ['images/logo_xfce4.png',
-	'images/vbox.png',  'images/splash.jpg',  'images/usbkey.png',
-	'images/logo_kde4.png',  'images/logo_gnome.png', 
-	'images/home-rw.png', 'images/logo_lxde.png', 'images/ubukeymaker.png','images/multisystem-liveusb.png'
-	]),
-	('share/ubukey/conf_files', ['conf_files/syslinux.cfg','conf_files/extlinux.conf']), 
-	('share/ubukey/deboot-modules', ['deboot-modules/lxde', 
-	'deboot-modules/gnome',  'deboot-modules/xfce4',  'deboot-modules/kde4','deboot-modules/cinnamon','deboot-modules/gnome-shell',
-	]),
-	('share/ubukey/scripts', ['scripts/dochroot.sh',  'scripts/ubusrc-gen',  'scripts/create_dist.sh',
-	'scripts/debootstrap_dist.sh',  'scripts/mkbootcd.sh',  'scripts/ubukey-addons_manager.sh',
-	'scripts/clone_dist.sh',  'scripts/themescan.sh',  'scripts/localiser-kde.sh','scripts/export_dist.sh',
-	'scripts/localiser.sh',  'scripts/scankey.sh',  'scripts/vbox.sh','scripts/include.sh','scripts/setres.sh',
-	'scripts/virtualbox.sh',  'scripts/remove_dist.sh',
-	'scripts/debootstrap-packages.sh','scripts/debootstrap_packages_chooser.sh','scripts/multiboot.sh',
-	]),
-	('share/ubukey/launchers', ['launchers/gfx',  'launchers/Ubukeymaker.desktop',
-	'launchers/wicd',  'launchers/mountrw.sh',  'launchers/sizer',  'launchers/gc.desktop',
-	'launchers/ubukey.desktop'
-	]),
-	('share/ubukey/addons/all', ['addons/all/fix-tty.sh',
-	'addons/all/utilisateur-live.sh', 'addons/all/installer.sh',  'addons/all/clone-pkglist.sh',
-	'addons/all/live-homerw.sh'
-	]),
-	('share/ubukey/addons/raring/lxde', ['addons/raring/lxde/codecs-gstreamer.sh']),
-	('share/ubukey/addons/raring/gnome', ['addons/raring/gnome/codecs-gstreamer.sh']),
-	('share/ubukey/addons/raring/xfce4', ['addons/raring/xfce4/codecs-gstreamer.sh']),
-	('share/ubukey/addons/quantal/lxde', ['addons/quantal/lxde/codecs-gstreamer.sh']),
-	('share/ubukey/addons/quantal/gnome', ['addons/quantal/gnome/codecs-gstreamer.sh']),
-	('share/ubukey/addons/quantal/xfce4', ['addons/quantal/xfce4/codecs-gstreamer.sh']),
-	('share/ubukey/addons/precise/lxde', ['addons/precise/lxde/codecs-gstreamer.sh']),
-	('share/ubukey/addons/precise/gnome', ['addons/precise/gnome/codecs-gstreamer.sh']),
-	('share/ubukey/addons/precise/xfce4', ['addons/precise/xfce4/codecs-gstreamer.sh'])]
-	for lang in os.listdir('lang'):
-            lang_dir = os.path.join('share', 'locale', lang, 'LC_MESSAGES')
-            lang_file = os.path.join('lang', lang, 'LC_MESSAGES', 'ubukey.mo')
-            data_files.append((lang_dir, [lang_file]))
+    ('share/icons/hicolor/22x22/apps',['images/22x22/ubukey.png']),
+    ('share/icons/hicolor/24x24/apps',['images/24x24/ubukey.png']),
+    ('share/icons/hicolor/48x48/apps',['images/48x48/ubukey.png']),
+    ('share/applications',['ubukey.desktop']),
+    ('share/ubukey/data/glade',['data/glade/gui.glade']),
+    ('share/ubukey/data/grub/i386',['data/grub/i386/stage2_eltorito']),
+    ('share/ubukey/data/grub/x86_64',['data/grub/x86_64/stage2_eltorito']),
+    ('share/ubukey/images', ['images/logo_xfce4.png',
+    'images/vbox.png',  'images/splash.jpg',  'images/usbkey.png',
+    'images/logo_kde4.png',  'images/logo_gnome.png', 
+    'images/home-rw.png', 'images/logo_lxde.png', 'images/ubukeymaker.png','images/multisystem-liveusb.png'
+    ]),
+    ('share/ubukey/conf_files', ['conf_files/syslinux.cfg','conf_files/extlinux.conf']), 
+    ('share/ubukey/deboot-modules', ['deboot-modules/lxde', 
+    'deboot-modules/gnome',  'deboot-modules/xfce4',  'deboot-modules/kde4','deboot-modules/cinnamon','deboot-modules/gnome-shell',
+    ]),
+    ('share/ubukey/scripts', ['scripts/dochroot.sh',  'scripts/ubusrc-gen',  'scripts/create_dist.sh',
+    'scripts/debootstrap_dist.sh',  'scripts/mkbootcd.sh',  'scripts/ubukey-addons_manager.sh',
+    'scripts/clone_dist.sh',  'scripts/themescan.sh',  'scripts/localiser-kde.sh','scripts/export_dist.sh',
+    'scripts/localiser.sh',  'scripts/scankey.sh',  'scripts/vbox.sh','scripts/include.sh','scripts/setres.sh',
+    'scripts/virtualbox.sh',  'scripts/remove_dist.sh',
+    'scripts/debootstrap-packages.sh','scripts/debootstrap_packages_chooser.sh','scripts/multiboot.sh',
+    ]),
+    ('share/ubukey/launchers', ['launchers/gfx',  'launchers/Ubukeymaker.desktop',
+    'launchers/wicd',  'launchers/mountrw.sh',  'launchers/sizer',  'launchers/gc.desktop',
+    'launchers/ubukey.desktop'
+    ]),
+    ('share/ubukey/addons/all', ['addons/all/fix-tty.sh',
+    'addons/all/utilisateur-live.sh', 'addons/all/installer.sh',  'addons/all/clone-pkglist.sh',
+    'addons/all/live-homerw.sh'
+    ]),
+    ('share/ubukey/addons/raring/lxde', ['addons/raring/lxde/codecs-gstreamer.sh']),
+    ('share/ubukey/addons/raring/gnome', ['addons/raring/gnome/codecs-gstreamer.sh']),
+    ('share/ubukey/addons/raring/xfce4', ['addons/raring/xfce4/codecs-gstreamer.sh']),
+    ('share/ubukey/addons/quantal/lxde', ['addons/quantal/lxde/codecs-gstreamer.sh']),
+    ('share/ubukey/addons/quantal/gnome', ['addons/quantal/gnome/codecs-gstreamer.sh']),
+    ('share/ubukey/addons/quantal/xfce4', ['addons/quantal/xfce4/codecs-gstreamer.sh']),
+    ('share/ubukey/addons/precise/lxde', ['addons/precise/lxde/codecs-gstreamer.sh']),
+    ('share/ubukey/addons/precise/gnome', ['addons/precise/gnome/codecs-gstreamer.sh']),
+    ('share/ubukey/addons/precise/xfce4', ['addons/precise/xfce4/codecs-gstreamer.sh'])]
+
+for lang in os.listdir('lang'):
+    if os.path.isdir(os.path.join('lang',lang)):
+	lang_dir = os.path.join('share', 'locale', lang, 'LC_MESSAGES')
+	lang_file = os.path.join('lang', lang, 'LC_MESSAGES', 'ubukey.mo')
+	data_files.append((lang_dir, [lang_file]))
 
 
 setup(
@@ -110,7 +112,6 @@ setup(
 	scripts=['ubukey'],
 	data_files=data_files,
 	cmdclass={'build' :  build_extra.build_extra,
-	    'build_trans': build_trans,
 	    'build_i18n' :  build_i18n.build_i18n,
 	    'build_help' :  build_help.build_help,
 	    'build_icons' :  build_icons.build_icons,

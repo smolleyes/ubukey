@@ -20,8 +20,6 @@ class Distribs(object):
 			self.username = os.environ.get('USER')
 			
 	def start(self):
-		if self.gui.selected_dist_path is None:
-			return
 		self.chroot_script = os.path.join(scripts_path,'dochroot.sh')
 		crun = os.popen("ps aux | grep '/bin/bash' | grep -e "+scripts_path+'/dochroot'" | grep -v 'grep'").read().strip()
 		xrun = os.popen("ps aux | grep '/bin/bash' | grep -e "+scripts_path+'/startchroot'" | grep -v 'grep'").read().strip()
@@ -59,6 +57,8 @@ class Distribs(object):
 		self.gui.run_btn_state = "stopped"
 		self.gui.vt.log(_("distribution stopped"))
 		self.gui.notebook.set_current_page(0)
+		self.gui.unlock_menu()
+		self.gui.unlock_gui()
 	
 	def update_list(self):
 		self.main_dist_path,dist_list,RESOLUTION = scan_dist_path()
