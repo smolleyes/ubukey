@@ -35,8 +35,8 @@ function qemuBuild()
 {
 if [ ! -e "/usr/bin/vboxsdl" ]; then
 	testConnect
-	echo -e "installation de virtualbox-ose...\n"
-	apt-get -y install virtualbox-ose
+	echo -e "installation de virtualbox...\n"
+	apt-get -y install virtualbox virtualbox-dkms virtualbox-guest-utils
 fi
 
 echo -e "Installation de virtualbox ok ! \n"

@@ -40,7 +40,7 @@ if [ ! -e "/usr/bin/vboxsdl" ]; then
 	if [ "$CURDIST" == "precise" ]; then
 		aptitude -y install virtualbox
 	else	
-		aptitude -y install virtualbox-ose
+		apt-get -y install virtualbox virtualbox-dkms virtualbox-guest-utils
 	fi
 fi
 
