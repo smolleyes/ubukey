@@ -66,6 +66,8 @@ class Distribs(object):
 		self.parser = Parser(self.ini)
 		for dir in dist_list:
 			dist_conf = os.path.join(dir,'config')
+			if not 'config' in dir:
+				continue
 			if not os.path.exists(dist_conf):
 				print _("no configuration file found : %s") % dist_conf
 				continue
