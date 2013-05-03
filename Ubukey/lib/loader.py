@@ -15,7 +15,7 @@ def checkConf():
 	    os.system("gksu apt-get -y install xserver-xephyr")
 	try:
 		main_dist_path,dist_list,RESOLUTION = scan_dist_path()
-		path=main_dist_path+'/distribs'
+		path=main_dist_path
 	except:
 		path = FirstRun()
 		print "generate config file..."
@@ -24,7 +24,7 @@ def checkConf():
 	
 def loadConf(path=None):
 	main_dist_path,dist_list,RESOLUTION = scan_dist_path()
-	dist_path=main_dist_path+'/distribs'
+	dist_path=main_dist_path
 	if not os.access(main_dist_path, os.R_OK):
 		error_dialog(_("Your distribution's folder :\n%s \nis not accessible, unmounted or removed (recreate it)...") % main_dist_path)
 		sys.exit()

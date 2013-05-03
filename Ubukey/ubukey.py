@@ -211,7 +211,7 @@ class Ubukey_gui(object):
 		lockfile="/tmp/.X5-lock"
 		if os.path.exists(lockfile):
 			os.remove(lockfile)
-		os.system('killall -9 Xephyr')
+		os.system('killall -9 Xephyr > /dev/null 2>&1')
 		cmd = "Xephyr :5 -dpms -s 0 -title ubukey-xephyr \
 		-ac \
 		-keybd ephyr,,xkbrules=evdev,xkbmodel=evdev,xkblayout=%s,xkbvariant=oss, -parent %s +extension RANDR +extension XTEST +extension DOUBLE-BUFFER +extension Composite +extension XFIXES +extension DAMAGE +extension RENDER +extension GLX & sleep 4" % (LANG,xid)
