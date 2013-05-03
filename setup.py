@@ -63,7 +63,7 @@ data_files = [
     ('share/ubukey/images', ['images/logo_xfce4.png',
     'images/vbox.png',  'images/splash.jpg',  'images/usbkey.png',
     'images/logo_kde4.png',  'images/logo_gnome.png', 
-    'images/home-rw.png', 'images/logo_lxde.png', 'images/ubukeymaker.png','images/multisystem-liveusb.png'
+    'images/home-rw.png', 'images/logo_lxde.png', 'images/ubukeymaker.png','images/multisystem-liveusb.png','images/paypal.jpg',
     ]),
     ('share/ubukey/conf_files', ['conf_files/syslinux.cfg','conf_files/extlinux.conf']), 
     ('share/ubukey/deboot-modules', ['deboot-modules/lxde', 

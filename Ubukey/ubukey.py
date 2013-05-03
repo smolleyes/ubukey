@@ -63,6 +63,10 @@ class Ubukey_gui(object):
 		self.mboot_img = self.gladexml.get_widget('multiboot_img')
 		img = gtk.gdk.pixbuf_new_from_file_at_scale(os.path.join(data_path,'images/multisystem-liveusb.png'), 24, 24, 1)
 		self.mboot_img.set_from_pixbuf(img)
+		##paypal btn
+		self.paypal_img = self.gladexml.get_widget('paypal_img')
+		img = gtk.gdk.pixbuf_new_from_file_at_scale(os.path.join(data_path,'images/paypal.jpg'), 24, 24, 1)
+		self.paypal_img.set_from_pixbuf(img)
 		## drawingarea
 		self.drawarea=self.gladexml.get_widget('mboot_drawing')
 		
@@ -134,12 +138,16 @@ class Ubukey_gui(object):
 			   "on_sourceFolder_btn_clicked" : self.open_source_folder,
 			   "on_close_plug_dialog_btn_clicked" : self.close_plugin_dialog,
 			   "on_pref_button_clicked": self.exec_options_dialog,
-			   "on_close_options_dialog_btn_clicked": self.close_options_dialog
+			   "on_close_options_dialog_btn_clicked": self.close_options_dialog,
+			   "on_paypal_btn_clicked": self.donate
 			   }
 		
 		self.gladexml.signal_autoconnect(dic)
 		self.start_gui()
     
+	def donate(self,widget):
+		os.system("xdg-open http://gtk-apps.org/content/donate.php?content=138588")
+	
 	def lock_gui(self):
 		self.dist_scroll.set_sensitive(False) 
 	

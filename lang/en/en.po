@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-02 20:40+0200\n"
+"POT-Creation-Date: 2013-05-03 18:30+0200\n"
 "PO-Revision-Date: 2012-09-17 21:09+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -210,46 +210,60 @@ msgstr ""
 msgid "MultiBoot"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:487
+msgid "Donate"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:538
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:483
 msgid "Préférences"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:606
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:551
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:496
 msgid "<b>Distribution list : </b>"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:656
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:601
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:546
 msgid "Open source folder"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:845
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:790
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:735
 msgid "Distributions"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:880
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:825
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:770
 msgid "Viewer"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:913
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:858
 msgid "Options"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:979
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:924
 msgid "Resolution: "
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1024
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:969
 msgid "Général"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1060
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1005
 msgid "Ubukey plugins"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1191
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1136
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:935
 msgid "<b>Plugins : </b>"

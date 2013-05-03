@@ -1,7 +1,9 @@
 #!/bin/bash
 ##########
 # fix sources
-
+cp /etc/apt/sources.list /etc/apt/sources.list.1
+awk '!x[$0]++' /etc/apt/sources.list.1 > /etc/apt/sources.list
+rm /etc/apt/sources.list.1
 ## check version
 DIST=`lsb_release -cs`
 LISTE=$(cat /etc/apt/sources.list)

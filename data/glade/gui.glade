@@ -444,7 +444,62 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <child>
-                                      <placeholder/>
+                                      <widget class="GtkHBox" id="hbox12">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkButton" id="paypal_btn">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="use_action_appearance">False</property>
+                                        <signal name="clicked" handler="on_paypal_btn_clicked" />
+                                        <child>
+                                          <widget class="GtkVBox" id="vbox18">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <child>
+                                              <widget class="GtkImage" id="paypal_img">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="stock">gtk-missing-image</property>
+                                              </widget>
+                                              <packing>
+                                                <property name="expand">True</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">0</property>
+                                              </packing>
+                                            </child>
+                                            <child>
+                                              <widget class="GtkLabel" id="label13">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="label" translatable="yes">Donate</property>
+                                              </widget>
+                                              <packing>
+                                                <property name="expand">True</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">1</property>
+                                              </packing>
+                                            </child>
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
                                     </child>
                                   </widget>
                                   <packing>
@@ -1049,14 +1104,14 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
-                          <widget class="GtkButton" id="del_plug_btn">
-                            <property name="label">gtk-clear</property>
+                          <widget class="GtkButton" id="refresh_plug_btn">
+                            <property name="label">gtk-refresh</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
                             <property name="use_action_appearance">False</property>
                             <property name="use_stock">True</property>
-                            <signal name="clicked" handler="on_del_plug_btn_clicked" />
+                            <signal name="clicked" handler="on_refresh_plug_btn_clicked" />
                           </widget>
                           <packing>
                             <property name="expand">False</property>
@@ -1066,14 +1121,14 @@
                           </packing>
                         </child>
                         <child>
-                          <widget class="GtkButton" id="refresh_plug_btn">
-                            <property name="label">gtk-refresh</property>
+                          <widget class="GtkButton" id="del_plug_btn">
+                            <property name="label">gtk-clear</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
                             <property name="use_action_appearance">False</property>
                             <property name="use_stock">True</property>
-                            <signal name="clicked" handler="on_refresh_plug_btn_clicked" />
+                            <signal name="clicked" handler="on_del_plug_btn_clicked" />
                           </widget>
                           <packing>
                             <property name="expand">False</property>
