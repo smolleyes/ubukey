@@ -1,7 +1,7 @@
 #!/bin/bash
-user=$(cat /etc/ubukey/ubukeyconf | grep -e "user" | sed 's/.*user=//')
-source /home/$user/.config/ubukey/sessionConf
-export $user
+
+source /home/$SUDO_USER/.config/ubukey/sessionConf
+
 
 function chooser()
 {
@@ -144,14 +144,13 @@ fi
 #######################################
 # copie config gnome
 
-user=$(cat /etc/ubukey/ubukeyconf | grep -e "user" | sed 's/.*user=//')
 
 ## vide corbeille locale
-if [ -e "/home/$user/.local/share/Trash/files" ]; then
-rm -rf "/home/$user"/.local/share/Trash/files/*
+if [ -e "/home/$SUDO_USER/.local/share/Trash/files" ]; then
+rm -rf "/home/$SUDO_USER"/.local/share/Trash/files/*
 fi
 
-LISTE="$(find /home/$user -maxdepth 1 -mindepth 1 -type d 2>/dev/null | grep -e "/home/$user/\." | sed -e '/find/d;/.gvfs/d;/.thunderbird/d;/.thumbnails/d;/.cache/d;/.dbus/d;/.icons/d;/.themes/d;/.googleearth/d;/.wine/d;/.local/d;' | sort)"
+LISTE="$(find /home/$SUDO_USER -maxdepth 1 -mindepth 1 -type d 2>/dev/null | grep -e "/home/$SUDO_USER/\." | sed -e '/find/d;/.gvfs/d;/.thunderbird/d;/.thumbnails/d;/.cache/d;/.dbus/d;/.icons/d;/.themes/d;/.googleearth/d;/.wine/d;/.local/d;' | sort)"
 
 i=1
 echo -e "Calcul de l'espace nécessaire pour la copie...\n"
@@ -203,11 +202,11 @@ fi
 
 ## verifie que les elements du theme actif en local n etaient pas dans /usr/share (donc pas copiés)
 ## au lieu du .themes et .icons du /home/xxx local, idem pour wallpaper...
-WALLPAPER=`gksu -u "$user" gsettings get org.gnome.desktop.background picture-uri | sed -e "s/'//g" | sed -e "s/file:\/\///"`
-THEME=`gksu -u "$user" gsettings get org.gnome.desktop.interface gtk-theme | sed -e "s/'//g"`
-THEMEICON=`gksu -u "$user" gsettings get org.gnome.desktop.interface icon-theme | sed -e "s/'//g"`
-THEMEMOUSE=`gksu -u "$user" gsettings get org.gnome.desktop.interface cursor-theme | sed -e "s/'//g"`
-DECORATION=`gksu -u $user gsettings get org.gnome.desktop.wm.preferences theme | sed -e "s/'//g"`
+WALLPAPER=`gksu -u "$SUDO_USER" gsettings get org.gnome.desktop.background picture-uri | sed -e "s/'//g" | sed -e "s/file:\/\///"`
+THEME=`gksu -u "$SUDO_USER" gsettings get org.gnome.desktop.interface gtk-theme | sed -e "s/'//g"`
+THEMEICON=`gksu -u "$SUDO_USER" gsettings get org.gnome.desktop.interface icon-theme | sed -e "s/'//g"`
+THEMEMOUSE=`gksu -u "$SUDO_USER" gsettings get org.gnome.desktop.interface cursor-theme | sed -e "s/'//g"`
+DECORATION=`gksu -u "$SUDO_USER" gsettings get org.gnome.desktop.wm.preferences theme | sed -e "s/'//g"`
 
 
 update="FALSE"
@@ -223,8 +222,8 @@ fi
 if [ ! -e "${DISTDIR}/chroot/usr/share/themes/${THEME}" ]; then
 	echo -e "\nCopie du theme Gtk/metacity actuel dans le chroot: $THEME"
 	update="TRUE"
-	if [ -e "/home/$user/.themes/${THEME}" ]; then
-		cp -R "/home/$user/.themes/${THEME}" "${DISTDIR}"/chroot/usr/share/themes/ &>/dev/null
+	if [ -e "/home/$SUDO_USER/.themes/${THEME}" ]; then
+		cp -R "/home/$SUDO_USER/.themes/${THEME}" "${DISTDIR}"/chroot/usr/share/themes/ &>/dev/null
 	else
 		cp -R /usr/share/themes/"${THEME}" "${DISTDIR}"/chroot/usr/share/themes/ &>/dev/null
 	fi
@@ -236,8 +235,8 @@ fi
 if [ ! -e "${DISTDIR}/chroot/usr/share/themes/${DECORATION}" ]; then
 	update="TRUE"
 	echo -e "\nCopie du theme metacity actuel dans le chroot: $DECORATION"
-	if [ -e "/home/$user/.themes/${DECORATION}" ]; then
-		cp -R "/home/$user/.themes/${DECORATION}" "${DISTDIR}"/chroot/usr/share/themes/ &>/dev/null
+	if [ -e "/home/$SUDO_USER/.themes/${DECORATION}" ]; then
+		cp -R "/home/$SUDO_USER/.themes/${DECORATION}" "${DISTDIR}"/chroot/usr/share/themes/ &>/dev/null
 	else
 		cp -R /usr/share/themes/"${DECORATION}" "${DISTDIR}"/chroot/usr/share/themes/ &>/dev/null
 	fi
@@ -249,8 +248,8 @@ fi
 if [ ! -e "${DISTDIR}/chroot/usr/share/icons/${THEMEICON}" ]; then
 	update="TRUE"
 	echo -e "Copie du theme d'icon actuel dans le chroot: $THEMEICON"
-	if [ -e "/home/$user/.icons/${THEMEICON}" ]; then
-		cp -R "/home/$user/.icons/${THEMEICON}" "${DISTDIR}"/chroot/usr/share/icons/
+	if [ -e "/home/$SUDO_USER/.icons/${THEMEICON}" ]; then
+		cp -R "/home/$SUDO_USER/.icons/${THEMEICON}" "${DISTDIR}"/chroot/usr/share/icons/
 	else
 		cp -R /usr/share/icons/"${THEMEICON}" "${DISTDIR}"/chroot/usr/share/icons/
 	fi
@@ -264,8 +263,8 @@ if [ "$THEMEMOUSE" = "default" ];then
 elif [ ! -e "${DISTDIR}/chroot/usr/share/icons/${THEMEMOUSE}" ]; then
 	update="TRUE"
 	echo -e "Copie du theme  de souris actuel dans le chroot: $THEMEMOUSE"
-	if [ -e "/home/$user/.icons/${THEMEMOUSE}" ]; then
-		cp -R "/home/$user/.icons/${THEMEMOUSE}" "${DISTDIR}"/chroot/usr/share/icons/
+	if [ -e "/home/$SUDO_USER/.icons/${THEMEMOUSE}" ]; then
+		cp -R "/home/$SUDO_USER/.icons/${THEMEMOUSE}" "${DISTDIR}"/chroot/usr/share/icons/
 	else
 		cp -R /usr/share/icons/"${THEMEMOUSE}" "${DISTDIR}"/chroot/usr/share/icons/
 	fi
@@ -502,9 +501,9 @@ Firefox)
 echo -e "Mise a jour de firefox si nécessaire \n"
 aptitude -y install firefox &>/dev/null
 echo -e "Copie de votre configuration firefox locale (bookmarks, plugins...) \n"
-cfgdir=$(cat /home/"$USER"/.mozilla/firefox/profiles.ini | grep "Path=" | sed 's/.*=//')
+cfgdir=$(cat /home/"$SUDO_USER"/.mozilla/firefox/profiles.ini | grep "Path=" | sed 's/.*=//')
 
-cp -R -f /home/"$USER"/.mozilla "${DISTDIR}"/chroot/etc/skel/
+cp -R -f /home/"$SUDO_USER"/.mozilla "${DISTDIR}"/chroot/etc/skel/
 #~ rm "${DISTDIR}"/chroot/etc/skel/.mozilla/firefox/${cfgdir}/places.sqlite
 chmod 755 -R "${DISTDIR}"/chroot/etc/skel/.mozilla
 
@@ -521,7 +520,7 @@ message="Les thèmes suivant ne sont pas présents dans le chroot
 Choisissez les thèmes à copier, ou annulez...
 "
 DESTDIR="$DISTDIR/chroot/usr/share/themes"
-(chooser /usr/share/themes /home/"$USER"/.themes "$DISTDIR"/chroot/usr/share/themes) 2>/dev/null
+(chooser /usr/share/themes /home/"$SUDO_USER"/.themes "$DISTDIR"/chroot/usr/share/themes) 2>/dev/null
 ;;
 
 Icons)
@@ -532,7 +531,7 @@ message="Les thèmes d'icônes suivant ne sont pas présents dans le chroot
 Choisissez les thèmes d'icônes à copier, ou annulez...
 "
 DESTDIR="$DISTDIR/chroot/usr/share/icons"
-(chooser /usr/share/icons /home/"$USER"/.icons "$DISTDIR"/chroot/usr/share/icons ) 2>/dev/null
+(chooser /usr/share/icons /home/"$SUDO_USER"/.icons "$DISTDIR"/chroot/usr/share/icons ) 2>/dev/null
 
 ;;
 
@@ -544,7 +543,7 @@ message="Les Polices suivantes ne sont pas présentes dans le chroot
 Choisissez celles que vous voulez copier, ou annulez...
 "
 DESTDIR="$DISTDIR/chroot/usr/share/fonts"
-(chooser /usr/share/fonts /home/"$USER"/.fonts "$DISTDIR"/chroot/usr/share/fonts) 2>/dev/null
+(chooser /usr/share/fonts /home/"$SUDO_USER"/.fonts "$DISTDIR"/chroot/usr/share/fonts) 2>/dev/null
 ;;
 
 
@@ -555,7 +554,7 @@ message="Les Fonds d'ecrans suivants ne sont pas présents dans le chroot
 
 Choisissez ceux que vous voulez copier, ou annulez...
 "
-wallLocal=$(cat /home/"$USER"/.gnome2/backgrounds.xml | grep "<filename>" | sed '/none/d' | sed 's/<\/filename>//g' | sed 's/<filename>//g' | sed -e "s/^ *//g")
+wallLocal=$(cat /home/"$SUDO_USER"/.gnome2/backgrounds.xml | grep "<filename>" | sed '/none/d' | sed 's/<\/filename>//g' | sed 's/<filename>//g' | sed -e "s/^ *//g")
 
 echo -e "$wallLocal" | while read lines; do
 name=$(echo -e "$lines" | sed 's/.*\///')
@@ -565,9 +564,9 @@ fi
 done
 
 DESTDIR="$DISTDIR/chroot/usr/share/backgrounds"
-mkdir /home/"$USER"/.temp
-(chooser /usr/share/backgrounds /home/"$USER"/.temp "$DISTDIR"/chroot/usr/share/backgrounds file) 2>/dev/null
-rm -R /home/"$USER"/.temp
+mkdir /home/"$SUDO_USER"/.temp
+(chooser /usr/share/backgrounds /home/"$SUDO_USER"/.temp "$DISTDIR"/chroot/usr/share/backgrounds file) 2>/dev/null
+rm -R /home/"$SUDO_USER"/.temp
 ;;
 
 esac
@@ -627,7 +626,7 @@ message="Les thèmes suivant ne sont pas présents dans le chroot
 Choisissez les thèmes à copier, ou annulez...
 "
 DESTDIR="$DISTDIR/chroot/usr/lib/kde4/share/kde4/apps/kthememanager/themes"
-(chooser /usr/lib/kde4/share/kde4/apps/kthememanager/themes /home/"$USER"/.kde4/share/apps/kthememanager/themes "$DISTDIR"/chroot/usr/lib/kde4/share/kde4/apps/kthememanager/themes) 2>/dev/null
+(chooser /usr/lib/kde4/share/kde4/apps/kthememanager/themes /home/"$SUDO_USER"/.kde4/share/apps/kthememanager/themes "$DISTDIR"/chroot/usr/lib/kde4/share/kde4/apps/kthememanager/themes) 2>/dev/null
 ;;
 
 Icons)
@@ -638,7 +637,7 @@ message="Les thèmes d'icônes suivant ne sont pas présents dans le chroot
 Choisissez les thèmes d'icônes à copier, ou annulez...
 "
 DESTDIR="$DISTDIR/chroot/usr/share/icons"
-(chooser /usr/lib/kde4/share/icons /home/"$USER"/.kde4/share/icons "$DISTDIR"/chroot/usr/lib/kde4/share/icons) 2>/dev/null
+(chooser /usr/lib/kde4/share/icons /home/"$SUDO_USER"/.kde4/share/icons "$DISTDIR"/chroot/usr/lib/kde4/share/icons) 2>/dev/null
 ;;
 
 Ksplash)
@@ -659,8 +658,8 @@ EOF
 fi
 
 ## et continue sur les themes
-(chooser /usr/lib/kde4/share/kde4/apps/ksplash/Themes /home/"$USER"/.kde4/share/apps/ksplash/Themes "$DISTDIR"/chroot/usr/lib/kde4/share/kde4/apps/ksplash/Themes) 2>/dev/null
-cp /home/"$USER"/.kde4/share/config/ksplashrc "$DISTDIR"/chroot/etc/skel/.kde4/share/config/ &>/dev/null
+(chooser /usr/lib/kde4/share/kde4/apps/ksplash/Themes /home/"$SUDO_USER"/.kde4/share/apps/ksplash/Themes "$DISTDIR"/chroot/usr/lib/kde4/share/kde4/apps/ksplash/Themes) 2>/dev/null
+cp /home/"$SUDO_USER"/.kde4/share/config/ksplashrc "$DISTDIR"/chroot/etc/skel/.kde4/share/config/ &>/dev/null
 ;;
 
 
@@ -672,7 +671,7 @@ message="Les Polices suivantes ne sont pas présentes dans le chroot
 Choisissez celles que vous voulez copier, ou annulez...
 "
 DESTDIR="$DISTDIR/chroot/usr/share/fonts"
-(chooser /usr/share/fonts /home/"$USER"/.fonts "$DISTDIR"/chroot/usr/share/fonts) 2>/dev/null
+(chooser /usr/share/fonts /home/"$SUDO_USER"/.fonts "$DISTDIR"/chroot/usr/share/fonts) 2>/dev/null
 ;;
 
 Kdm)
@@ -683,22 +682,22 @@ message="Les Thèmes kdm suivants ne sont pas présents dans le chroot
 Choisissez ceux que vous voulez copier, ou annulez...
 "
 DESTDIR="$DISTDIR/chroot/usr/share/apps/kdm/themes"
-mkdir /home/"$USER"/.temp
-(chooser /usr/lib/kde4/share/kde4/apps/kdm/themes/ /home/"$USER"/.temp "$DISTDIR"/chroot/usr/lib/kde4/share/kde4/apps/kdm/themes/) 2>/dev/null
-rm -R /home/"$USER"/.temp
+mkdir /home/"$SUDO_USER"/.temp
+(chooser /usr/lib/kde4/share/kde4/apps/kdm/themes/ /home/"$SUDO_USER"/.temp "$DISTDIR"/chroot/usr/lib/kde4/share/kde4/apps/kdm/themes/) 2>/dev/null
+rm -R /home/"$SUDO_USER"/.temp
 ;;
 
 Konqueror)
 ## config konqueror
-	cp -R /home/"$USER"/.kde4/share/config/konquerorrc "$DISTDIR"/chroot/etc/skel/.kde4/share/config/ &>/dev/null
-	cp -R /home/"$USER"/.kde4/share/apps/konqueror/{bookmarks.xml,faviconrc} "$DISTDIR"/chroot/etc/skel/.kde4/share/apps/konqueror/ &>/dev/null
+	cp -R /home/"$SUDO_USER"/.kde4/share/config/konquerorrc "$DISTDIR"/chroot/etc/skel/.kde4/share/config/ &>/dev/null
+	cp -R /home/"$SUDO_USER"/.kde4/share/apps/konqueror/{bookmarks.xml,faviconrc} "$DISTDIR"/chroot/etc/skel/.kde4/share/apps/konqueror/ &>/dev/null
 	echo -e "Copie des bookmarks et config konqueror ok... \n"
 ;;
 
 Kicker)
 ## config kicker
-	cp /home/"$USER"/.kde4/share/config/kickoffrc "$DISTDIR"/chroot/etc/skel/.kde4/share/config/ &>/dev/null
-	cp /home/"$USER"/.kde4/share/apps/kicker/wallpapers/* "$DISTDIR"/chroot/etc/skel/.kde4/share/apps/kicker/ &>/dev/null
+	cp /home/"$SUDO_USER"/.kde4/share/config/kickoffrc "$DISTDIR"/chroot/etc/skel/.kde4/share/config/ &>/dev/null
+	cp /home/"$SUDO_USER"/.kde4/share/apps/kicker/wallpapers/* "$DISTDIR"/chroot/etc/skel/.kde4/share/apps/kicker/ &>/dev/null
 	echo -e "Copie des images de fond et config kicker ok... \n"
 ;;
 
@@ -709,25 +708,25 @@ message="Les Fonds d'ecrans suivants ne sont pas présents dans le chroot
 
 Choisissez ceux que vous voulez copier, ou annulez...
 "
-wallList=$(cat /home/"$USER"/.kde4/share/config/kdesktoprc | grep -e "Recent Files\[\$e\]=" | sed -e 's/.*=//' -e 's/,/ /g' -e 's//home/$user/\/home\/'$USER'/g')
+wallList=$(cat /home/"$SUDO_USER"/.kde4/share/config/kdesktoprc | grep -e "Recent Files\[\$e\]=" | sed -e 's/.*=//' -e 's/,/ /g' -e 's//home/$SUDO_USER/\/home\/'$SUDO_USER'/g')
 echo -e $wallList | while read lines; do
 name=$(echo -e "$lines" | sed 's/.*\///')
 if [ ! -e /usr/lib/kde4/share/wallpapers/"$name" ]; then
 cp "$lines" /usr/lib/kde4/share/wallpapers/
-sed -i 's/'"$name"',//' /home/"$USER"/.kde4/share/config/kdesktoprc
+sed -i 's/'"$name"',//' /home/"$SUDO_USER"/.kde4/share/config/kdesktoprc
 fi 
 done
 
 DESTDIR="$DISTDIR/chroot/usr/lib/kde4/share/wallpapers/"
-mkdir /home/"$USER"/.temp
-(chooser /usr/lib/kde4/share/wallpapers /home/"$USER"/.kde4/share/wallpapers "$DISTDIR"/chroot/usr/lib/kde4/share/wallpapers file) 2>/dev/null
-rm -R /home/"$USER"/.temp
+mkdir /home/"$SUDO_USER"/.temp
+(chooser /usr/lib/kde4/share/wallpapers /home/"$SUDO_USER"/.kde4/share/wallpapers "$DISTDIR"/chroot/usr/lib/kde4/share/wallpapers file) 2>/dev/null
+rm -R /home/"$SUDO_USER"/.temp
 ;;
 
 
 Firefox)
 ## copies divers elements sur demande
-cp -R /home/"$USER"/.mozilla "$DISTDIR/chroot/etc/skel/"
+cp -R /home/"$SUDO_USER"/.mozilla "$DISTDIR/chroot/etc/skel/"
 ;;
 
 esac ## fin loop menu
@@ -787,7 +786,7 @@ message="Les thèmes suivant ne sont pas présents dans le chroot
 Choisissez les thèmes à copier, ou annulez...
 "
 DESTDIR="$DISTDIR/chroot/usr/share/apps/kthememanager/themes"
-(chooser /usr/share/apps/kthememanager/themes /home/"$USER"/.kde/share/apps/kthememanager/themes "$DISTDIR"/chroot/usr/share/apps/kthememanager/themes) 2>/dev/null
+(chooser /usr/share/apps/kthememanager/themes /home/"$SUDO_USER"/.kde/share/apps/kthememanager/themes "$DISTDIR"/chroot/usr/share/apps/kthememanager/themes) 2>/dev/null
 ;;
 
 Icons)
@@ -798,7 +797,7 @@ message="Les thèmes d'icônes suivant ne sont pas présents dans le chroot
 Choisissez les thèmes d'icônes à copier, ou annulez...
 "
 DESTDIR="$DISTDIR/chroot/usr/share/icons"
-(chooser /usr/share/icons /home/"$USER"/.kde/share/icons "$DISTDIR"/chroot/usr/share/icons) 2>/dev/null
+(chooser /usr/share/icons /home/"$SUDO_USER"/.kde/share/icons "$DISTDIR"/chroot/usr/share/icons) 2>/dev/null
 ;;
 
 Ksplash)
@@ -819,8 +818,8 @@ EOF
 fi
 
 ## et continue sur les themes
-(chooser /usr/share/apps/ksplash/Themes /home/"$USER"/.kde/share/apps/ksplash/Themes "$DISTDIR"/chroot/usr/share/apps/ksplash/Themes) 2>/dev/null
-cp /home/"$USER"/.kde/share/config/ksplashrc "$DISTDIR"/chroot/etc/skel/.kde/share/config/ &>/dev/null
+(chooser /usr/share/apps/ksplash/Themes /home/"$SUDO_USER"/.kde/share/apps/ksplash/Themes "$DISTDIR"/chroot/usr/share/apps/ksplash/Themes) 2>/dev/null
+cp /home/"$SUDO_USER"/.kde/share/config/ksplashrc "$DISTDIR"/chroot/etc/skel/.kde/share/config/ &>/dev/null
 ;;
 
 
@@ -832,7 +831,7 @@ message="Les Polices suivantes ne sont pas présentes dans le chroot
 Choisissez celles que vous voulez copier, ou annulez...
 "
 DESTDIR="$DISTDIR/chroot/usr/share/fonts"
-(chooser /usr/share/fonts /home/"$USER"/.fonts "$DISTDIR"/chroot/usr/share/fonts) 2>/dev/null
+(chooser /usr/share/fonts /home/"$SUDO_USER"/.fonts "$DISTDIR"/chroot/usr/share/fonts) 2>/dev/null
 ;;
 
 Kdm)
@@ -843,22 +842,22 @@ message="Les Thèmes kdm suivants ne sont pas présents dans le chroot
 Choisissez ceux que vous voulez copier, ou annulez...
 "
 DESTDIR="$DISTDIR/chroot/usr/share/apps/kdm/themes"
-mkdir /home/"$USER"/.temp
-(chooser /usr/share/apps/kdm/themes /home/"$USER"/.temp "$DISTDIR"/chroot/usr/share/apps/kdm/themes) 2>/dev/null
-rm -R /home/"$USER"/.temp
+mkdir /home/"$SUDO_USER"/.temp
+(chooser /usr/share/apps/kdm/themes /home/"$SUDO_USER"/.temp "$DISTDIR"/chroot/usr/share/apps/kdm/themes) 2>/dev/null
+rm -R /home/"$SUDO_USER"/.temp
 ;;
 
 Konqueror)
 ## config konqueror
-	cp -R /home/"$USER"/.kde/share/config/konquerorrc "$DISTDIR"/chroot/etc/skel/.kde/share/config/ &>/dev/null
-	cp -R /home/"$USER"/.kde/share/apps/konqueror/{bookmarks.xml,faviconrc} "$DISTDIR"/chroot/etc/skel/.kde/share/apps/konqueror/ &>/dev/null
+	cp -R /home/"$SUDO_USER"/.kde/share/config/konquerorrc "$DISTDIR"/chroot/etc/skel/.kde/share/config/ &>/dev/null
+	cp -R /home/"$SUDO_USER"/.kde/share/apps/konqueror/{bookmarks.xml,faviconrc} "$DISTDIR"/chroot/etc/skel/.kde/share/apps/konqueror/ &>/dev/null
 	echo -e "Copie des bookmarks et config konqueror ok... \n"
 ;;
 
 Kicker)
 ## config kicker
-	cp /home/"$USER"/.kde/share/config/kickerrc "$DISTDIR"/chroot/etc/skel/.kde/share/config/ &>/dev/null
-	cp /home/"$USER"/.kde/share/apps/kicker/wallpapers/* "$DISTDIR"/chroot/etc/skel/.kde/share/apps/kicker/ &>/dev/null
+	cp /home/"$SUDO_USER"/.kde/share/config/kickerrc "$DISTDIR"/chroot/etc/skel/.kde/share/config/ &>/dev/null
+	cp /home/"$SUDO_USER"/.kde/share/apps/kicker/wallpapers/* "$DISTDIR"/chroot/etc/skel/.kde/share/apps/kicker/ &>/dev/null
 	echo -e "Copie des images de fond et config kicker ok... \n"
 ;;
 
@@ -869,24 +868,24 @@ message="Les Fonds d'ecrans suivants ne sont pas présents dans le chroot
 
 Choisissez ceux que vous voulez copier, ou annulez...
 "
-wallList=$(cat /home/"$USER"/.kde/share/config/kdesktoprc | grep -e "Recent Files\[\$e\]=" | sed -e 's/.*=//' -e 's/,/ /g' -e 's//home/$user/\/home\/'$USER'/g')
+wallList=$(cat /home/"$SUDO_USER"/.kde/share/config/kdesktoprc | grep -e "Recent Files\[\$e\]=" | sed -e 's/.*=//' -e 's/,/ /g' -e 's//home/$SUDO_USER/\/home\/'$SUDO_USER'/g')
 echo -e $wallList | while read lines; do
 name=$(echo -e "$lines" | sed 's/.*\///')
 if [ ! -e /usr/share/wallpapers/"$name" ]; then
 cp "$lines" /usr/share/wallpapers
-sed -i 's/'"$name"',//' /home/"$USER"/.kde/share/config/kdesktoprc
+sed -i 's/'"$name"',//' /home/"$SUDO_USER"/.kde/share/config/kdesktoprc
 fi 
 done
 
 DESTDIR="$DISTDIR/chroot/usr/share/wallpapers"
-mkdir /home/"$USER"/.temp
-(chooser /usr/share/wallpapers /home/"$USER"/.temp "$DISTDIR"/chroot/usr/share/wallpapers file) 2>/dev/null
-rm -R /home/"$USER"/.temp
+mkdir /home/"$SUDO_USER"/.temp
+(chooser /usr/share/wallpapers /home/"$SUDO_USER"/.temp "$DISTDIR"/chroot/usr/share/wallpapers file) 2>/dev/null
+rm -R /home/"$SUDO_USER"/.temp
 ;;
 
 Firefox)
 ## copies divers elements sur demande
-cp -R /home/"$USER"/.mozilla "$DISTDIR/chroot/etc/skel/"
+cp -R /home/"$SUDO_USER"/.mozilla "$DISTDIR/chroot/etc/skel/"
 ;;
 
 esac ## fin loop menu

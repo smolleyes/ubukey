@@ -23,6 +23,7 @@ class VirtualTerminal(vte.Terminal):
 
         self.history = []
         self.history_length = history_length
+        self.set_scrollback_lines(-1)
         self.icon = icon
         self.last_row_logged = 500
         self.log_file = log
