@@ -328,6 +328,8 @@ Langue : $LOCALSIMPLE
 Clavier: $LOCALSIMPLE
 Decorateur : $decorator
 "
+## fix user
+sed -i 's/# export FLAVOUR=.*/export FLAVOUR=\"\"/' /etc/casper.conf
 
 ## au cas ou
 rm /etc/skel/skel &>/dev/null
