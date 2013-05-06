@@ -438,6 +438,7 @@ gnome)
 gconftool-2 -t boolean -s /apps/nautilus/desktop/volumes_visible false
 sudo -u "$USER" gconftool-2 --type bool --set /apps/gnome-screensaver/idle_activation_enabled false
 sudo -u "$USER" gconftool-2 --type bool --set /apps/gnome-screensaver/lock_enabled false
+sudo -u "$USER" gsettings set org.gnome.desktop.screensaver lock-enabled false
 ;;
 kde4)
 message "Kde4 detecte... verification de zenity, kdm et de l utilisateur chroot\n"
