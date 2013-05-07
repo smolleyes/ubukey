@@ -74,7 +74,7 @@ data_files = [
     'scripts/clone_dist.sh',  'scripts/themescan.sh',  'scripts/localiser-kde.sh','scripts/export_dist.sh',
     'scripts/localiser.sh',  'scripts/scankey.sh',  'scripts/vbox.sh','scripts/include.sh','scripts/setres.sh',
     'scripts/virtualbox.sh',  'scripts/remove_dist.sh',
-    'scripts/debootstrap-packages.sh','scripts/debootstrap_packages_chooser.sh','scripts/multiboot.sh',
+    'scripts/debootstrap-packages.sh','scripts/debootstrap_packages_chooser.sh','scripts/multiboot.sh','scripts/shareclipboard.sh',
     ]),
     ('share/ubukey/launchers', ['launchers/gfx',  'launchers/Ubukeymaker.desktop',
     'launchers/wicd',  'launchers/mountrw.sh',  'launchers/sizer',  'launchers/gc.desktop',

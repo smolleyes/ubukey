@@ -29,6 +29,12 @@ CHROOTVER=$(cat "${DISTDIR}"/chroot/etc/lsb-release | awk -F= '/CODENAME/ {print
 
 echo -e "$(eval_gettext 'Preparing chroot, please wait...') \n"
 
+## start clipboard sharing script if needed
+if [[ ! `ps aux | grep -E "[s]hareclipboard"` ]]; then
+	/bin/bash "$MY_PATH"/shareclipboard.sh :0 :5 &
+fi
+
+
 ## synchronise fichiers locaux et distribs
 if [ ! -e "${DISTDIR}"/chroot/usr/share/ubukey ]; then
 mkdir "${DISTDIR}"/chroot/usr/share/ubukey
@@ -441,6 +447,7 @@ gconftool-2 -t boolean -s /apps/nautilus/desktop/volumes_visible false
 sudo -u "$USER" gconftool-2 --type bool --set /apps/gnome-screensaver/idle_activation_enabled false
 sudo -u "$USER" gconftool-2 --type bool --set /apps/gnome-screensaver/lock_enabled false
 sudo -u "$USER" gsettings set org.gnome.desktop.screensaver lock-enabled false
+sudo -u "$USER" gsettings set org.gnome.desktop.lockdown disable-lock-screen true
 ;;
 kde4)
 message "Kde4 detecte... verification de zenity, kdm et de l utilisateur chroot\n"
@@ -521,6 +528,7 @@ fusermount -u -z /home/$USER/.gvfs
 #fi
 
 ## restore dconf
+
 mkdir /home/$USER/.config/dconf
 if [ -e "/opt/save_dconf" ]; then
 message "restoring dconf values...\n"
@@ -589,7 +597,7 @@ function CLEANCHROOT()
 message "Sortie du chroot ok, Nettoyage\n"
 
 ## enable screen lock
-sudo -u "$USER" dconf write /org/gnome/desktop/lockdown/disable-lock-screen false
+#sudo -u "$USER" dconf write /org/gnome/desktop/lockdown/disable-lock-screen false
 
 ## save dconf
 if [ -e "/home/$USER/.config/dconf/user" ]; then
@@ -601,6 +609,8 @@ sed -i "s%=$USER%=$chuser%g;s%\/home\/$USER%\/home\/$chuser%g" /opt/save_dconf
 fi
 mv /home/$USER/.config/dconf/user /opt/save_dconf_raw
 fi
+sudo -u "$USER" gsettings set org.gnome.desktop.screensaver lock-enabled true
+sudo -u "$USER" gsettings set org.gnome.desktop.lockdown disable-lock-screen false
 
 if [ ! -e "/usr/bin/X" ]; then
 apt-get -y --force-yes install xserver-xorg
@@ -856,7 +866,6 @@ kill -9 `lsof -atw "${DISTDIR}"/chroot | xargs ` &>/dev/null
 
 echo -e "Nettoyage final de la distribution..."
 chuser=$(cat "${DISTDIR}"/chroot/etc/casper.conf | grep -w "USERNAME=" | sed 's/.*=//' | sed 's/"//g') &>/dev/null
-sed -i 's/# export FLAVOUR="ubuntu"/FLAVOUR="'$chuser'"/' "${DISTDIR}"/chroot/etc/casper.conf
 chroot "${DISTDIR}"/chroot deluser "$USER" &>/dev/null
 ## remet bien le /root dans passwd...
 #sed -i 's/\/home\/'$USER'/\/root/' "${DISTDIR}"/chroot/etc/passwd
@@ -939,6 +948,9 @@ rm -Rf "${DISTDIR}"/chroot/tmp/*.*
 for i in `ls "${DISTDIR}"/chroot/var/cache/apt | grep pkgcache`; do mv "${DISTDIR}"/chroot/var/cache/apt/$i "${DISTDIR}"/save/pkgsrc/;done
 for i in `ls "${DISTDIR}"/chroot/var/lib/apt/lists | sed -e 's/lock//;s/partial//'`; do mv "${DISTDIR}"/chroot/var/lib/apt/lists/$i "${DISTDIR}"/save/pkglist/;done
 mv "${DISTDIR}"/chroot/var/cache/apt-xapian-index/* "${DISTDIR}"/save/xapian/
+
+killall -9 shareclipboard.sh &>/dev/null
+
 echo "Sortie du chroot ok"
 
 }
