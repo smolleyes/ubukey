@@ -1,5 +1,6 @@
-ubukey (0.2.5.2-0ppa1~precise) precise; urgency=high
+ubukey (0.2.5.3-0ppa1~raring) raring; urgency=high
 
-  * fix
+  * fix virtualbox
+  * fix isolinux default language
 
  -- Laguillaumie sylvain <s.lagui@free.fr>  Tue, 25 Apr 2013 21:08:03 +0100

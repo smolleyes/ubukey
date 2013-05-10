@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-03 18:41+0200\n"
+"POT-Creation-Date: 2013-05-11 01:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,30 +23,35 @@ msgstr ""
 msgid "Preparing chroot, please wait..."
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
 #, sh-format
 msgid "Session choice"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
 #, sh-format
 msgid "Choice"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
 #, sh-format
 msgid "Session"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
 #, sh-format
 msgid "Choose the session to start"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:135
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:129
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:115
 #, sh-format
@@ -55,6 +60,7 @@ msgid ""
 "canceled"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:152
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:146
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:128
 #, sh-format
@@ -64,6 +70,7 @@ msgid ""
 "session, themes copy canceled..."
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:156
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:150
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:132
 #, sh-format
@@ -74,12 +81,14 @@ msgid ""
 "click on \\\"Yes\\\" to continue"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:211
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:205
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:186
 #, sh-format
 msgid "Copy ubukey and custom addons for your $sessionType session"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:293
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:287
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:269
 #, sh-format
