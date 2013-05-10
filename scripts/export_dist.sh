@@ -653,7 +653,7 @@ case $? in
 esac
 
 echo -e "Creation d un fichier iso, Nettoyage des fichiers... \n"
-	#isoli			issed -i '/^ui gfxboot/d' "${DISTDIR}"/cdrom/isolinux/isolinux.cfg
+	#sed -i '/^ui gfxboot/d' "${DISTDIR}"/cdrom/isolinux/isolinux.cfg
 	rm "${DISTDIR}"/cdrom/casper/filesystem* &>/dev/null
 	cd "${DISTDIR}"/cdrom 
 	## copie les fichiers...

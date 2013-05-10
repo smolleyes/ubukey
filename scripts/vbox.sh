@@ -84,9 +84,14 @@ if [ "$i" == "usb" ]; then
 	
 	echo -e "genere les fichiers necessaires a virtualbox pour booter sur usb... \n"
 	vboxmanage createvm -name "test-usb" -basefolder "/tmp/test-usb" -register
-	vboxmanage internalcommands createrawvmdk -filename "/tmp/test-usb/usb.vmdk" -rawdisk "/dev/"$usbdev"1"
+	vboxmanage internalcommands createrawvmdk -filename "/tmp/test-usb/usb.vmdk" -rawdisk "/dev/"$usbdev""
 	VBoxManage storagectl "test-usb" --name "IDE Controller" --add ide
-	VBoxManage modifyvm "test-usb" --hda "/tmp/test-usb/usb.vmdk" --memory 512 --acpi on --nic1 nat
+	VBoxManage modifyvm "test-usb" --hda "/tmp/test-usb/usb.vmdk" --memory 512 --acpi on --nic1 nat --ioapic on
+	VBoxManage modifyvm "test-usb" --ostype "Linux26"
+	VBoxManage modifyvm "test-usb" --audio alsa --audiocontroller ac97
+	VBoxManage modifyvm "test-usb" --accelerate3d on
+	VBoxManage modifyvm "test-usb" --pae on
+	#VBoxManage modifyvm "test-usb" --usb on --usbehci on
 	VBoxManage startvm "test-usb" 
 	while [[ `ps aux | grep [V]irtualBox` ]]; do sleep 5; done
 	echo -e "Nettoie la session virtualbox... \n"
@@ -103,9 +108,13 @@ elif [ "$i" == "cdrom" ]; then
 	else
 		echo -e "genere les fichiers necessaires a virtualbox pour booter sur iso... \n"
 		VBoxManage createvm -name "test-iso" -basefolder "/tmp/test-iso" -register
-		VBoxManage modifyvm "test-iso" --boot1 dvd --memory $qMem --acpi on --nic1 nat
+		VBoxManage modifyvm "test-iso" --boot1 dvd --memory $qMem --acpi on --nic1 nat --ioapic on
 		VBoxManage storagectl "test-iso" --name dvd --add ide
 		VBoxManage storageattach "test-iso" --storagectl dvd --port 0 --device 0 --type dvddrive --medium "${DISTDIR}"/"$DIST".iso
+		VBoxManage modifyvm "test-iso" --ostype "Linux26"
+		VBoxManage modifyvm "test-iso" --audio alsa --audiocontroller ac97
+		VBoxManage modifyvm "test-iso" --accelerate3d on
+		VBoxManage modifyvm "test-iso" --pae on
 		VBoxManage startvm "test-iso" 
 		while [[ `ps aux | grep [V]irtualBox` ]]; do sleep 5; done
 		echo -e "Nettoie la session virtualbox... \n"
