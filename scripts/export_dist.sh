@@ -635,19 +635,25 @@ case $? in
     else
         LG=en
     fi
+    
     echo -e "\ncompile gfxboot avec la langue $LG \n"
     make DEFAULT_LANG=$LG
 	sudo cp -af boot/* "${DISTDIR}"/cdrom/isolinux/
 	cd "${DISTDIR}"/cdrom/isolinux/
 	echo "$LG" | tee langlist &>/dev/null
-	
+	echo "$LG" | tee lang &>/dev/null
+	if [ -n "$mlg" ]; then
+		sed -i 's%append  file=/cdrom/preseed/ubuntu.seed.*%append locale='$lg' console-setup/layoutcode='$mlg' file=/cdrom/preseed/ubuntu.seed boot=casper initrd=/casper/initrd.lz quiet splash --%g' txt.cfg
+    else
+		sed -i 's%append  file=/cdrom/preseed/ubuntu.seed.*%append locale='$lg' console-setup/layoutcode='$lg' file=/cdrom/preseed/ubuntu.seed boot=casper initrd=/casper/initrd.lz quiet splash --%g' txt.cfg
+    fi
 	echo -e "Isolinux $LG ok ! \n"
 	;;
 	1) ;;
 esac
 
 echo -e "Creation d un fichier iso, Nettoyage des fichiers... \n"
-	sed -i '/^ui gfxboot/d' "${DISTDIR}"/cdrom/isolinux/isolinux.cfg
+	#isoli			issed -i '/^ui gfxboot/d' "${DISTDIR}"/cdrom/isolinux/isolinux.cfg
 	rm "${DISTDIR}"/cdrom/casper/filesystem* &>/dev/null
 	cd "${DISTDIR}"/cdrom 
 	## copie les fichiers...
