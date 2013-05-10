@@ -103,7 +103,7 @@ mv "${DISTDIR}"/save/xapian/* "${DISTDIR}"/chroot/var/cache/apt-xapian-index/
 gksu chroot "${DISTDIR}"/chroot /usr/share/ubukey/scripts/ubusrc-gen
 
 ## choix session chroot
-rm /tmp/zenity
+rm /tmp/zenity &>/dev/null
 echo -e "zenity --list --checklist --width 650 --height 500 --title \"$(eval_gettext 'Session choice')\" --column \"$(eval_gettext 'Choice')\" --column \"$(eval_gettext 'Session')\" --text \"$(eval_gettext 'Choose the session to start')\" \\"  | tee /tmp/zenity &>/dev/null
 echo -e "FALSE \"xterm\" \\" | tee -a /tmp/zenity &>/dev/null
 for i in `ls "${DISTDIR}"/chroot/usr/share/xsessions | grep ".desktop" | sed -e 's/.desktop//'`; do
@@ -840,7 +840,6 @@ ln -s ../run/resolvconf/resolv.conf /etc/resolv.conf
 #rm /sbin/initctl
 #dpkg-divert --rename --remove /sbin/initctl
 
-
 }
 
 message "Démarrage du chroot en mode $mode ! \n"
@@ -908,7 +907,7 @@ umount -l -f "${DISTDIR}"/chroot/proc &>/dev/null
 umount -l -f "${DISTDIR}"/chroot/sys &>/dev/null
 #umount -l -f "${DISTDIR}"/chroot/dev/pts &>/dev/null
 umount -l -f "${DISTDIR}"/chroot/dev &>/dev/null
-#umount -l -f "${DISTDIR}"/chroot/dev/shm &>/dev/null
+#umount -l -f "${DISTDIR}"/chroot/dev/shm &>/dev/null2
 #chmod 1777 /dev/shm
 #umount -f "${DISTDIR}"/chroot/var/run/dbus &>/dev/null
 rm "${DISTDIR}"/chroot/var/run/* &>/dev/null
@@ -949,7 +948,7 @@ for i in `ls "${DISTDIR}"/chroot/var/cache/apt | grep pkgcache`; do mv "${DISTDI
 for i in `ls "${DISTDIR}"/chroot/var/lib/apt/lists | sed -e 's/lock//;s/partial//'`; do mv "${DISTDIR}"/chroot/var/lib/apt/lists/$i "${DISTDIR}"/save/pkglist/;done
 mv "${DISTDIR}"/chroot/var/cache/apt-xapian-index/* "${DISTDIR}"/save/xapian/
 
-killall -9 shareclipboard.sh &>/dev/null
+kill -9 `ps aux | grep [s]hareclipboard.sh | awk '{print $2}'` | tee /tmp/truc &>/dev/null
 
 echo "Sortie du chroot ok"
 
