@@ -146,7 +146,7 @@ class Ubukey_gui(object):
 		self.start_gui()
     
 	def donate(self,widget):
-		os.system("xdg-open http://gtk-apps.org/content/donate.php?content=138588")
+		os.system("xdg-open 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=s%2elagui%40free%2efr&lc=FR&item_name=ubukey&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'")
 	
 	def lock_gui(self):
 		self.dist_scroll.set_sensitive(False) 
