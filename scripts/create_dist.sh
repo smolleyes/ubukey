@@ -258,7 +258,7 @@ function createEnv()
 	dirlist="usb old cdrom chroot temp save logs"
 	for i in $dirlist ; do
 		if [ ! -e "$i" ]; then
-			echo  "cretion du dossier $i"
+			echo -e "$(eval_gettext 'Creating folder : $i')"
 			mkdir "${DISTDIR}"/"$i" &>/dev/null
 		fi
 	done

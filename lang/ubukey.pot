@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-12 23:21+0200\n"
+"POT-Creation-Date: 2013-05-12 23:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,6 +87,11 @@ msgstr ""
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:257
 #, sh-format
 msgid "Creation/verification of base folders for $DIST"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:261
+#, sh-format
+msgid "Creating folder : $i"
 msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:270
