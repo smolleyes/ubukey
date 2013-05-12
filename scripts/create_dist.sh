@@ -247,7 +247,7 @@ function createEnv()
 		distSession=$ISOTYPE
 		Kernel=`uname -r`
 		debootstrap=false" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | tee -a "${DISTDIR}"/config &>/dev/null
-		echo -e "$(eval_gettext 'Configuration'"'"'s folder creation ... ok\n')"
+		echo -e "$(eval_gettext 'Configuration folder creation ... ok\n')"
 		chown "$USER" "${DISTDIR}"/config &>/dev/null
 	fi
 
