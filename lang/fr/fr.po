@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-12 23:11+0200\n"
+"POT-Creation-Date: 2013-05-12 23:21+0200\n"
 "PO-Revision-Date: 2012-09-17 21:11+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -91,7 +91,7 @@ msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:250
 #, sh-format
-msgid "Configuration's folder creation ... ok\\n"
+msgid "Configuration folder creation ... ok\\n"
 msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:257
@@ -625,6 +625,11 @@ msgstr ""
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1136
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:935
 msgid "<b>Plugins : </b>"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:250
+#, sh-format
+msgid "Configuration's folder creation ... ok\\n"
 msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:328
