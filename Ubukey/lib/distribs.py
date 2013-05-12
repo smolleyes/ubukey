@@ -193,6 +193,16 @@ DESCRIPTION=""
 # Your code here...
 
 
+
+
+
+
+
+###################
+# do not remove...
+###################
+kill -9 `ps aux | grep -e "hold" | grep -e [x]term | grep -e "/usr/share/ubukey/addons" | awk '{print $2}' | xargs`
+
 ''')
 		plug.close()
 		self.optwin.hide()

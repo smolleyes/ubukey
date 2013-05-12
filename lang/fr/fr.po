@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-11 01:00+0200\n"
+"POT-Creation-Date: 2013-05-12 23:11+0200\n"
 "PO-Revision-Date: 2012-09-17 21:11+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,6 +15,273 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:17
+#, fuzzy, sh-format
+msgid "Choose your distribution"
+msgstr "Distributions"
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:18
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
+#, sh-format
+msgid "Choice"
+msgstr "choix"
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:18
+#, fuzzy, sh-format
+msgid "Distribution"
+msgstr "Distributions"
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:18
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:327
+#, fuzzy, sh-format
+msgid "Description"
+msgstr "Distributions"
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:19
+#, sh-format
+msgid ""
+"choose the distribution type to use\n"
+"\n"
+"<span color=\\\"red\\\">Information:</span>\n"
+"If you want to choose a customised distribution\n"
+"Choose its equivalence (gnome, kde, xfce etc...)\n"
+"\t"
+msgstr ""
+"choisissez le type de distribution à utiliser\n"
+"\n"
+"<span color=\\\"red\\\">Information:</span>\n"
+"Si vous comptez utiliser une distribution autre\n"
+"Choisissez son équivalence (gnome, kde, xfce etc...)\n"
+"\t"
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:49
+#, sh-format
+msgid "Use debootstrap to build your distribution (Expert!)"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:219
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:220
+#, sh-format
+msgid "Project's name"
+msgstr "Nom du projet"
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:219
+#, sh-format
+msgid ""
+"Enter a name for your project\n"
+"\n"
+"A folder with the same name and all the elements of your live-cd will be "
+"created\n"
+"and used as working directory.\n"
+"\t"
+msgstr ""
+"Entrez un nom pour votre projet\n"
+"\n"
+"Un dossier avec le même nom et tous les éléments du live-cd va être crée\n"
+"et utilisé comme dossier de travail.\n"
+"\t"
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:241
+#, sh-format
+msgid "Creating folder ${DISTDIR}"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:250
+#, sh-format
+msgid "Configuration's folder creation ... ok\\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:257
+#, sh-format
+msgid "Creation/verification of base folders for $DIST"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:270
+#, sh-format
+msgid "Everything is ready, mounting iso file $ISONAME \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:278
+#, sh-format
+msgid ""
+"Copy the content of the iso file (without squashfs) in the cdrom folder, "
+"Size: $TAILLE Mb \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:282
+#, sh-format
+msgid "Copy ended... ok \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:290
+#, sh-format
+msgid "Squashfs copy... \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:293
+#, sh-format
+msgid "Squashfs copy ended... ok \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:302
+#, sh-format
+msgid "Prepare the usb folder...\\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:312
+#, sh-format
+msgid ""
+"The preparation of the environment for the distrib $DIST is finished,\n"
+"The files are located in:\n"
+"${DISTDIR} \\n\n"
+"\t\t"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:318
+#, sh-format
+msgid "Preparation of temporary folder before copy on the key ok! \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:327
+#, sh-format
+msgid "Iso file selection"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:327
+#, fuzzy, sh-format
+msgid "Choose your options"
+msgstr "Distributions"
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:327
+#, fuzzy, sh-format
+msgid "Choix"
+msgstr "choix"
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:327
+#, sh-format
+msgid "Action"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:328
+#, sh-format
+msgid "Select"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:328
+#, sh-format
+msgid "Select an iso file"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:329
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:351
+#, sh-format
+msgid "Download"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:329
+#, sh-format
+msgid "Download the selected distribution"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:331
+#, sh-format
+msgid "Select iso file"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:335
+#, sh-format
+msgid "Selected file: \"$SELECTED\" \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:346
+#, sh-format
+msgid "Downloading iso file $download"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:351
+#, sh-format
+msgid "Transfered"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:351
+#, sh-format
+msgid " at"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:351
+#, sh-format
+msgid "Downloading iso file $ISONAME..."
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:361
+#, sh-format
+msgid "md5sum verification... \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:371
+#, sh-format
+msgid ""
+"Corrupted iso, md5sum verification failed !\n"
+"\n"
+"Original md5sum : $MD5SUM\n"
+"Your iso : $DOWNSUM\n"
+"\n"
+"continue to choose what you want to do...\n"
+"\t\t"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:379
+#, sh-format
+msgid ""
+"You can now choose what you want to do :\n"
+"\n"
+"Click on \\\"Yes\\\" to continue:\n"
+"\n"
+"md5sum is compared to original ubuntu live-cd so If you selected or "
+"downloaded a custom iso \n"
+"or any iso file but an original ubuntu live-cd\n"
+"this error is normal you can continue !\n"
+"\n"
+"if you downloaded an original ubuntu live-cd \n"
+"click \\\"No\\\" to return to the main menu"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:392
+#, sh-format
+msgid "Ok, we continue with your iso file...\\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:400
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:401
+#, sh-format
+msgid "original md5sum : $MD5SUM"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:401
+#, sh-format
+msgid "Your iso : $DOWNSUM \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:402
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:403
+#, sh-format
+msgid "Your iso file is valid, Md5sum ok ! \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:410
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:177
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:411
+#, sh-format
+msgid "ok"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:420
+#, sh-format
+msgid "You are disconnected !, waiting for reconnection"
+msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:30
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:25
@@ -28,13 +295,6 @@ msgstr "Préparation du chroot, merci de patienter..."
 #, sh-format
 msgid "Session choice"
 msgstr "Choix de session"
-
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
-#, sh-format
-msgid "Choice"
-msgstr "choix"
 
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
@@ -93,6 +353,93 @@ msgstr ""
 #, fuzzy, sh-format
 msgid "Verifying packages sources, please wait..."
 msgstr "Vérification des sources de logiciel, merci de patienter..."
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:12
+#, fuzzy, sh-format
+msgid "Copy started, please wait..."
+msgstr "Préparation du chroot, merci de patienter..."
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:43
+#, sh-format
+msgid "Image file and usb key ready for copy !"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:50
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:60
+#, sh-format
+msgid "Copying...(full copy)"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:55
+#, sh-format
+msgid "Differente distribution of the one on the USB key \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:66
+#, sh-format
+msgid "Copying on the usb key...(manifest and squashfs files copy)"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:97
+#, sh-format
+msgid "Copying...Please wait"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:105
+#, sh-format
+msgid "Detection problem..."
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:108
+#, sh-format
+msgid "Copy ended !"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:145
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:162
+#, sh-format
+msgid "extlinux will be installed to \"$bootdir\", (/dev/\"$usbdev\" disk) \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:148
+#, sh-format
+msgid "Extlinux already installed"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:165
+#, sh-format
+msgid "Already installed syslinux configuration"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:171
+#, sh-format
+msgid "Splash screen"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:171
+#, sh-format
+msgid "Would you choose another background image for syslinux ?"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:173
+#, sh-format
+msgid "start your browser on gnome-look.org to choose your background-image?"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:180
+#, sh-format
+msgid "Now, select your image..."
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:183
+#, sh-format
+msgid "Resizing the image \"$splash_image\" ! \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:189
+#, sh-format
+msgid "Your image $splash_image is now installed"
+msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:27
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:29
@@ -157,12 +504,14 @@ msgstr ""
 msgid "creating new plugin..."
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:223
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:213
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:195
 #, python-format
 msgid "edit the plugin %s "
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:252
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:242
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:208
 #, python-format
@@ -276,6 +625,138 @@ msgstr ""
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1136
 #: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:935
 msgid "<b>Plugins : </b>"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:328
+#, sh-format
+msgid "Indicate the location of your iso file"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:351
+#, sh-format
+msgid "Remaining time: "
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:312
+#, sh-format
+msgid ""
+"The preparation of the environment for the distrib $DIST is finished,\n"
+"The files are located in:\n"
+"\t\t${DISTDIR} \\n\n"
+"\t\t"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:351
+#, sh-format
+msgid "Transfert"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:351
+#, sh-format
+msgid "at"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:371
+#, sh-format
+msgid ""
+"Corrupted iso, md5sum verification failed !\n"
+"\n"
+"\t\tOriginal md5sum : $MD5SUM\n"
+"\t\tYour iso : $DOWNSUM\n"
+"\n"
+"\t\tcontinue to choose what you want to do...\n"
+"\t\t"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:379
+#, sh-format
+msgid ""
+"You can now choose what you want to do :\n"
+"\n"
+"\t\tClick on \\\"Accept\\\" to continue:\n"
+"\n"
+"\t\tmd5sum is compared to original ubuntu live-cd so If you selected or "
+"downloaded a custom iso \n"
+"\t\tor any iso file but an original ubuntu live-cd\n"
+"\t\tthis error is normal you can continue !\n"
+"\n"
+"\t\tif you downloaded an original ubuntu live-cd \n"
+"\t\tclick \\\"cancel\\\" to return to the main menu"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:402
+#, sh-format
+msgid "Your iso's md5sum: $DOWNSUM \\n"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:421
+#, sh-format
+msgid "You're disconnected !, waiting for reconnection"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:108
+#, sh-format
+msgid "Copy terminated !"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:19
+#, fuzzy, sh-format
+msgid ""
+"choose the distribution type to use\n"
+"\n"
+"<span color=\\\"red\\\">Information:</span>\n"
+"If you want to choose a cutomised distribution\n"
+"Choose its equivalence (gnome, kde, xfce etc...)\n"
+"\t"
+msgstr ""
+"choisissez le type de distribution à utiliser\n"
+"\n"
+"<span color=\\\"red\\\">Information:</span>\n"
+"Si vous comptez utiliser une distribution autre\n"
+"Choisissez son équivalence (gnome, kde, xfce etc...)\n"
+"\t"
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:19
+#, sh-format
+msgid ""
+"choose the distribution type to use\n"
+"\n"
+"\t<span color=\\\"red\\\">Information:</span>\n"
+"\tIf you want to choose a cutomised distribution\n"
+"\tChoose its equivalence (gnome, kde, xfce etc...)\n"
+"\t"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:220
+#, sh-format
+msgid ""
+"Enter a name for your project\n"
+"\n"
+"A folder with the same name and all the elements of your live-cd will be "
+"created\n"
+"and used as working directory $test.\n"
+"\t"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:219
+#, sh-format
+msgid ""
+"Enter a name for your project\n"
+"\n"
+"\tA folder with the same name and all the elements of your live-cd will be "
+"created\n"
+"\tand used as working directory.\n"
+"\t"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:219
+#, sh-format
+msgid "Project s name"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:17
+#, sh-format
+msgid "Choose your distribution\""
 msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:15

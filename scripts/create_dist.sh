@@ -14,14 +14,14 @@ function create_dist()
 	fi
 
 	## menu selection choix distrib a preparer
-	DISTCHOICE=`zenity --width=600 --height=500 --title "Choix Distribution a preparer" --list \
-		--radiolist --column "Choix" --column "Distribution" --column "Description" \
-		--text "Choisissez le type de distribution a utiliser
+	DISTCHOICE=`zenity --width=600 --height=500 --title "$(eval_gettext 'Choose your distribution')" --list \
+		--radiolist --column "$(eval_gettext 'Choice')" --column "$(eval_gettext 'Distribution')" --column "$(eval_gettext 'Description')" \
+		--text "$(eval_gettext 'choose the distribution type to use
 
-	<span color=\"red\">Information:</span>
-	Si vous comptez utiliser un iso perso ou d'une autre distribution
-	Choisissez son equivalence (gnome, kde, xfce etc...)
-	" \
+<span color=\"red\">Information:</span>
+If you want to choose a customised distribution
+Choose its equivalence (gnome, kde, xfce etc...)
+	')" \
 		FALSE "Raring-ringtail" "Ubuntu raring i386" \
 		FALSE "Raring-ringtail-64" "Ubuntu raring 64 bits" \
 		FALSE "Raring-kubuntu" "Kubuntu raring i386" \
@@ -46,7 +46,7 @@ function create_dist()
 		FALSE "Precise-lubuntu-64" "Lubuntu precise pangolin 64 bits" \
 		FALSE "Precise-xubuntu" "Xubuntu precise pangolin" \
 		FALSE "Precise-xubuntu-64" "Xubuntu precise pangolin 64 bits" \
-		FALSE "Custom" "Preparer vos distribution par debootstrap (Expert!)"
+		FALSE "Custom" "$(eval_gettext 'Use debootstrap to build your distribution (Expert!)')"
 	`
 	# cd /tmp
 	# rm MD5* >/dev/null
@@ -216,11 +216,11 @@ function create_dist()
 
 
 function distName {
-	choix=`zenity --width=350 --height=80 --title "Nom du projet" --text "Indiquez un nom pour votre projet
+	choix=`zenity --width=350 --height=80 --title "$(eval_gettext 'Project'"'"'s name')" --text "$(eval_gettext 'Enter a name for your project
 
-	Un dossier du meme nom avec tous les elements de votre live-cd sera ensuite cree
-	et servira d'environnement de travail.
-	" --entry `
+A folder with the same name and all the elements of your live-cd will be created
+and used as working directory.
+	')" --entry `
 	case $? in
 		0)
 		DIST="$(echo "$choix" | sed -e 's/ /_/g')"
@@ -238,7 +238,7 @@ function distName {
 function createEnv()
 {
 	if [ ! -e "${DISTDIR}" ]; then
-		echo "Creation du dossier ${DISTDIR}"
+		echo -e "$(eval_gettext 'Creating folder ${DISTDIR}')"
 		mkdir "${DISTDIR}"
 
 		## creer fichier conf de chaque distrib
@@ -247,14 +247,14 @@ function createEnv()
 		distSession=$ISOTYPE
 		Kernel=`uname -r`
 		debootstrap=false" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | tee -a "${DISTDIR}"/config &>/dev/null
-		echo -e "creation du dossier de configuration... ok\n"
+		echo -e "$(eval_gettext 'Configuration'"'"'s folder creation ... ok\n')"
 		chown "$USER" "${DISTDIR}"/config &>/dev/null
 	fi
 
 	cd "${DISTDIR}"
 
 	## creation des dossiers de base
-	echo "Creation/verification des dossiers de base pour $DIST"
+	echo -e "$(eval_gettext 'Creation/verification of base folders for $DIST')"
 	dirlist="usb old cdrom chroot temp save logs"
 	for i in $dirlist ; do
 		if [ ! -e "$i" ]; then
@@ -267,7 +267,7 @@ function createEnv()
 	getCd
 
 	## mount du cd de base
-	echo -e "Tout est pret, mount du cdrom $ISONAME \n"
+	echo -e "$(eval_gettext 'Everything is ready, mounting iso file $ISONAME \n')"
 	sleep 3
 	mount "$ISO" "${DISTDIR}"/old -o loop
 
@@ -275,11 +275,11 @@ function createEnv()
 	SOURCE="${DISTDIR}/old"
 	DESTINATION="${DISTDIR}/cdrom"
 	TAILLE=$(($(du -sB 1 ${SOURCE} --exclude="filesystem.squashfs" | awk '{print $1}')/1000/1000))
-	echo -e "Copie le contenu de base du fichier iso (sans le squashfs) dans le dossier cdrom, Taille: $TAILLE Mb \n"
+	echo -e "$(eval_gettext 'Copy the content of the iso file (without squashfs) in the cdrom folder, Size: $TAILLE Mb \n')"
 	sleep 3
 	rsync -aH --exclude="filesystem.squashfs" "${SOURCE}"/. "${DESTINATION}"/. &>/dev/null
 
-	echo -e "Copie de la base du cdrom... ok \n"
+	echo -e "$(eval_gettext 'Copy ended... ok \n')"
 	rm -rf "${DISTDIR}"/cdrom/programs
 	chmod 755 -R "${DISTDIR}"/cdrom
 
@@ -287,10 +287,10 @@ function createEnv()
 	if [ -z "$DIRECT_COPY" ]; then
 
 		## copie dans le chroot / demonte squashfs
-		echo  -e "Copie du squashfs... \n"
+		echo -e "$(eval_gettext 'Squashfs copy... \n')"
 		unsquashfs -i -d "${DISTDIR}"/chroot -f "${SOURCE}"/casper/filesystem.squashfs
 
-		echo -e "Copie du squashfs terminÃ©e... ok \n"
+		echo -e "$(eval_gettext 'Squashfs copy ended... ok \n')"
 		## demonte live-cd de base
 		umount "${DISTDIR}"/old &>/dev/null
 	fi
@@ -299,7 +299,7 @@ function createEnv()
 	DESTINATION=""
 
 	## copies le necessaire dans dossier usb
-	echo -e "Prepare dossier usb...\n"
+	echo -e "$(eval_gettext 'Prepare the usb folder...\n')"
 	sleep 3
 	cp -R "${DISTDIR}"/cdrom/. "${DISTDIR}"/usb/.
 
@@ -309,13 +309,13 @@ function createEnv()
 
 	if [ -z "$DIRECT_COPY" ]; then
 
-		echo -e "La preparation de l'environnement pour la distrib $DIST est terminee,
-		Les fichiers se trouvent dans :
-		${DISTDIR} \n
-		"
+		echo -e "$(eval_gettext 'The preparation of the environment for the distrib $DIST is finished,
+The files are located in:
+${DISTDIR} \n
+		')"
 		sleep 5
 	else
-		echo -e "Preparation du dossier temporaire avant copie sur cle ok ! \n"
+		echo -e "$(eval_gettext 'Preparation of temporary folder before copy on the key ok! \n')"
 	fi
 
 }
@@ -324,15 +324,15 @@ function createEnv()
 function getCd()
 {
 	## download le cd de base
-	GETCD=$(zenity --width=500 --height=200 --title "Selection fichier image" --list --text "Choisissez votre option" --radiolist --column "Choix" --column "Action" --column "Description"  \
-		TRUE "Select" "Indiquer ou se trouve le fichier iso" \
-		FALSE "Download" "Telecharger l'iso de la distrib selectionnee" )
+	GETCD=$(zenity --width=500 --height=200 --title "$(eval_gettext 'Iso file selection')" --list --text "$(eval_gettext 'Choose your options')" --radiolist --column "$(eval_gettext 'Choix')" --column "$(eval_gettext 'Action')" --column "$(eval_gettext 'Description')"  \
+		TRUE "$(eval_gettext 'Select')" "$(eval_gettext 'Select an iso file')" \
+		FALSE "$(eval_gettext 'Download')" "$(eval_gettext 'Download the selected distribution')" )
 	case $GETCD in
-		Select) SELECTED="`zenity --file-selection --filename=/home/$USER/ --title "Choisissez un fichier iso"`"
+		Select) SELECTED="`zenity --file-selection --filename=/home/$USER/ --title "$(eval_gettext 'Select iso file')"`"
 		case $? in
 			0)
 			echo
-			echo -e "Fichier selectionne: "$SELECTED" \n"
+			echo -e "$(eval_gettext 'Selected file: "$SELECTED" \n')"
 			ISO="$SELECTED"
 			ISONAME="`basename "$SELECTED"`"
 			;;
@@ -343,12 +343,12 @@ function getCd()
 		Download)
 		download="$ISOURL"
 		## down du resultat
-		echo  "Download du cd de base "$download""
+		echo -e "$(eval_gettext 'Downloading iso file $download')"
 		sleep 3
 		cd "${WORK}"/isos
 		test -e "$ISONAME" && rm "$ISONAME"
 		testConnect
-		wget -c -nd $download 2>&1 | sed -u 's/\([ 0-9]\+K\)[ \.]*\([0-9]\+%\) \(.*\)/\2\n#Transfert : \1 (\2) Ã  \3/' | zenity --progress  --auto-close  --width 400  --title="Telechargement de l'iso" --text="Telechargement de l'image "$ISONAME" en cours..."
+		wget -c -nd $download 2>&1 | sed -u "s/\([ 0-9]\+K\)[ \.]*\([0-9]\+%\) \(.*\)/\2\n#$(eval_gettext 'Transfered') : \1 (\2) $(eval_gettext ' at') \3/" | zenity --progress  --auto-close  --width 400  --title="$(eval_gettext 'Download')" --text="$(eval_gettext 'Downloading iso file $ISONAME...')"
 		ISO=""${WORK}"/isos/"$ISONAME""
 		## copie cd en sauvegarde si besoin
 
@@ -358,7 +358,7 @@ function getCd()
 	esac
 
 	## verifie le md5sum
-	echo -e "Verification du md5sum... \n"
+	echo -e "$(eval_gettext 'md5sum verification... \n')"
 	if [ $ISONAME == "natty-desktop-i386.iso" ]; then
 		cd /tmp
 		rm MD5SUMS &>/dev/null
@@ -368,39 +368,38 @@ function getCd()
 	DOWNSUM="`md5sum "$ISO" | awk {'print $NR'} `"
 
 	if [[ "$DOWNSUM" != "$MD5SUM" ]]; then
-		zenity --error --text "Iso corrompu, le md5sum ne correspond pas !
+		zenity --error --text "$(eval_gettext 'Corrupted iso, md5sum verification failed !
 
-		Md5sum original : $MD5SUM
-		Votre iso : $DOWNSUM
+Original md5sum : $MD5SUM
+Your iso : $DOWNSUM
 
-		Continuez pour choisir ce que vous voulez faire :)
-		"
+continue to choose what you want to do...
+		')"
 
-		zenity --question --text "Choix de l'action a  effectuer
+		zenity --question --text "$(eval_gettext 'You can now choose what you want to do :
 
-		Cliquez sur \"Valider\" pour continuer de force :
+Click on \"Yes\" to continue:
 
-		Par exemple si vous utilisez un iso que vous avez
-		cree precedemment ou tele©charge ailleur...
-		Que vous avez deja  teste et que tout est fonctionnel.
+md5sum is compared to original ubuntu live-cd so If you selected or downloaded a custom iso 
+or any iso file but an original ubuntu live-cd
+this error is normal you can continue !
 
-		Si par contre, si vous venez de le telecharger l'iso par ce script
-		alors cliquez \"annuler\" pour revenir au menu principal"
+if you downloaded an original ubuntu live-cd 
+click \"No\" to return to the main menu')"
 
 		case $? in
 			0)
-			echo -e "Ok, on continue avec votre fichier iso...\n"
+			echo -e "$(eval_gettext 'Ok, we continue with your iso file...\n')"
 			;;
 			1)
-			echo -e ""
-			choose_action
+			getCd
 			;;
 		esac
 
 	else
-		echo -e "Md5sum original : $MD5SUM"
-		echo -e "Md5sum fichier iso : $DOWNSUM  \n"
-		echo -e "Votre fichier iso est valide, Md5sum ok ! \n"
+		echo -e "$(eval_gettext 'original md5sum : $MD5SUM')"
+		echo -e "$(eval_gettext 'Your iso : $DOWNSUM \n')"
+		echo -e "$(eval_gettext 'Your iso file is valid, Md5sum ok ! \n')"
 	fi
 
 }
@@ -408,7 +407,7 @@ function getCd()
 ## ptite fonction pour zenity a cause de dd pas de verbose...
 function makeProgress() {
 	until [[ ! `ps aux | grep -e "$1"` ]]; do
-		echo "ok"
+		echo -e "$(eval_gettext 'ok')"
 		sleep 1
 	done
 }
@@ -418,7 +417,7 @@ function testConnect()
 	testconnexion=`wget www.google.fr -O /tmp/test &>/dev/null 2>&1`
 	if [ $? != 0 ]; then
 		sleep 5
-		echo  "Pause, vous etes deconnecte !, en attente de reconnexion"
+		echo -e "$(eval_gettext 'You are disconnected !, waiting for reconnection')"
 		testConnect
 	fi
 }

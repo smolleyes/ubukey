@@ -9,7 +9,7 @@ source /home/$SUDO_USER/.config/ubukey/sessionConf
 ## Copies des fichiers necessaires sur la cle
 function COPIE()
 {
-echo -e '\E[37;44m'"\033[1m Début de la copie, merci de patienter... \033[0m"
+echo -e "$(eval_gettext 'Copy started, please wait...')"
 sudo rsync -uravH --delete --exclude="*~" "${SOURCE}/." "${DESTINATION}/."
 
 SOURCE=""
@@ -40,30 +40,30 @@ if [[ ! `mount | grep "custom-usb"` ]]; then
 	fi
 fi
 
-echo  "Fichiers image et cle ok pour la copie !" 
+echo  "$(eval_gettext 'Image file and usb key ready for copy !')" 
 rm -R "${DISTDIR}"/usb/disctree &>/dev/null
 rm -R "${DISTDIR}"/usb/bin &>/dev/null
 sudo cp -Rf "${DISTDIR}"/usb/.disk /media/custom-usb/
 
 #Copie des fichiers, tout le dossier usb cle vide
 if [[ ! `grep '[a-z]' /media/custom-usb/*` ]] &>/dev/null; then
-	echo  "Copie en cours...(copie complete)"
+	echo -e "$(eval_gettext 'Copying...(full copy)')"
 	SOURCE="${DISTDIR}/usb"
 	DESTINATION="/media/custom-usb"
 elif [[ `diff -q /media/custom-usb/preseed/ "${DISTDIR}"/usb/preseed/ 2>/dev/null` ]]; then
 	echo ""
-	echo -e "Distribution differente de celle présente sur la clé \n"
+	echo -e "$(eval_gettext 'Differente distribution of the one on the USB key \n')"
 	echo -e "Nettoyage de la clé \n"
 	if [ -e "/media/custom-usb" ]; then
 		rm -R -f /media/custom-usb/* &>/dev/null
 	fi
-	echo -e "Copie...(copie complete) \n"
+	echo  "$(eval_gettext 'Copying...(full copy)')"
 	SOURCE="${DISTDIR}/usb"
 	DESTINATION="/media/custom-usb"
 	
 else
 echo 
-echo  "Copie en cours sur la cle usb...(copie des fichiers manifest et squashfs)"
+echo -e "$(eval_gettext 'Copying on the usb key...(manifest and squashfs files copy)')"
 sleep 2
 		rm -R /media/custom-usb/casper/* &>/dev/null
 		SOURCE="${DISTDIR}/usb/casper"
@@ -94,7 +94,7 @@ elif [ "$copyType" == "cdrom" ]; then
 rm -R "${DISTDIR}"/cdrom/disctree &>/dev/null
 rm -R "${DISTDIR}"/cdrom/bin &>/dev/null
 
-echo "Copie en cours..."
+echo -e "$(eval_gettext 'Copying...Please wait')"
 sleep 2
 SOURCE="${DISTDIR}/usb/casper"
 DESTINATION="${DISTDIR}/cdrom/casper"
@@ -102,10 +102,10 @@ COPIE
 #> /tmp/truc
 
 else
-	echo -e "Probleme de detection..."
+	echo -e "$(eval_gettext 'Detection problem...')"
 fi
 EXCLUDE=""
-echo  "Fin de la copie !"
+echo -e "$(eval_gettext 'Copy ended !')"
 echo 
 sleep 5
 
@@ -142,10 +142,10 @@ if [ "$usbpartType" = "ext4" ]; then
 			sed -i 's/initrd.gz/initrd.lz/g' /media/custom-usb/extlinux.conf
 			sed -i 's/.utf8/.UTF-8/g' /media/custom-usb/extlinux.conf
 		fi
-		echo -e "extlinux va etre installe sur "$bootdir", (disque /dev/"$usbdev") \n"
+		echo -e "$(eval_gettext 'extlinux will be installed to "$bootdir", (/dev/"$usbdev" disk) \n')"
 		extlinux -i "$bootdir"
 	else
-		echo "Extlinux deja installé"
+		echo -e "$(eval_gettext 'Extlinux already installed')"
 	fi
 else
 	if [ ! -e "$bootdir/ldlinux.sys" ]; then
@@ -159,35 +159,34 @@ else
 			sed -i 's/initrd.gz/initrd.lz/g' /media/custom-usb/syslinux.cfg
 			sed -i 's/.utf8/.UTF-8/g' /media/custom-usb/syslinux.cfg
 		fi
-		echo -e "syslinux va etre installe sur "$bootdir", (disque /dev/"$usbdev") \n"
+		echo -e "$(eval_gettext 'extlinux will be installed to "$bootdir", (/dev/"$usbdev" disk) \n')"
 		syslinux /dev/$usbdev'1'
 	else
-		echo "Configuration de syslinux deja installée"
+		echo -e "$(eval_gettext 'Already installed syslinux configuration')"
 	fi
 fi
 testConnect
 
 ## changement image boot ou pas
-zenity --question --title "Splash screen" --text "Voulez vous choisir une autre image de fond pour syslinux ?
-(Image que vous verrez au boot de votre clé)"
+zenity --question --title "$(eval_gettext 'Splash screen')" --text "$(eval_gettext 'Would you choose another background image for syslinux ?')"
 case $? in
-0) zenity --question --text "Voulez vous lancer firefox sur gnome-look pour choisir une image ?"
+0) zenity --question --text "$(eval_gettext 'start your browser on gnome-look.org to choose your background-image?')"
 case $? in
 0) killall -q -9 firefox-bin
 	firefox http://www.gnome-look.org/index.php?xcontentmode=170 ;;
-1) echo  "ok on continue" ;;
+1) echo -e "$(eval_gettext 'ok')" ;;
 esac
 
-splash_image=$(zenity --file-selection --filename=/home/$USER/ --title "Maintenant, selectionnez votre image...")
+splash_image=$(zenity --file-selection --filename=/home/$USER/ --title "$(eval_gettext 'Now, select your image...')")
 ext=$(echo  $splash_image | sed 's/.*\([^\.]\+\)\.\([^\.]\+\)$/\2/')	
 ## ok on copie l image
-echo -e "Redimensionne l'image "$splash_image" ! \n"
+echo -e "$(eval_gettext 'Resizing the image "$splash_image" ! \n')"
 convert -depth 16 -resize "640x480!" $splash_image -quality "100" splash.$ext
 rm "${DISTDIR}"/splash* &>/dev/null
 sudo cp splash.$ext "${DISTDIR}"
 sudo cp "${DISTDIR}"/splash.$ext /media/custom-usb/
 sed -i 's/BACKGROUND \/splash.*/BACKGROUND \/splash.'$ext'/' /media/custom-usb/$sysConfFile
-zenity --info --text "l'image $splash_image est maintenant mise en place"
+zenity --info --text "$(eval_gettext 'Your image $splash_image is now installed')"
 
 ;; ## fin choix splash
 
