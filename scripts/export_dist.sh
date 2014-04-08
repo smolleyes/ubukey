@@ -1231,9 +1231,9 @@ PART1=$(($PRESIZE + (($PRESIZE*6/100))))
 
 taille_souhaite="$PART1" #en MB
 arr=$(read -ra stuff <<< `sfdisk -g /dev/"$usbdev"`; for s in "${stuff[@]}"; do [[ $s = *[0-9]* ]] && printf '%s ' "${s//[^0-9]/}"; done)
-heads=$(echo "$arr" | awk '{print $1}')
-sectors=$(echo "$arr" | awk '{print $2}')
-cylinders=$(echo "$arr" | awk '{print $0}')
+heads=$(echo "$arr" | awk '{print $2}')
+sectors=$(echo "$arr" | awk '{print $3}')
+cylinders=$(echo "$arr" | awk '{print $1}')
 i=0
 while [ $i -lt $cylinders ]; do
 i=$(($i+1))
