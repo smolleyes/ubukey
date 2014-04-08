@@ -575,7 +575,7 @@ gsettings set org.gnome.desktop.input-sources sources "[('"'xkb'"', '"'$LOCALSIM
 
 chmod +x /usr/local/bin/startchroot
 
-xterm -geometry +250+250 -title "Close this window to exit your session" -display :5 -e "sudo -u '$USER' startchroot"
+xterm -geometry +250+250 -title "Close this window to exit your session" -display :5 -e "sudo -u '$USER' $starter"
 
 
 } ## fin chroot graphique

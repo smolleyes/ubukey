@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-08 02:19+0200\n"
+"POT-Creation-Date: 2014-04-08 03:47+0200\n"
 "PO-Revision-Date: 2012-09-17 21:11+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -202,18 +202,89 @@ msgstr ""
 msgid "Ubukey can't start as root user ..."
 msgstr ""
 
-#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:17
-#, fuzzy, sh-format
-msgid "Choose your distribution"
-msgstr "Distributions"
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:30
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:25
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:26
+msgid "Preparing chroot, please wait..."
+msgstr "Préparation du chroot, merci de patienter..."
 
-#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:18
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
+#, sh-format
+msgid "Session choice"
+msgstr "Choix de session"
+
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:18
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
 #: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
 #, sh-format
 msgid "Choice"
 msgstr "choix"
+
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
+#, sh-format
+msgid "Session"
+msgstr "Session"
+
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
+#, sh-format
+msgid "Choose the session to start"
+msgstr "choisissez la session à démarrer"
+
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:135
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:129
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:115
+#, sh-format
+msgid ""
+"Local session type not detected, or not supported (fluxbox....), themes copy "
+"canceled"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:152
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:146
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:128
+#, sh-format
+msgid ""
+"You re running a \\\"$localSession\\\" actually but preparing a \\"
+"\"$sessionType\\\" \n"
+"session, themes copy canceled..."
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:156
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:150
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:132
+#, sh-format
+msgid ""
+"First chroot execution, the themes, icons etc \n"
+"will be proposed at the next startup of the chroot (no .kde yet...)\n"
+"\n"
+"click on \\\"Yes\\\" to continue"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:211
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:205
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:186
+#, sh-format
+msgid "Copy ubukey and custom addons for your $sessionType session"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:293
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:287
+#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:269
+#, fuzzy, sh-format
+msgid "Verifying packages sources, please wait..."
+msgstr "Vérification des sources de logiciel, merci de patienter..."
+
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:17
+#, fuzzy, sh-format
+msgid "Choose your distribution"
+msgstr "Distributions"
 
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:18
 #, fuzzy, sh-format
@@ -513,77 +584,6 @@ msgstr ""
 #, sh-format
 msgid "You are disconnected !, waiting for reconnection"
 msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:30
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:25
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:26
-msgid "Preparing chroot, please wait..."
-msgstr "Préparation du chroot, merci de patienter..."
-
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
-#, sh-format
-msgid "Session choice"
-msgstr "Choix de session"
-
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
-#, sh-format
-msgid "Session"
-msgstr "Session"
-
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:107
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:101
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:87
-#, sh-format
-msgid "Choose the session to start"
-msgstr "choisissez la session à démarrer"
-
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:135
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:129
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:115
-#, sh-format
-msgid ""
-"Local session type not detected, or not supported (fluxbox....), themes copy "
-"canceled"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:152
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:146
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:128
-#, sh-format
-msgid ""
-"You re running a \\\"$localSession\\\" actually but preparing a \\"
-"\"$sessionType\\\" \n"
-"session, themes copy canceled..."
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:156
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:150
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:132
-#, sh-format
-msgid ""
-"First chroot execution, the themes, icons etc \n"
-"will be proposed at the next startup of the chroot (no .kde yet...)\n"
-"\n"
-"click on \\\"Yes\\\" to continue"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:211
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:205
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:186
-#, sh-format
-msgid "Copy ubukey and custom addons for your $sessionType session"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:293
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:287
-#: /home/smo/Documents/projects/ubukey/scripts/dochroot.sh:269
-#, fuzzy, sh-format
-msgid "Verifying packages sources, please wait..."
-msgstr "Vérification des sources de logiciel, merci de patienter..."
 
 #: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:12
 #, fuzzy, sh-format
