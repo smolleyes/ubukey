@@ -835,7 +835,6 @@ rm /var/lib/dbus/machine-id
 ln -s ../run/resolvconf/resolv.conf /etc/resolv.conf
 #rm /sbin/initctl
 #dpkg-divert --rename --remove /sbin/initctl
-
 }
 
 message "Démarrage du chroot en mode $mode ! \n"
@@ -945,6 +944,8 @@ for i in `ls "${DISTDIR}"/chroot/var/lib/apt/lists | sed -e 's/lock//;s/partial/
 mv "${DISTDIR}"/chroot/var/cache/apt-xapian-index/* "${DISTDIR}"/save/xapian/
 
 kill -9 `ps aux | grep [s]hareclipboard.sh | awk '{print $2}'` | tee /tmp/truc &>/dev/null
+
+dbus-daemon --system --fork
 
 echo "Sortie du chroot ok"
 
