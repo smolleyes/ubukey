@@ -46,6 +46,7 @@ Choose its equivalence (gnome, kde, xfce etc...)
 		FALSE "Precise-lubuntu-64" "Lubuntu precise pangolin 64 bits" \
 		FALSE "Precise-xubuntu" "Xubuntu precise pangolin" \
 		FALSE "Precise-xubuntu-64" "Xubuntu precise pangolin 64 bits" \
+		FALSE  "Import" "Importer un iso" \
 		FALSE "Custom" "$(eval_gettext 'Use debootstrap to build your distribution (Expert!)')"
 	`
 	# cd /tmp
@@ -196,6 +197,12 @@ Choose its equivalence (gnome, kde, xfce etc...)
 		ISONAME="lubuntu-12.04-desktop-amd64.iso"
 		ISOTYPE="lxde"
 		MD5SUM="fca2034b89e8a0acd6536d41ccec061c"
+		;;
+		Import)
+		ISOURL=""
+		ISONAME="import"
+		ISOTYPE="lxde"
+		MD5SUM=""
 		;;
 		Custom)
 		/bin/bash $UBUKEYDIR/scripts/debootstrap_dist.sh "$WORK"
@@ -357,6 +364,7 @@ function getCd()
 		;;
 	esac
 
+    if [[$ISONAME != "import"]]; then
 	## verifie le md5sum
 	echo -e "$(eval_gettext 'md5sum verification... \n')"
 	if [ $ISONAME == "natty-desktop-i386.iso" ]; then
@@ -401,7 +409,7 @@ click \"No\" to return to the main menu')"
 		echo -e "$(eval_gettext 'Your iso : $DOWNSUM \n')"
 		echo -e "$(eval_gettext 'Your iso file is valid, Md5sum ok ! \n')"
 	fi
-
+    fi
 }
 
 ## ptite fonction pour zenity a cause de dd pas de verbose...

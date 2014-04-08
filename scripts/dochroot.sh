@@ -374,7 +374,6 @@ $LOCALUTF
 " | tee /etc/locale.gen &>/dev/null
 
 chmod 777 /dev/shm
-chown -hR "$USER":"$USER" /etc/skel
 export HOME="/home/$USER"
 
 if [ "$sessionType" != "console" ]; then
@@ -405,12 +404,17 @@ fi
 
 ##checkfinal si deskdir ok
 if [ -z "$deskdir" ]; then
-message "Probleme avec dossier Bureau, sortie"
-CLEANCHROOT
-exit 0
+mkdir /etc/skel/Desktop
+echo 'XDG_DESKTOP_DIR="$HOME/Desktop"'
+deskdir = Desktop
 fi
+#message "Probleme avec dossier Bureau, sortie"
+#CLEANCHROOT
+#exit 0
+#fi
 
 message "Dossier bureau : $deskdir \n"
+chown -hR "$USER":"$USER" /etc/skel
 
 ## adapte dossier Desktop, casper-bottom
 if [ "$deskdir" != "Desktop" ]; then
@@ -451,6 +455,7 @@ sudo -u "$USER" gsettings set org.gnome.desktop.lockdown disable-lock-screen tru
 ;;
 kde4)
 message "Kde4 detecte... verification de zenity, kdm et de l utilisateur chroot\n"
+rm /etc/skel/.kde/share/apps/kfileplaces/bookmarks.xml &>/dev/null
 if [ ! -e "/usr/bin/zenity" ]; then
 message "Zenity manquant, installation\n"
 apt-get -y --force-yes install zenity
@@ -488,24 +493,7 @@ fi
 done
 fi
 
-#if [ "$sessionType" != "console" ]; then
-## verif lanceur partage du / (bug avec nautilus...)
-#if [[ ! -e "/usr/bin/gnome-commander" || ! -e "/usr/share/pixmaps/share.png" ]]; then
-#message "Installation de gnome-commander pour le partage des disques entre local et chroot \nVotre pc local sera monté sur /media/pc-local"
-#apt-get -y --force-yes install gnome-commander &>/dev/null
-#cp $UBUKEYDIR/images/share.png /usr/share/pixmaps/
-#fi
-#fi
-
 #### START DBUS
-#rm -R /home/"$USER"/.dbus
-#rm -R /var/run/dbus/* 2>/dev/null
-##important sinon pas moyen de booter dbus!
-#mkdir /var/run/dbus/ 2>/dev/null
-#dbus-uuidgen > /var/lib/dbus/machine-id
-#start dbus
-#dbus-daemon --system --fork
-
 chmod 755 -R /usr/share/themes
 chmod 755 -R /usr/share/icons
 chmod 755 -R /usr/share/backgrounds
@@ -582,12 +570,12 @@ fi
 
 echo '#!/bin/bash
 export DISPLAY=:5
-sudo -u '$USER' ck-launch-session '$starter'
-' | tee /usr/local/bin/startchroot &>/dev/null
+gsettings set org.gnome.desktop.input-sources sources "[('"'xkb'"', '"'$LOCALSIMPLE'"')]"
+'$starter'' | tee /usr/local/bin/startchroot & >/dev/null
 
 chmod +x /usr/local/bin/startchroot
 
-xterm -geometry +250+250 -title "Close this window to exit your session" -display :5 -e startchroot
+xterm -geometry +250+250 -title "Close this window to exit your session" -display :5 -e "sudo -u '$USER' startchroot"
 
 
 } ## fin chroot graphique
@@ -781,6 +769,12 @@ sed -i '/^[^:]*:[^:]*:[12][0-9][0-9][0-9][0-9]:/d' /etc/passwd
 sed -i '/^[^:]*:[^:]*:[1-9][0-9][0-9][0-9]:/d' /etc/group
 sed -i '/^[^:]*:[^:]*:[12][0-9][0-9][0-9][0-9]:/d' /etc/group
 
+sed -i '/^[^:]*:[^:]*:[1-9][0-9][0-9][0-9]:/d' /etc/shadow
+sed -i '/^[^:]*:[^:]*:[12][0-9][0-9][0-9][0-9]:/d' /etc/shadow
+
+sed -i '/^[^:]*:[^:]*:[1-9][0-9][0-9][0-9]:/d' /etc/gshadow
+sed -i '/^[^:]*:[^:]*:[12][0-9][0-9][0-9][0-9]:/d' /etc/gshadow
+
 sed -i '/^[^:]*:[^:]*:[^:]*:'$USER'/d' /etc/group
 sed -i '/'$USER'/d' /etc/shadow- &>/dev/null
 sed -i '/'$USER'/d' /etc/gshadow- &>/dev/null
@@ -816,12 +810,14 @@ rm -Rf /home/"$USER"  &>/dev/null
 rm /etc/hosts  &>/dev/null
 rm /etc/resolv.conf  &>/dev/null
 rm /etc/X11/xorg.conf  &>/dev/null
+rm /etc/skel/.kde/share/apps/kfileplaces/bookmarks.xml &>/dev/null
 
 ## sortie du script et demonte tout
-rm -R -f /var/crash/* &>/dev/null
-rm -R -f /tmp/.* &>/dev/null
+rm -R -f /var/crash/*.* &>/dev/null
+rm -R -f /tmp/*.* &>/dev/null
 rm -R -f /root/* &>/dev/null
 rm -R -f /*.old &>/dev/null
+rm -R -f /var/cache/*.* &>/dev/null
 
 ## more info for damn adduser under live-session
 sed -i 's/user-setup-apply > \/dev\/null/user-setup-apply/' /usr/share/initramfs-tools/scripts/casper-bottom/25adduser &>/dev/null

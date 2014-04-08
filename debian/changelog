@@ -1,6 +1,6 @@
-ubukey (0.2.5.3-0ppa2~quantal) quantal; urgency=high
+ubukey (0.2.5.5-0ppa2~quantal) saucy; urgency=high
 
-  * fix virtualbox
-  * fix isolinux default language
+  * fix keyboard mapping
+  * add import option
 
- -- Laguillaumie sylvain <s.lagui@free.fr>  Tue, 25 Apr 2013 21:08:03 +0100
+ -- Laguillaumie sylvain <s.lagui@free.fr>  Tue, 08 Apr 2014 21:08:03 +0100

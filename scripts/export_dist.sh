@@ -430,6 +430,11 @@ else
 				cp -f "${DISTDIR}"/chroot/boot/"$INIT" "${DISTDIR}"/cdrom/casper/initrd.gz
 			fi
 			cp -f "${DISTDIR}"/chroot/boot/"$VMLINUZ" "${DISTDIR}"/cdrom/casper/vmlinuz
+			chmod 644 "${DISTDIR}"/cdrom/casper/vmlinuz
+			chmod +x "${DISTDIR}"/cdrom/casper/vmlinuz
+			cp -f "${DISTDIR}"/chroot/boot/"$VMLINUZ" "${DISTDIR}"/cdrom/casper/vmlinuz.efi
+			chmod 644 "${DISTDIR}"/cdrom/casper/vmlinuz.efi
+			chmod +x "${DISTDIR}"/cdrom/casper/vmlinuz.efi
 		else
 			echo -e "Probleme avec le type d'installation usb/iso, sortie..."
 			exit 1
@@ -1228,10 +1233,12 @@ fi
 PART1=$(($PRESIZE + (($PRESIZE*6/100))))
 #sleep 3
 
+arr=$(read -ra stuff <<< `sfdisk -g /dev/"$usbdev"`; for s in "${stuff[@]}"; do [[ $s = *[0-9]* ]] && printf '%s ' "${s//[^0-9]/}"; done)
+
 taille_souhaite="$PART1" #en MB
-heads=$(sfdisk -G /dev/"$usbdev" | awk '{print $4}')
-sectors=$(sfdisk -G /dev/"$usbdev" | awk '{print $6}')
-cylinders=$(sfdisk -G /dev/"$usbdev" | awk '{print $2}')
+heads=$(echo "$arr" | awk '{print $2}')
+sectors=$(echo "$arr" | awk '{print $3}')
+cylinders=$(echo "$arr" | awk '{print $1}')
 i=0
 while [ $i -lt $cylinders ]; do
 i=$(($i+1))

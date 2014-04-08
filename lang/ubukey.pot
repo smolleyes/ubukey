@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-12 23:37+0200\n"
+"POT-Creation-Date: 2014-04-08 02:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,192 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:71
+msgid "New"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:115
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:55
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:57
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:52
+msgid "Start"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:159
+msgid "Remove"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:203
+msgid "Export"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:247
+msgid "Test iso/usb"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:292
+msgid "Boot-cd"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:337
+msgid "Clone"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:381
+msgid "Plugins"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:425
+msgid "MultiBoot"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:487
+msgid "Donate"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:538
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:483
+msgid "Préférences"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:606
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:551
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:496
+msgid "<b>Distribution list : </b>"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:656
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:601
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:546
+msgid "Open source folder"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:845
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:790
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:735
+msgid "Distributions"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:880
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:825
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:770
+msgid "Viewer"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:913
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:858
+msgid "Options"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:979
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:924
+msgid "Resolution: "
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1024
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:969
+msgid "Général"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1060
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1005
+msgid "Ubukey plugins"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1191
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1136
+#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:935
+msgid "<b>Plugins : </b>"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/functions.py:56
+#, python-format
+msgid "cmd %s failed : "
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:27
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:29
+msgid "a session is already running"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:30
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:32
+msgid "Stop"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:33
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:35
+msgid "distribution started"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:58
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:60
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:55
+msgid "distribution stopped"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:65
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:60
+msgid "updating distribution list..."
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:70
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:65
+#, python-format
+msgid "no configuration file found : %s"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:105
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:100
+msgid "remove a distribution"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:105
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:100
+#, python-format
+msgid ""
+"Remove your distribution %s installed in :\n"
+"%s  ?"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:164
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:151
+#, python-format
+msgid "removing the plugin %s "
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:171
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:158
+msgid "creating new plugin..."
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:223
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:213
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:195
+#, python-format
+msgid "edit the plugin %s "
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:252
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:242
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:208
+#, python-format
+msgid "Opening folder %s"
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:29
+#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:27
+#, python-format
+msgid ""
+"Your distribution's folder :\n"
+"%s \n"
+"is not accessible, unmounted or removed (recreate it)..."
+msgstr ""
+
+#: /home/smo/Documents/projects/ubukey/Ubukey/ubukey.py:24
+msgid "Ubukey can't start as root user ..."
+msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:17
 #, sh-format
@@ -36,6 +222,7 @@ msgid "Distribution"
 msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:18
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:334
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:327
 #, sh-format
 msgid "Description"
@@ -52,17 +239,20 @@ msgid ""
 "\t"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:50
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:49
 #, sh-format
 msgid "Use debootstrap to build your distribution (Expert!)"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:226
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:219
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:220
 #, sh-format
 msgid "Project's name"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:226
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:219
 #, sh-format
 msgid ""
@@ -74,31 +264,37 @@ msgid ""
 "\t"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:248
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:241
 #, sh-format
 msgid "Creating folder ${DISTDIR}"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:257
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:250
 #, sh-format
 msgid "Configuration folder creation ... ok\\n"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:264
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:257
 #, sh-format
 msgid "Creation/verification of base folders for $DIST"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:268
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:261
 #, sh-format
 msgid "Creating folder : $i"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:277
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:270
 #, sh-format
 msgid "Everything is ready, mounting iso file $ISONAME \\n"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:285
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:278
 #, sh-format
 msgid ""
@@ -106,26 +302,31 @@ msgid ""
 "Size: $TAILLE Mb \\n"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:289
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:282
 #, sh-format
 msgid "Copy ended... ok \\n"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:297
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:290
 #, sh-format
 msgid "Squashfs copy... \\n"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:300
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:293
 #, sh-format
 msgid "Squashfs copy ended... ok \\n"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:309
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:302
 #, sh-format
 msgid "Prepare the usb folder...\\n"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:319
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:312
 #, sh-format
 msgid ""
@@ -135,87 +336,105 @@ msgid ""
 "\t\t"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:325
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:318
 #, sh-format
 msgid "Preparation of temporary folder before copy on the key ok! \\n"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:334
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:327
 #, sh-format
 msgid "Iso file selection"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:334
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:327
 #, sh-format
 msgid "Choose your options"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:334
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:327
 #, sh-format
 msgid "Choix"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:334
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:327
 #, sh-format
 msgid "Action"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:335
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:328
 #, sh-format
 msgid "Select"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:335
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:328
 #, sh-format
 msgid "Select an iso file"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:336
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:358
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:329
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:351
 #, sh-format
 msgid "Download"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:336
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:329
 #, sh-format
 msgid "Download the selected distribution"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:338
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:331
 #, sh-format
 msgid "Select iso file"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:342
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:335
 #, sh-format
 msgid "Selected file: \"$SELECTED\" \\n"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:353
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:346
 #, sh-format
 msgid "Downloading iso file $download"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:358
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:351
 #, sh-format
 msgid "Transfered"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:358
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:351
 #, sh-format
 msgid " at"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:358
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:351
 #, sh-format
 msgid "Downloading iso file $ISONAME..."
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:369
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:361
 #, sh-format
 msgid "md5sum verification... \\n"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:379
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:371
 #, sh-format
 msgid ""
@@ -228,6 +447,7 @@ msgid ""
 "\t\t"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:387
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:379
 #, sh-format
 msgid ""
@@ -244,35 +464,41 @@ msgid ""
 "click \\\"No\\\" to return to the main menu"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:400
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:392
 #, sh-format
 msgid "Ok, we continue with your iso file...\\n"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:408
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:400
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:401
 #, sh-format
 msgid "original md5sum : $MD5SUM"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:409
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:401
 #, sh-format
 msgid "Your iso : $DOWNSUM \\n"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:410
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:402
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:403
 #, sh-format
 msgid "Your iso file is valid, Md5sum ok ! \\n"
 msgstr ""
 
-#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:410
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:418
 #: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:177
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:410
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:411
 #, sh-format
 msgid "ok"
 msgstr ""
 
+#: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:428
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:420
 #, sh-format
 msgid "You are disconnected !, waiting for reconnection"
@@ -434,192 +660,6 @@ msgstr ""
 #: /home/smo/Documents/projects/ubukey/scripts/export_dist.sh:189
 #, sh-format
 msgid "Your image $splash_image is now installed"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:27
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:29
-msgid "a session is already running"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:30
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:32
-msgid "Stop"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:33
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:35
-msgid "distribution started"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:55
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:115
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:57
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:52
-msgid "Start"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:58
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:60
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:55
-msgid "distribution stopped"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:65
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:60
-msgid "updating distribution list..."
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:70
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:65
-#, python-format
-msgid "no configuration file found : %s"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:105
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:100
-msgid "remove a distribution"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:105
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:100
-#, python-format
-msgid ""
-"Remove your distribution %s installed in :\n"
-"%s  ?"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:164
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:151
-#, python-format
-msgid "removing the plugin %s "
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:171
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:158
-msgid "creating new plugin..."
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:223
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:213
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:195
-#, python-format
-msgid "edit the plugin %s "
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:252
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:242
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/distribs.py:208
-#, python-format
-msgid "Opening folder %s"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:29
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/loader.py:27
-#, python-format
-msgid ""
-"Your distribution's folder :\n"
-"%s \n"
-"is not accessible, unmounted or removed (recreate it)..."
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/lib/functions.py:56
-#, python-format
-msgid "cmd %s failed : "
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/Ubukey/ubukey.py:24
-msgid "Ubukey can't start as root user ..."
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:71
-msgid "New"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:159
-msgid "Remove"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:203
-msgid "Export"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:247
-msgid "Test iso/usb"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:292
-msgid "Boot-cd"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:337
-msgid "Clone"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:381
-msgid "Plugins"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:425
-msgid "MultiBoot"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:487
-msgid "Donate"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:538
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:483
-msgid "Préférences"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:606
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:551
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:496
-msgid "<b>Distribution list : </b>"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:656
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:601
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:546
-msgid "Open source folder"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:845
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:790
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:735
-msgid "Distributions"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:880
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:825
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:770
-msgid "Viewer"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:913
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:858
-msgid "Options"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:979
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:924
-msgid "Resolution: "
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1024
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:969
-msgid "Général"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1060
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1005
-msgid "Ubukey plugins"
-msgstr ""
-
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1191
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:1136
-#: /home/smo/Documents/projects/ubukey/data/glade/gui.glade:935
-msgid "<b>Plugins : </b>"
 msgstr ""
 
 #: /home/smo/Documents/projects/ubukey/scripts/create_dist.sh:250
