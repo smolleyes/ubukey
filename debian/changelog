@@ -1,4 +1,4 @@
-ubukey (0.2.5.5-0ppa5~precise) precise; urgency=high
+ubukey (0.2.5.5-0ppa5~trusty) trusty; urgency=high
 
   * fix keyboard mapping
   * add import option
