@@ -288,6 +288,9 @@ mount -t sysfs none /sys
 #chmod 1777 /dev/shm
 
 umount -f /lib/modules/*/volatile &>/dev/null
+if  [ $(ls /etc/skel/Shared_Folder | wc -l) = 1 ]; then 
+rm /etc/skel/Shared_Folder
+fi
 
 ## check sources
 message "$(eval_gettext 'Verifying packages sources, please wait...')"
@@ -422,7 +425,7 @@ sed -i 's/Desktop/'$deskdir'/g' /usr/share/initramfs-tools/scripts/casper-bottom
 fi
 
 ## share dir
-ln -s /media/pc-local /home/"$USER"/"$deskdir"/Shared_Folder
+ln -s /media/pc-local /etc/skel/"$deskdir"/Shared_Folder
 
 if [ ! -e /usr/share/pixmaps/usbkey.png ]; then
 cp $UBUKEYDIR/images/usbkey.png /usr/share/pixmaps/
@@ -797,7 +800,7 @@ rm -rf /etc/skel/.gvfs &>/dev/null
 message "nettoyage des fichiers de l utilisateur temporaire du chroot\n"
 ## efface utilisateur
 rm -R /home/"$USER"/.dbus
-rm /home/"$USER"/"$deskdir"/Shared_Folder
+rm /etc/skel/"$deskdir"/Shared_Folder
 rm /etc/skel/.xsession-errors &>/dev/null
 rm /etc/skel/.Xauthority &>/dev/null
 rm -Rf /etc/skel/.gvfs &>/dev/null

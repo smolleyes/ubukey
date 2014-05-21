@@ -89,6 +89,7 @@ chmod 755 -R /media/custom-usb/* &>/dev/null
 
 ## copy initrd and vmlinuz for usb key
 sudo cp -f "${DISTDIR}"/usb/initrd.* "${DISTDIR}"/usb/vmlinuz /media/custom-usb &>/dev/null
+sudo cp -f "${DISTDIR}"/usb/initrd.* "${DISTDIR}"/usb/vmlinuz.efi /media/custom-usb &>/dev/null
 
 elif [ "$copyType" == "cdrom" ]; then
 rm -R "${DISTDIR}"/cdrom/disctree &>/dev/null
@@ -416,21 +417,25 @@ else
 		if [ "$i" == "usb" ]; then
 			rm "${DISTDIR}"/usb/initrd.* &>/dev/null
 			rm "${DISTDIR}"/usb/vmlinuz &>/dev/null
+      rm "${DISTDIR}"/usb/vmlinuz.efi &>/dev/null
 			if [[ -n  "$INITLZ" && -e "${DISTDIR}"/chroot/"$INITLZ" ]]; then	
 				mv -f "${DISTDIR}"/chroot/"$INITLZ" "${DISTDIR}"/usb/initrd.lz
 			else
 				cp -f "${DISTDIR}"/chroot/boot/"$INIT" "${DISTDIR}"/usb/initrd.gz
 			fi
 			cp -f "${DISTDIR}"/chroot/boot/"$VMLINUZ" "${DISTDIR}"/usb/vmlinuz
+      cp -f "${DISTDIR}"/chroot/boot/"$VMLINUZ" "${DISTDIR}"/usb/vmlinuz.efi
 		elif [ "$i" == "cdrom" ]; then
 			rm "${DISTDIR}"/cdrom/casper/initrd.* &>/dev/null
 			rm "${DISTDIR}"/cdrom/casper/vmlinuz &>/dev/null
+      rm "${DISTDIR}"/cdrom/casper/vmlinuz.efi &>/dev/null
 			if [[ -n "$INITLZ" && -e "${DISTDIR}"/chroot/"$INITLZ" ]]; then
 				mv -f "${DISTDIR}"/chroot/"$INITLZ" "${DISTDIR}"/cdrom/casper/initrd.lz
 			else
 				cp -f "${DISTDIR}"/chroot/boot/"$INIT" "${DISTDIR}"/cdrom/casper/initrd.gz
 			fi
 			cp -f "${DISTDIR}"/chroot/boot/"$VMLINUZ" "${DISTDIR}"/cdrom/casper/vmlinuz
+      cp -f "${DISTDIR}"/chroot/boot/"$VMLINUZ" "${DISTDIR}"/cdrom/casper/vmlinuz.efi
 		else
 			echo -e "Probleme avec le type d'installation usb/iso, sortie..."
 			exit 1
